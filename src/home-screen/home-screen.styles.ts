@@ -17,7 +17,7 @@ import {
  * Styles for app index
  * @public
  */
-export const appIndexStyles: ElementStyles =
+export const homeScreenStyles: ElementStyles =
     css`
     :host {
     }
