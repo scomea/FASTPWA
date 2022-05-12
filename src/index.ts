@@ -8,8 +8,11 @@ import {
     fluentTextField,
     provideFluentDesignSystem,
 } from "@fluentui/web-components";
+import {FASTRouter} from "@microsoft/fast-router"
 
-import { AppIndex } from "./app-index/app-index";
+import { AppMain } from "./app-main/app-main";
+import { NotFound } from "./not-found/not-found";
+import { HomeScreen } from "./home-screen/home-screen";
 
 
 provideFluentDesignSystem().register(
@@ -22,4 +25,7 @@ provideFluentDesignSystem().register(
     fluentSliderLabel()
 );
 
-AppIndex;
+AppMain;
+HomeScreen;
+NotFound;
+FASTRouter;
