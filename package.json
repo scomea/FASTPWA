@@ -1,7 +1,7 @@
 {
-  "name": "pwa-starter",
+  "name": "fast-pwa",
   "version": "0.0.1",
-  "description": "A starter kit for building PWAs!",
+  "description": "A demo pwa built with FAST",
   "main": "index.js",
   "scripts": {
     "dev": "vite --open",

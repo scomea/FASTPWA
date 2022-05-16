@@ -1,32 +1,29 @@
 import { css, ElementStyles } from "@microsoft/fast-element";
-import {
-    forcedColorsStylesheetBehavior,
-} from "@microsoft/fast-foundation";
-// import {
-//     bodyFont,
-//     controlCornerRadius,
-//     designUnit,
-//     focusStrokeOuter,
-//     neutralForegroundRest,
-//     strokeWidth,
-//     typeRampBaseFontSize,
-//     typeRampBaseLineHeight,
-// } from "../design-tokens.js";
 
 /**
- * Styles for app index
+ * Styles
  * @public
  */
 export const appMainStyles: ElementStyles =
     css`
-    :host {
-    }
-
-`.withBehaviors(
-        forcedColorsStylesheetBehavior(
-            css`
-        :host {
+        .app-foreground{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            pointer-events: none;
         }
-        `
-        )
-    );
+
+        .app-background{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: lightblue;
+        }
+
+        .app-router{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+
+`

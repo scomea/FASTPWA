@@ -14,18 +14,19 @@ import {
 // } from "../design-tokens.js";
 
 /**
- * Styles for app index
+ * Styles
  * @public
  */
 export const homeScreenStyles: ElementStyles =
     css`
     :host {
+        padding: 8px;
     }
 
 `.withBehaviors(
         forcedColorsStylesheetBehavior(
             css`
-        :host {
+        :host {;
         }
         `
         )

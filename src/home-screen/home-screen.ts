@@ -4,6 +4,7 @@ import {
 } from "@microsoft/fast-element";
 import { homeScreenStyles } from "./home-screen.styles";
 import { html, ViewTemplate } from "@microsoft/fast-element";
+import { Route } from "@microsoft/fast-router";
 
 /**
  * Generates a template
@@ -11,9 +12,15 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  * @public
  */
  export const homeScreenTemplate: ViewTemplate<HomeScreen> = html<HomeScreen>`
-        <div>
-            Home
-        </div>
+  <div>
+      <h1>Welcome!</h1>
+      <p>
+      <fluent-button
+        @click=${x => Route.name.push(x, 'settings-panel')}
+      >
+        Settings
+      </fluent-button>
+  </div>
 `;
 
 @customElement({

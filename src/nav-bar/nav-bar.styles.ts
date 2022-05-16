@@ -17,9 +17,10 @@ import {
  * Styles
  * @public
  */
-export const notFoundStyles: ElementStyles =
+export const navBarStyles: ElementStyles =
     css`
     :host {
+        padding: 8px;
     }
 
 `.withBehaviors(

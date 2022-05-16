@@ -12,7 +12,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  */
  export const notFoundTemplate: ViewTemplate<NotFound> = html<NotFound>`
         <div>
-            Not Found!!!
+          <h1>Can't find that :(-</h1>
         </div>
 `;
 
