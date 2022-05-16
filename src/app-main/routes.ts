@@ -3,6 +3,8 @@ import { Container } from '@microsoft/fast-foundation';
 import { RouterConfiguration } from '@microsoft/fast-router';
 import { HomeScreen } from '../home-screen/home-screen';
 import { NotFound } from '../not-found/not-found';
+import { SettingsPanel } from '../settings-panel/settings-panel';
+import { navBarLayout } from '../layouts/nav-bar.layout';
 
 type RouteSettings = {
   public?: boolean
@@ -16,10 +18,12 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
 
   public configure() {
     this.title = "Steph's FAST PWA";
+    this.defaultLayout = navBarLayout;
     this.routes.map(
       { path: '', redirect: 'home-screen' },
-      { path: 'home-screen', element: HomeScreen, title: 'Home', name: 'home-screen' },
-      { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found' }
+      { path: 'home-screen', element: HomeScreen, title: 'Home', name: 'home-screen', layout: navBarLayout },
+      { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found', layout: navBarLayout },
+      { path: 'settings-panel', element: SettingsPanel, title: 'Settings', name: 'settings-panel', layout: navBarLayout }
     );
 
     this.routes.fallback(

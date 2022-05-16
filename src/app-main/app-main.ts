@@ -21,19 +21,19 @@ import {} from "@microsoft/fast-element";
  */
  export const appMainTemplate: ViewTemplate<AppMain> = html<AppMain>`
     <fluent-design-system-provider use-defaults ${ref('provider')}>
-        <div
-            class="app-foreground"
-        >
-        </div>
-        <fast-router
-            :config=${x=> x.config}
-            class="app-router"
-        >
-        </fast-router>
-        <div
-            class="app-background"
-        >
-        </div>
+      <div
+        class="app-background"
+      >
+      </div>
+      <fast-router
+          :config=${x=> x.config}
+          class="app-router"
+      >
+      </fast-router>
+      <div
+        class="app-foreground"
+      >
+      </div>
     </fluent-design-system-provider>
 `;
 

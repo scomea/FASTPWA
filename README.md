@@ -1,5 +1,5 @@
 # pwa-starter
-
+<!--
 Please use our [main repository for any issues/bugs/features suggestion](https://github.com/pwa-builder/PWABuilder/issues/new/choose).
 
 [Documentation](https://github.com/pwa-builder/pwa-starter/wiki/)
@@ -34,4 +34,4 @@ and all with just a few button clicks 😊.
   - Microsoft Store: https://www.microsoft.com/store/productId/9NQW566N4866
 
 ## More Resources
-- [The pwa-starter wiki](https://github.com/pwa-builder/pwa-starter/wiki/)
+- [The pwa-starter wiki](https://github.com/pwa-builder/pwa-starter/wiki/) -->
