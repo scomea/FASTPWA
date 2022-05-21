@@ -20,7 +20,11 @@ import {} from "@microsoft/fast-element";
  * @public
  */
  export const appMainTemplate: ViewTemplate<AppMain> = html<AppMain>`
-    <fluent-design-system-provider use-defaults ${ref('provider')}>
+    <fluent-design-system-provider
+      class="provider"
+      use-defaults
+      ${ref('provider')}
+    >
       <div
         class="app-background"
       >

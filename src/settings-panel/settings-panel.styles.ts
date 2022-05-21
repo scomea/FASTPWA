@@ -19,7 +19,7 @@ import {
  */
 export const settingsPanelStyles: ElementStyles =
     css`
-    :host {
+    .container {
         padding: 8px;
     }
 

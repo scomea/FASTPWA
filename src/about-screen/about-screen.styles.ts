@@ -1,13 +1,10 @@
 import { css, ElementStyles } from "@microsoft/fast-element";
-import {
-    forcedColorsStylesheetBehavior,
-} from "@microsoft/fast-foundation";
 
 /**
  * Styles
  * @public
  */
-export const homeScreenStyles: ElementStyles =
+export const aboutScreenStyles: ElementStyles =
     css`
     :host {
         height: 100%;
@@ -23,11 +20,4 @@ export const homeScreenStyles: ElementStyles =
         padding: 8px;
     }
 
-`.withBehaviors(
-        forcedColorsStylesheetBehavior(
-            css`
-        :host {
-        }
-        `
-        )
-    );
+`
