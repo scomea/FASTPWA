@@ -11,8 +11,10 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  * @public
  */
  export const settingsPanelTemplate: ViewTemplate<SettingsPanel> = html<SettingsPanel>`
-        <div>
-            <h1>Settings!</h1>
+        <div
+          class="container"
+        >
+            <h1>Settings</h1>
         </div>
 `;
 

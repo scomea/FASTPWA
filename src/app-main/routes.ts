@@ -1,10 +1,12 @@
 import { Constructable } from '@microsoft/fast-element';
 import { Container } from '@microsoft/fast-foundation';
 import { RouterConfiguration } from '@microsoft/fast-router';
+import { ArticleView } from "../article-view/article-view";
 import { HomeScreen } from '../home-screen/home-screen';
 import { NotFound } from '../not-found/not-found';
 import { SettingsPanel } from '../settings-panel/settings-panel';
 import { navBarLayout } from '../layouts/nav-bar.layout';
+import { AboutScreen } from '../about-screen/about-screen';
 
 type RouteSettings = {
   public?: boolean
@@ -17,13 +19,16 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
   }
 
   public configure() {
-    this.title = "Steph's FAST PWA";
+    this.title = "FAST PWA";
     this.defaultLayout = navBarLayout;
     this.routes.map(
       { path: '', redirect: 'home-screen' },
       { path: 'home-screen', element: HomeScreen, title: 'Home', name: 'home-screen', layout: navBarLayout },
+      { path: 'article', element: ArticleView, title: 'Article', name: 'article', layout: navBarLayout},
+      { path: 'article/{id}', element: ArticleView, title: 'Article', name: 'article', layout: navBarLayout },
       { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found', layout: navBarLayout },
-      { path: 'settings-panel', element: SettingsPanel, title: 'Settings', name: 'settings-panel', layout: navBarLayout }
+      { path: 'settings-panel', element: SettingsPanel, title: 'Settings', name: 'settings-panel', layout: navBarLayout },
+      { path: 'about-screen', element: AboutScreen, title: 'About', name: 'about-screen', layout: navBarLayout },
     );
 
     this.routes.fallback(
