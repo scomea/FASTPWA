@@ -1,8 +1,6 @@
     MIT License
 
-    Based on PWABuilder https://github.com/pwa-builder/PWABuilder and FAST https://github.com/microsoft/fast
-
-    Copyright (c) Microsoft Corporation. All rights reserved.
+    Copyright (c) Stephane Comeau. All rights reserved.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
