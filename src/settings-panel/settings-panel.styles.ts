@@ -1,17 +1,4 @@
 import { css, ElementStyles } from "@microsoft/fast-element";
-import {
-    forcedColorsStylesheetBehavior,
-} from "@microsoft/fast-foundation";
-// import {
-//     bodyFont,
-//     controlCornerRadius,
-//     designUnit,
-//     focusStrokeOuter,
-//     neutralForegroundRest,
-//     strokeWidth,
-//     typeRampBaseFontSize,
-//     typeRampBaseLineHeight,
-// } from "../design-tokens.js";
 
 /**
  * Styles
@@ -23,11 +10,7 @@ export const settingsPanelStyles: ElementStyles =
         padding: 8px;
     }
 
-`.withBehaviors(
-        forcedColorsStylesheetBehavior(
-            css`
-        :host {
-        }
-        `
-        )
-    );
+    fluent-slider {
+        width: 200px;
+    }
+`

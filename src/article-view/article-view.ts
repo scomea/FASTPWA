@@ -34,6 +34,10 @@ export class ArticleView extends FASTElement {
    */
   public frame: HTMLIFrameElement | undefined;
 
+  public connectedCallback(): void {
+    super.connectedCallback();
+  }
+
   async enter(phase: NavigationPhase) {
     const childRoute = phase.route.allParams['id'];
 
