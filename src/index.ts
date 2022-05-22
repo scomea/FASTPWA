@@ -8,8 +8,9 @@ import {
     fluentMenuItem,
     fluentSlider,
     fluentSliderLabel,
+    fluentSwitch,
     fluentTextField,
-    provideFluentDesignSystem,
+    provideFluentDesignSystem
 } from "@fluentui/web-components";
 import { FASTRouter } from "@microsoft/fast-router"
 import { AboutScreen } from "./about-screen/about-screen";
@@ -31,7 +32,8 @@ provideFluentDesignSystem().register(
     fluentMenuItem(),
     fluentCard(),
     fluentSlider(),
-    fluentSliderLabel()
+    fluentSliderLabel(),
+    fluentSwitch()
 );
 
 AboutScreen;

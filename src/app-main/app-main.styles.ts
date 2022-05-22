@@ -9,6 +9,7 @@ export const appMainStyles: ElementStyles =
         :host{
             height: 100%;
             width: 100%;
+            color: var(--neutral-foreground-rest);
         }
 
         .provider{
@@ -27,7 +28,7 @@ export const appMainStyles: ElementStyles =
             position: absolute;
             height: 100%;
             width: 100%;
-            background: lightblue;
+            background: var(--neutral-layer-1);
         }
 
         .app-router{

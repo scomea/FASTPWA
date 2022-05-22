@@ -10,6 +10,7 @@ export const articleViewStyles: ElementStyles =
         height: 100%;
         width: 100%;
         overflow: scroll;
+        margin: 0, 12px, 0, 12px;
     }
 
     .frame {
