@@ -9,6 +9,14 @@ import {
 import { Container, inject, Registration } from '@microsoft/fast-foundation';
 import { DefaultRouteRecognizer } from '@microsoft/fast-router';
 import { registerSW } from 'virtual:pwa-register';
+import {
+  baseLayerLuminance,
+  controlCornerRadius,
+  density,
+  layerCornerRadius,
+  StandardLuminance,
+  strokeWidth
+} from "@fluentui/web-components";
 import { appMainStyles } from "./app-main.styles";
 import { MainRouterConfig } from './routes';
 
@@ -51,6 +59,49 @@ export class AppMain extends FASTElement {
   @Container container!: Container;
   @observable provider!: any;
 
+  constructor() {
+    super();
+
+    const darkModeSetting: string | null = localStorage.getItem("darkMode");
+    if (darkModeSetting) {
+      baseLayerLuminance.setValueFor(
+        document.body,
+          "true" ? StandardLuminance.DarkMode : StandardLuminance.LightMode
+      );
+    }
+
+    const controlCornerRadiusSetting: string | null = localStorage.getItem("controlCornerRadius");
+    if (controlCornerRadiusSetting){
+      controlCornerRadius.setValueFor(
+        document.body,
+        Number.parseInt(controlCornerRadiusSetting)
+      );
+    }
+
+    const layerCornerRadiusSetting: string | null = localStorage.getItem("layerCornerRadius");
+    if (layerCornerRadiusSetting){
+      layerCornerRadius.setValueFor(
+        document.body,
+        Number.parseInt(layerCornerRadiusSetting)
+      );
+    }
+
+    const densitySetting: string | null = localStorage.getItem("density");
+    if (densitySetting){
+      density.setValueFor(
+        document.body,
+        Number.parseInt(densitySetting)
+      );
+    }
+
+    const strokeWidthSetting: string | null = localStorage.getItem("strokeWidth");
+    if (strokeWidthSetting){
+      strokeWidth.setValueFor(
+        document.body,
+        Number.parseInt(strokeWidthSetting)
+      );
+    }
+  };
 
   /**
    * @internal

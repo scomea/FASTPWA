@@ -25,41 +25,94 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
         >
             <h1>Settings</h1>
 
+            <fluent-divider></fluent-divider>
+            <h2>Colors</h2>
+
             <fluent-checkbox
+              checked="${x => baseLayerLuminance.getValueFor(x) === StandardLuminance.DarkMode ? true : void 0 }"
               @change="${(x, c) => x.toggleLightMode(c.event)}"
             >Dark Mode</fluent-checkbox>
 
-            <h4>Layer corner radius</h4>
+            <fluent-divider></fluent-divider>
+
+            <h2>Layout</h2>
+
+            <h4 id="layer-corner-label">Layer corner radius</h4>
             <fluent-slider
-              value=${x => layerCornerRadius.getValueFor(x)}
+              aria-labelledby="layer-corner-label"
+              value="${x => layerCornerRadius.getValueFor(x)}"
               @change="${(x, c) => x.updateLayerCornerRadius(c.event)}"
               min="0"
               max="20"
-            ></fluent-slider>
+            >
+              <fluent-slider-label position="0">
+              0
+              </fluent-slider-label>
+              <fluent-slider-label position="20">
+              20
+              </fluent-slider-label>
+              <fluent-slider-label position="${x => layerCornerRadius.getValueFor(x)}">
+                ${x => layerCornerRadius.getValueFor(x)}
+              </fluent-slider-label>
+            </fluent-slider>
 
-            <h4>Control corner radius</h4>
+            <h4 id="control-corner-label">Control corner radius</h4>
             <fluent-slider
-              value=${x => controlCornerRadius.getValueFor(x)}
+              aria-labelledby="control-corner-label"
+              value="${x => controlCornerRadius.getValueFor(x)}"
               @change="${(x, c) => x.updateControlCornerRadius(c.event)}"
               min="0"
               max="20"
-            ></fluent-slider>
+            >
+              <fluent-slider-label position="0">
+              0
+              </fluent-slider-label>
+              <fluent-slider-label position="20">
+              20
+              </fluent-slider-label>
+              <fluent-slider-label position="${x => controlCornerRadius.getValueFor(x)}">
+                ${x =>controlCornerRadius.getValueFor(x)}
+              </fluent-slider-label>
+            </fluent-slider>
 
-            <h4>Density</h4>
+            <h4 id="density-label">Density</h4>
             <fluent-slider
+              aria-labelledby="density-label"
               value=${x => density.getValueFor(x)}
               @change="${(x, c) => x.updateDensity(c.event)}"
               min="0"
               max="10"
-            ></fluent-slider>
+            >
+              <fluent-slider-label position="0">
+              0
+              </fluent-slider-label>
+              <fluent-slider-label position="20">
+              10
+              </fluent-slider-label>
+              <fluent-slider-label position="${x => density.getValueFor(x)}">
+                ${x => density.getValueFor(x)}
+              </fluent-slider-label>
+            </fluent-slider>
 
-            <h4>Stroke width</h4>
+            <h4 id="stroke-width-label">Stroke width</h4>
             <fluent-slider
-              value=${ x => strokeWidth.getValueFor(x)}
+              aria-labelledby="stroke-width-label"
+              value="${ x => strokeWidth.getValueFor(x)}"
               @change="${(x, c) => x.updateStrokeWidth(c.event)}"
-              min="1"
+              min="0"
               max="4"
-            ></fluent-slider>
+            >
+              <fluent-slider-label position="0">
+              0
+              </fluent-slider-label>
+              <fluent-slider-label position="4">
+              4
+              </fluent-slider-label>
+              <fluent-slider-label position="${x => strokeWidth.getValueFor(x)}">
+                ${x => strokeWidth.getValueFor(x)}
+              </fluent-slider-label>
+            </fluent-slider>
+            <fluent-divider></fluent-divider>
         </div>
 `;
 
@@ -82,6 +135,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Checkbox).checked ? StandardLuminance.DarkMode : StandardLuminance.LightMode
     );
+    localStorage.setItem("darkMode", (e.target as Checkbox).checked ? "true" : "false")
   };
 
   public updateControlCornerRadius(e: Event): void {
@@ -89,6 +143,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem("controlCornerRadius", (e.target as Slider).value);
   };
 
   public updateLayerCornerRadius(e: Event): void {
@@ -96,6 +151,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem("layerCornerRadius", (e.target as Slider).value);
   };
 
   public updateDensity(e: Event): void {
@@ -103,6 +159,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem("density", (e.target as Slider).value);
   };
 
   public updateStrokeWidth(e: Event): void {
@@ -110,5 +167,6 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem("strokeWidth", (e.target as Slider).value);
   };
 }
