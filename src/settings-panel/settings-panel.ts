@@ -25,10 +25,17 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
         >
             <h1>Settings</h1>
 
+            <fluent-divider></fluent-divider>
+            <h2>Colors</h2>
+
             <fluent-checkbox
               checked="${x => baseLayerLuminance.getValueFor(x) === StandardLuminance.DarkMode ? true : void 0 }"
               @change="${(x, c) => x.toggleLightMode(c.event)}"
             >Dark Mode</fluent-checkbox>
+
+            <fluent-divider></fluent-divider>
+
+            <h2>Layout</h2>
 
             <h4 id="layer-corner-label">Layer corner radius</h4>
             <fluent-slider
@@ -105,6 +112,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
                 ${x => strokeWidth.getValueFor(x)}
               </fluent-slider-label>
             </fluent-slider>
+            <fluent-divider></fluent-divider>
         </div>
 `;
 
@@ -127,6 +135,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Checkbox).checked ? StandardLuminance.DarkMode : StandardLuminance.LightMode
     );
+    localStorage.setItem("darkMode", (e.target as Checkbox).checked ? "true" : "false")
   };
 
   public updateControlCornerRadius(e: Event): void {
@@ -134,6 +143,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem("controlCornerRadius", (e.target as Slider).value);
   };
 
   public updateLayerCornerRadius(e: Event): void {
@@ -141,6 +151,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem("layerCornerRadius", (e.target as Slider).value);
   };
 
   public updateDensity(e: Event): void {
@@ -148,6 +159,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem("density", (e.target as Slider).value);
   };
 
   public updateStrokeWidth(e: Event): void {
@@ -155,5 +167,6 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem("strokeWidth", (e.target as Slider).value);
   };
 }
