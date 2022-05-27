@@ -30,7 +30,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
 
             <fluent-checkbox
               checked="${x => baseLayerLuminance.getValueFor(x) === StandardLuminance.DarkMode ? true : void 0 }"
-              @change="${(x, c) => x.toggleLightMode(c.event)}"
+              @change="${(x, c) => SettingsPanel.toggleLightMode(c.event)}"
             >Dark Mode</fluent-checkbox>
 
             <fluent-divider></fluent-divider>
@@ -41,7 +41,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-slider
               aria-labelledby="layer-corner-label"
               value="${x => layerCornerRadius.getValueFor(x)}"
-              @change="${(x, c) => x.updateLayerCornerRadius(c.event)}"
+              @change="${(x, c) => SettingsPanel.updateLayerCornerRadius(c.event)}"
               min="0"
               max="20"
             >
@@ -60,7 +60,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-slider
               aria-labelledby="control-corner-label"
               value="${x => controlCornerRadius.getValueFor(x)}"
-              @change="${(x, c) => x.updateControlCornerRadius(c.event)}"
+              @change="${(x, c) => SettingsPanel.updateControlCornerRadius(c.event)}"
               min="0"
               max="20"
             >
@@ -79,7 +79,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-slider
               aria-labelledby="density-label"
               value=${x => density.getValueFor(x)}
-              @change="${(x, c) => x.updateDensity(c.event)}"
+              @change="${(x, c) => SettingsPanel.updateDensity(c.event)}"
               min="0"
               max="10"
             >
@@ -98,7 +98,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-slider
               aria-labelledby="stroke-width-label"
               value="${ x => strokeWidth.getValueFor(x)}"
-              @change="${(x, c) => x.updateStrokeWidth(c.event)}"
+              @change="${(x, c) => SettingsPanel.updateStrokeWidth(c.event)}"
               min="0"
               max="4"
             >
@@ -122,15 +122,8 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
   styles: settingsPanelStyles,
 })
 export class SettingsPanel extends FASTElement {
-  public connectedCallback(): void {
-    super.connectedCallback();
-  }
 
-  public disconnectedCallback(): void {
-    super.disconnectedCallback();
-  }
-
-  public toggleLightMode(e: Event): void {
+  public static toggleLightMode(e: Event): void {
     baseLayerLuminance.setValueFor(
       document.body,
       (e.target as Checkbox).checked ? StandardLuminance.DarkMode : StandardLuminance.LightMode
@@ -138,7 +131,7 @@ export class SettingsPanel extends FASTElement {
     localStorage.setItem("darkMode", (e.target as Checkbox).checked ? "true" : "false")
   };
 
-  public updateControlCornerRadius(e: Event): void {
+  public static updateControlCornerRadius(e: Event): void {
     controlCornerRadius.setValueFor(
       document.body,
       (e.target as Slider).valueAsNumber
@@ -146,7 +139,7 @@ export class SettingsPanel extends FASTElement {
     localStorage.setItem("controlCornerRadius", (e.target as Slider).value);
   };
 
-  public updateLayerCornerRadius(e: Event): void {
+  public static updateLayerCornerRadius(e: Event): void {
     layerCornerRadius.setValueFor(
       document.body,
       (e.target as Slider).valueAsNumber
@@ -154,7 +147,7 @@ export class SettingsPanel extends FASTElement {
     localStorage.setItem("layerCornerRadius", (e.target as Slider).value);
   };
 
-  public updateDensity(e: Event): void {
+  public static updateDensity(e: Event): void {
     density.setValueFor(
       document.body,
       (e.target as Slider).valueAsNumber
@@ -162,11 +155,53 @@ export class SettingsPanel extends FASTElement {
     localStorage.setItem("density", (e.target as Slider).value);
   };
 
-  public updateStrokeWidth(e: Event): void {
+  public static updateStrokeWidth(e: Event): void {
     strokeWidth.setValueFor(
       document.body,
       (e.target as Slider).valueAsNumber
     );
     localStorage.setItem("strokeWidth", (e.target as Slider).value);
   };
+
+  public static applySavedSettings(): void {
+    const darkModeSetting: string | null = localStorage.getItem("darkMode");
+    if (darkModeSetting) {
+      baseLayerLuminance.setValueFor(
+        document.body,
+        darkModeSetting === "true" ? StandardLuminance.DarkMode : StandardLuminance.LightMode
+      );
+    }
+
+    const controlCornerRadiusSetting: string | null = localStorage.getItem("controlCornerRadius");
+    if (controlCornerRadiusSetting){
+      controlCornerRadius.setValueFor(
+        document.body,
+        Number.parseInt(controlCornerRadiusSetting)
+      );
+    }
+
+    const layerCornerRadiusSetting: string | null = localStorage.getItem("layerCornerRadius");
+    if (layerCornerRadiusSetting){
+      layerCornerRadius.setValueFor(
+        document.body,
+        Number.parseInt(layerCornerRadiusSetting)
+      );
+    }
+
+    const densitySetting: string | null = localStorage.getItem("density");
+    if (densitySetting){
+      density.setValueFor(
+        document.body,
+        Number.parseInt(densitySetting)
+      );
+    }
+
+    const strokeWidthSetting: string | null = localStorage.getItem("strokeWidth");
+    if (strokeWidthSetting){
+      strokeWidth.setValueFor(
+        document.body,
+        Number.parseInt(strokeWidthSetting)
+      );
+    }
+  }
 }
