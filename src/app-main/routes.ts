@@ -6,7 +6,6 @@ import { HomeScreen } from '../home-screen/home-screen';
 import { NotFound } from '../not-found/not-found';
 import { SettingsPanel } from '../settings-panel/settings-panel';
 import { navBarLayout } from '../layouts/nav-bar.layout';
-import { AboutScreen } from '../about-screen/about-screen';
 
 type RouteSettings = {
   public?: boolean
@@ -28,7 +27,7 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
       { path: 'article/{id}', element: ArticleView, title: 'Article', name: 'article', layout: navBarLayout },
       { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found', layout: navBarLayout },
       { path: 'settings-panel', element: SettingsPanel, title: 'Settings', name: 'settings-panel', layout: navBarLayout },
-      { path: 'about-screen', element: AboutScreen, title: 'About', name: 'about-screen', layout: navBarLayout },
+      { path: 'about-screen', element: () => import("../about-screen/about-screen").then(module => new module.AboutScreen()), title: 'About', name: 'about-screen', layout: navBarLayout },
     );
 
     this.routes.fallback(
