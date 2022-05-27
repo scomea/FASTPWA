@@ -14,10 +14,7 @@ import {
     provideFluentDesignSystem
 } from "@fluentui/web-components";
 import { FASTRouter } from "@microsoft/fast-router"
-import { AboutScreen } from "./about-screen/about-screen";
 import { AppMain } from "./app-main/app-main";
-import { ArticleView } from "./article-view/article-view";
-import { HomeScreen } from "./home-screen/home-screen";
 import { NavBar } from "./nav-bar/nav-bar";
 import { NotFound } from "./not-found/not-found";
 import { SettingsPanel } from "./settings-panel/settings-panel";
@@ -38,10 +35,7 @@ provideFluentDesignSystem().register(
     fluentSwitch()
 );
 
-AboutScreen;
 AppMain;
-ArticleView;
-HomeScreen;
 NavBar;
 NotFound;
 FASTRouter;
