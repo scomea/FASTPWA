@@ -38,18 +38,23 @@ import { Route } from "@microsoft/fast-router";
             Article 3
           </fluent-menu-item>
         </fluent-menu>
-        </fluent-menu-item>
-        <fluent-menu-item
-          @click=${x => Route.name.push(x, 'about-screen')}
-        >
-          About
-        </fluent-menu-item>
-      <fluent-menu-item
-        @click=${x => Route.name.push(x, 'settings-panel')}
-      >
-        Settings
       </fluent-menu-item>
-      </fluent-menu>
+    <fluent-menu-item
+      @click=${x => Route.name.push(x, 'file-view')}
+    >
+      File viewer
+    </fluent-menu-item>
+    <fluent-menu-item
+      @click=${x => Route.name.push(x, 'about-screen')}
+    >
+      About
+    </fluent-menu-item>
+    <fluent-menu-item
+      @click=${x => Route.name.push(x, 'settings-panel')}
+    >
+      Settings
+    </fluent-menu-item>
+  </fluent-menu>
 </div>
 `;
 

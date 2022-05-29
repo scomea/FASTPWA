@@ -7,7 +7,7 @@
       "emitDeclarationOnly": true,
       "outDir": "./types",
       "strict": true,
-      "noUnusedLocals": true,
+      "noUnusedLocals": false,
       "noUnusedParameters": false,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
