@@ -26,6 +26,7 @@ import { articleViewStyles } from "./article-view.styles";
   template: articleViewTemplate,
   styles: articleViewStyles,
 })
+
 export class ArticleView extends FASTElement {
   /**
    * reference to the iframe

@@ -3,12 +3,13 @@ import {
   FASTElement,
   html,
   observable,
-  ref,
   ViewTemplate,
-  when
 } from "@microsoft/fast-element";
-import { ColumnDefinition, DataGrid } from "@microsoft/fast-foundation";
+import { inject } from "@microsoft/fast-foundation";
+import { NavigationPhase, Route } from "@microsoft/fast-router";
 import { fileViewStyles } from "./file-view.styles";
+import { FileViewRoutes } from "./file-view-routes";
+import { FileViewService, fileSystemItem } from "./file-view-service";
 
 /**
  * Generates a template
@@ -27,79 +28,15 @@ import { fileViewStyles } from "./file-view.styles";
   >
     Choose a directory
   </fluent-button>
-  <span class="directory">${x => x.directoryHandle?.name}</span>
+  <span class="directory">
+  </span>
   </div>
   <fluent-divider></fluent-divider>
-  <fluent-data-grid
-    class="display-grid"
-    ${ref('displayGrid')}
-  ></fluent-data-grid>
+    <fast-router
+      :config=${x => x.config}
+    ></fast-router>
   </div>
 `;
-
-const fileNameCellTemplate = html`
-    <template>
-    ${x =>
-      x.rowData.fileName
-    }
-    </template>
-`;
-
-
-const fileSizeCellTemplate = html`
-    <template>
-      ${x =>
-        x.rowData.fileData ? x.rowData.fileData.size : x.rowData.children.length
-      }
-    </template>
-`;
-
-const fileTypeCellTemplate = html`
-    <template>
-      ${x =>
-        x.rowData.fileData ? x.rowData.fileData.type : "folder"
-      }
-    </template>
-`;
-
-const fileModCellTemplate = html`
-    <template>
-      ${x =>
-          x.rowData.fileData ? new Date(x.rowData.fileData.lastModified) : ""
-      }
-    </template>
-`;
-
-const baseColumns: ColumnDefinition[] = [
-  { columnDataKey: "fileName",
-    title:"Name",
-    isRowHeader: true,
-    cellTemplate: fileNameCellTemplate
-  },
-  {
-    columnDataKey: "fileData",
-    title:"Type",
-    cellTemplate: fileTypeCellTemplate
-  },
-  {
-    columnDataKey: "fileData",
-    title:"Size",
-    cellTemplate: fileSizeCellTemplate
-  },
-  {
-    columnDataKey: "fileData",
-    title:"Last modified",
-    cellTemplate: fileModCellTemplate
-  },
-];
-
-export interface fileSystemItem{
-  fileName: string;
-  fileHandle: FileSystemDirectoryHandleWithFS | FileSystemFileHandle;
-  expanded?: boolean;
-  fileData?: File;
-  children?: fileSystemItem[];
-}
 
 @customElement({
   name: "file-view",
@@ -107,45 +44,51 @@ export interface fileSystemItem{
   styles: fileViewStyles,
 })
 export class FileView extends FASTElement {
-  @observable
-  public directoryHandle: undefined |  FileSystemDirectoryHandleWithFS;
-
-  @observable
-  public fileEntries: fileSystemItem[] = []
-
-  public displayGrid: DataGrid | undefined;
+  config = new FileViewRoutes();
+  @inject(FileViewService) fileViewService!: FileViewService;
 
   public connectedCallback(): void {
     super.connectedCallback();
+    this.addEventListener("navigatetoitem", this.handleNavigate);
+    // this.updateDirectory();
+  }
+
+  public disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener("navigatetoitem", this.handleNavigate);
   }
 
   public async pickDirectory(): Promise<void> {
-    try {
-      this.directoryHandle = await ((window as unknown) as WindowWithFS).showDirectoryPicker() as FileSystemDirectoryHandleWithFS;
+    try {;
+      this.fileViewService.setRootDirectoryHandle(await ((window as unknown) as WindowWithFS).showDirectoryPicker())
     } catch {
       return;
     }
 
-    this.fileEntries.splice(0);
+    Route.path.push(`file-view/folder/${this.fileViewService.rootDirectoryHandle?.name}`);
+  }
 
-    await this.getDirectoryEntries(this.fileEntries, this.directoryHandle);
+  async enter(phase: NavigationPhase) {
+    const childRoute: string | undefined = phase.route.allParams['fast-child-route'];
+    console.log(childRoute);
 
-    if (this.displayGrid){
-      this.displayGrid.columnDefinitions = baseColumns;
-      this.displayGrid.rowsData = this.fileEntries;
+    if (childRoute === "welcome"){
+      return;
+    }
+
+    if (this.fileViewService.getRootDirectoryHandle() === undefined) {
+      phase.cancel(() => Route.path.replace(`file-view/welcome`));
+      return;
+    }
+
+    this.fileViewService.setCurrentDirectory(childRoute);
+  }
+
+  private handleNavigate(e: Event): void {
+    const navTarget: fileSystemItem = (e as CustomEvent).detail as fileSystemItem;
+    if (navTarget.fileHandle.kind === "directory") {
+      Route.path.push(`file-view/${this.fileViewService.currentPath}*${navTarget.fileName}`)
     }
   }
 
-  private async getDirectoryEntries(entries: fileSystemItem[], directoryHandle: FileSystemDirectoryHandleWithFS): Promise<void> {
-    for await (const [key, value] of directoryHandle.entries()) {
-      if (value instanceof FileSystemDirectoryHandle){
-        const children: fileSystemItem[] = [];
-        await this.getDirectoryEntries(children, value as FileSystemDirectoryHandleWithFS);
-        entries.push({ fileName: key, fileHandle: value as FileSystemDirectoryHandleWithFS, children });
-      } else {
-        const fileData: File = await (value as FileSystemFileHandle).getFile();
-        entries.push({ fileName: key, fileHandle: value, fileData });
-      }
-    }
-  }
 }
