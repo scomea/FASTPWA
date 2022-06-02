@@ -18,11 +18,15 @@ import { FileViewService, fileSystemItem } from "./file-view-service";
  * @public
  */
  export const fileViewPanelTemplate: ViewTemplate<FileViewPanel> = html<FileViewPanel>`
-  <fluent-data-grid
-    grid-template-columns="1fr 120px 120px 140px"
-    class="display-grid"
-    ${ref('displayGrid')}
-  ></fluent-data-grid>
+  <template>
+  <span class="directory" ${ref('directory')}>
+  </span>
+    <fluent-data-grid
+      grid-template-columns="1fr 120px 120px 140px"
+      class="display-grid"
+      ${ref('displayGrid')}
+    ></fluent-data-grid>
+  </template>
 `;
 
 const fileNameCellTemplate = html`
@@ -93,29 +97,13 @@ export class FileViewPanel extends FASTElement {
   @inject(FileViewService) fileViewService!: FileViewService;
 
   public displayGrid: DataGrid | undefined;
-
-  // public connectedCallback(): void {
-  //   super.connectedCallback();
-  //   if (this.displayGrid){
-  //     this.displayGrid.columnDefinitions = baseColumns;
-  //     this.displayGrid.rowsData = this.fileViewService.currentDirectoryEntries;
-  //   }
-  // }
-
-
-  // async commit() {
-  //   if (this.displayGrid){
-  //     console.log("navigate")
-  //     this.displayGrid.columnDefinitions = baseColumns;
-  //     this.displayGrid.rowsData = await this.fileViewService.getCurrentDirectoryEntries();
-  //   }
-  // }
+  public directory: HTMLSpanElement | undefined;
 
   async commit() {
-    if (this.displayGrid){
-      console.log("enter");
+    if (this.displayGrid && this.directory){
       this.displayGrid.columnDefinitions = baseColumns;
       this.displayGrid.rowsData = await this.fileViewService.getCurrentDirectoryEntries();
+      this.directory.innerText = this.fileViewService.currentPath;
     }
   }
 

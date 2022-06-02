@@ -28,8 +28,6 @@ import { FileViewService, fileSystemItem } from "./file-view-service";
   >
     Choose a directory
   </fluent-button>
-  <span class="directory">
-  </span>
   </div>
   <fluent-divider></fluent-divider>
     <fast-router
