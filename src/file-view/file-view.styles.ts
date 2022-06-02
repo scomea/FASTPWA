@@ -19,10 +19,6 @@ export const fileViewStyles: ElementStyles =
         justify-content: center;
     }
 
-    .display-grid {
-        margin: 12px 24px;
-    }
-
     fluent-divider {
         margin: 12px 0 12px 0;
     }

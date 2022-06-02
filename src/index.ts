@@ -1,4 +1,5 @@
 import {
+    fluentAnchor,
     fluentAnchoredRegion,
     fluentButton,
     fluentCard,
@@ -24,6 +25,7 @@ import { SettingsPanel } from "./settings-panel/settings-panel";
 
 
 provideFluentDesignSystem().register(
+    fluentAnchor(),
     fluentAnchoredRegion(),
     fluentDesignSystemProvider(),
     fluentButton(),

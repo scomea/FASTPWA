@@ -10,7 +10,7 @@
     "start": "npm run build && vite preview",
     "start-remote": "vite --host"
   },
-  "author": "",
+  "author": "Stephane Comeau",
   "license": "ISC",
   "dependencies": {
     "@pwabuilder/pwainstall": "^1.6.7",

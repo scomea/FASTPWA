@@ -24,7 +24,7 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
       { path: 'article/{id}', element: () => import("../article-view/article-view").then(module => new module.ArticleView()), title: 'Article', name: 'article' },
       { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found', layout: navBarLayout },
       { path: 'settings-panel', element: SettingsPanel, title: 'Settings', name: 'settings-panel', layout: navBarLayout },
-      { path: 'file-view', element: () => import("../file-view/file-view").then(module => new module.FileView()), title: 'File viewer', name: 'file-view' },
+      { path: 'file-view', element: () => import("../file-view/file-view").then(module => new module.FileView()), title: 'File viewer', name: 'file-view', childRouters: true },
       { path: 'about-screen', element: () => import("../about-screen/about-screen").then(module => new module.AboutScreen()), title: 'About', name: 'about-screen' },
     );
 
