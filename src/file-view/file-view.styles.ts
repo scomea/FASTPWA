@@ -9,14 +9,8 @@ export const fileViewStyles: ElementStyles =
     :host {
     }
 
-    .directory {
-        margin: 12px;
-    }
-
-    .directory-selector {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        justify-content: center;
+    .container {
+        padding: 0 12px;
     }
 
     fluent-divider {

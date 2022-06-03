@@ -20,7 +20,7 @@ export const homeScreenStyles: ElementStyles =
     }
 
     .container {
-        padding: 8px;
+        padding: 0 12px;
     }
 
 `.withBehaviors(

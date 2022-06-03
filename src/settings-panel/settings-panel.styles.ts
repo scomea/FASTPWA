@@ -6,8 +6,8 @@ import { css, ElementStyles } from "@microsoft/fast-element";
  */
 export const settingsPanelStyles: ElementStyles =
     css`
-    .container {
-        padding: 12px;
+    .container {'
+        padding: 0 12px;
     }
 
     fluent-divider {

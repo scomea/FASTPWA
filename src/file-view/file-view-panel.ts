@@ -2,13 +2,14 @@ import {
   customElement,
   FASTElement,
   html,
+  repeat,
   observable,
   ref,
   ViewTemplate,
   when
 } from "@microsoft/fast-element";
-import { ColumnDefinition, DataGrid, inject } from "@microsoft/fast-foundation";
-import { NavigationPhase, Route } from "@microsoft/fast-router";
+import { ColumnDefinition, DataGrid, DataGridCell, inject } from "@microsoft/fast-foundation";
+import { Route } from "@microsoft/fast-router";
 import { fileViewPanelStyles } from "./file-view-panel.styles";
 import { FileViewService, fileSystemItem } from "./file-view-service";
 
@@ -18,22 +19,44 @@ import { FileViewService, fileSystemItem } from "./file-view-service";
  * @public
  */
  export const fileViewPanelTemplate: ViewTemplate<FileViewPanel> = html<FileViewPanel>`
-  <fluent-data-grid
-    grid-template-columns="1fr 120px 120px 140px"
-    class="display-grid"
-    ${ref('displayGrid')}
-  ></fluent-data-grid>
+  <div class="container">
+    <fluent-breadcrumb
+      class="breadcrumbs"
+    >
+      ${repeat(x => x.pathItems, html`
+        <fluent-breadcrumb-item>
+          <fluent-button
+            appearance="lightweight"
+            @click="${(x, c) => c.parent.$emit('navigatetobreadcrumb', x)}"
+          >
+            ${x => x.fileName}
+          </fluent-button>
+        </fluent-breadcrumb-item>
+      `)}
+    </fluent-breadcrumb>
+    <fluent-divider></fluent-divider>
+    <fluent-data-grid
+      generate-header="sticky"
+      :rowsData="${x => x.items}"
+      grid-template-columns="1fr 120px 120px 140px"
+      class="display-grid"
+      ${ref('displayGrid')}
+    ></fluent-data-grid>
+  </div>
 `;
 
 const fileNameCellTemplate = html`
+<template>
     <fluent-button
-      @click=${x => x.$emit('navigatetoitem', x.rowData)}
+      class="filename-button"
+      @click="${x => x.$emit('navigatetochild', x.rowData)}"
       appearance="stealth"
     >
     ${x =>
       x.rowData.fileName
     }
     </fluent-button>
+  </template>
 `;
 
 
@@ -65,7 +88,8 @@ const baseColumns: ColumnDefinition[] = [
   { columnDataKey: "fileName",
     title:"Name",
     isRowHeader: true,
-    cellTemplate: fileNameCellTemplate
+    cellTemplate: fileNameCellTemplate,
+    cellFocusTargetCallback: getFocusTarget,
   },
   {
     columnDataKey: "fileData",
@@ -84,6 +108,11 @@ const baseColumns: ColumnDefinition[] = [
   },
 ];
 
+function getFocusTarget(cell: DataGridCell): HTMLElement {
+  return cell.children[0] as HTMLElement;
+}
+
+
 @customElement({
   name: "file-view-panel",
   template: fileViewPanelTemplate,
@@ -92,30 +121,23 @@ const baseColumns: ColumnDefinition[] = [
 export class FileViewPanel extends FASTElement {
   @inject(FileViewService) fileViewService!: FileViewService;
 
+  @observable
+  public items: fileSystemItem[] = [];
+
+  @observable
+  public pathItems: fileSystemItem[] = [];
+
   public displayGrid: DataGrid | undefined;
-
-  // public connectedCallback(): void {
-  //   super.connectedCallback();
-  //   if (this.displayGrid){
-  //     this.displayGrid.columnDefinitions = baseColumns;
-  //     this.displayGrid.rowsData = this.fileViewService.currentDirectoryEntries;
-  //   }
-  // }
-
-
-  // async commit() {
-  //   if (this.displayGrid){
-  //     console.log("navigate")
-  //     this.displayGrid.columnDefinitions = baseColumns;
-  //     this.displayGrid.rowsData = await this.fileViewService.getCurrentDirectoryEntries();
-  //   }
-  // }
 
   async commit() {
     if (this.displayGrid){
-      console.log("enter");
       this.displayGrid.columnDefinitions = baseColumns;
-      this.displayGrid.rowsData = await this.fileViewService.getCurrentDirectoryEntries();
+      const entries: fileSystemItem[] | undefined =  await this.fileViewService.getCurrentDirectoryEntries();
+      const path: fileSystemItem[] | undefined =  await this.fileViewService.getCurrentPathItems();
+      if (entries && path){
+        this.items = entries;
+        this.pathItems = path;
+      }
     }
   }
 

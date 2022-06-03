@@ -7,7 +7,7 @@ export class FileViewRoutes extends RouterConfiguration {
     this.routes.map(
       { path: '', element: FileViewPanel },
       { path: 'welcome', element: FileViewWelcome },
-      { path: 'folder/{path}', element: FileViewPanel }
+      { path: 'folder/{path}', element: FileViewPanel },
     );
   }
 }

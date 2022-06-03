@@ -1,6 +1,8 @@
 import {
     fluentAnchor,
     fluentAnchoredRegion,
+    fluentBreadcrumb,
+    fluentBreadcrumbItem,
     fluentButton,
     fluentCard,
     fluentCheckbox,
@@ -28,6 +30,8 @@ provideFluentDesignSystem().register(
     fluentAnchor(),
     fluentAnchoredRegion(),
     fluentDesignSystemProvider(),
+    fluentBreadcrumb(),
+    fluentBreadcrumbItem(),
     fluentButton(),
     fluentCheckbox(),
     fluentDataGrid(),

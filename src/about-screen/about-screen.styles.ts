@@ -17,7 +17,7 @@ export const aboutScreenStyles: ElementStyles =
     }
 
     .container {
-        padding: 8px;
+        padding: 0 12px;
     }
 
 `
