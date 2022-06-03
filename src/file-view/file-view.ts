@@ -50,7 +50,7 @@ export class FileView extends FASTElement {
   }
 
   async enter(phase: NavigationPhase) {
-    const childRoute: string | undefined = phase.route.allParams['fast-child-route'];
+    let childRoute: string | undefined = phase.route.allParams['fast-child-route'];
     const rootHandle: FileSystemHandle | undefined =this.fileViewService.getRootDirectoryHandle()
 
     if (!rootHandle) {
@@ -58,6 +58,11 @@ export class FileView extends FASTElement {
         return;
       }
       phase.cancel(() => Route.path.replace(`file-view/welcome`));
+      return;
+    }
+
+    if (childRoute === "welcome" || childRoute === undefined) {
+      phase.cancel(() => Route.path.replace(`file-view/folder/${this.fileViewService.rootDirectoryHandle?.name}`));
       return;
     }
 
