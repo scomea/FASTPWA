@@ -102,7 +102,10 @@ export class FileViewPanel extends FASTElement {
   async commit() {
     if (this.displayGrid && this.directory){
       this.displayGrid.columnDefinitions = baseColumns;
-      this.displayGrid.rowsData = await this.fileViewService.getCurrentDirectoryEntries();
+      const entries: fileSystemItem[] | undefined =  await this.fileViewService.getCurrentDirectoryEntries();
+      if (entries){
+        this.displayGrid.rowsData = entries;
+      }
       this.directory.innerText = this.fileViewService.currentPath;
     }
   }

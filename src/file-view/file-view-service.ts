@@ -11,7 +11,8 @@ export class FileViewService {
     public rootDirectoryHandle: undefined |  FileSystemDirectoryHandle;
 
     public currentPath: string = "";
-    public currentDirectoryEntries: fileSystemItem[] = [];
+    private currentDirectoryEntries: fileSystemItem[] | undefined;
+    private currentPathItems: fileSystemItem[] | undefined;
 
     constructor() {}
 
@@ -21,12 +22,13 @@ export class FileViewService {
 
     public async setRootDirectoryHandle( newValue: undefined |  FileSystemDirectoryHandle): Promise<void> {
         this.rootDirectoryHandle = newValue;
-        this.currentPath = ""
-        this.currentDirectoryEntries.splice(0);
+        this.currentPath = "";
+        this.currentDirectoryEntries = undefined;
+        this.currentPathItems = undefined;
     }
 
     public setCurrentDirectory(newPath: string | undefined): void {
-      this.currentDirectoryEntries.splice(0);
+      this.currentDirectoryEntries = undefined;
       if (typeof newPath === "string" && newPath !== ""){
         this.currentPath = newPath;
       } else {
@@ -34,25 +36,38 @@ export class FileViewService {
       }
     }
 
-    public async getCurrentDirectoryEntries(): Promise<fileSystemItem[]> {
-      if (!this.rootDirectoryHandle){
-        return this.currentDirectoryEntries;
+    public async getCurrentDirectoryEntries(): Promise<fileSystemItem[] | undefined> {
+      await this.updateItems();
+      return this.currentDirectoryEntries;
+    }
+
+    public async getCurrentPathItems(): Promise<fileSystemItem[] | undefined> {
+      await this.updateItems();
+      return this.currentPathItems;
+    }
+
+    private async updateItems(): Promise<void> {
+      if (this.currentDirectoryEntries || !this.rootDirectoryHandle){
+        return;
       }
+
+      let handle: FileSystemDirectoryHandle = this.rootDirectoryHandle;
+      this.currentPathItems = [{ fileName: this.rootDirectoryHandle.name, fileHandle: this.rootDirectoryHandle }]
+
       if (typeof this.currentPath === "string" && this.currentPath !== ""){
         const segments: string[] = this.currentPath.split("*");
-        let handle: FileSystemDirectoryHandle = this.rootDirectoryHandle;
         for(let i = 1; i < segments.length; i++){
           handle = await handle.getDirectoryHandle(segments[i]);
           if (!handle){
-            return this.currentDirectoryEntries;
+            return;
           }
+          this.currentPathItems.push({ fileName: handle.name, fileHandle: handle })
         }
-        this.currentDirectoryEntries = await this.getDirectoryEntries(handle as FileSystemDirectoryHandleWithFS, false)
+        this.currentDirectoryEntries = await this.getDirectoryEntries(handle as FileSystemDirectoryHandleWithFS, false);
       } else {
         this.currentDirectoryEntries = await this.getDirectoryEntries(this.rootDirectoryHandle as FileSystemDirectoryHandleWithFS, false)
       }
-
-      return this.currentDirectoryEntries;
+      this.currentPathItems[this.currentPathItems.length - 1].children = this.currentDirectoryEntries;
     }
 
     private async getDirectoryEntries(directoryHandle: FileSystemDirectoryHandleWithFS, shallow: boolean): Promise<fileSystemItem[]> {
