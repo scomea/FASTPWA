@@ -9,4 +9,8 @@ export const fileViewWelcomeStyles: ElementStyles =
     :host {
     }
 
+    fluent-divider {
+        margin: 12px 0 12px 0;
+    }
+
 `

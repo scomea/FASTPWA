@@ -21,6 +21,7 @@ export const navBarStyles: ElementStyles =
     css`
     :host {
         padding: 8px;
+        margin-right: 12px;
     }
 
 `.withBehaviors(

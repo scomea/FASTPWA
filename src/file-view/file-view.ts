@@ -22,14 +22,6 @@ import { FileViewService, fileSystemItem } from "./file-view-service";
   >
   <h1>File viewer</h1>
   <fluent-divider></fluent-divider>
-  <div class="directory-selector">
-  <fluent-button
-    @click=${x => x.pickDirectory()}
-  >
-    Choose a directory
-  </fluent-button>
-  </div>
-  <fluent-divider></fluent-divider>
     <fast-router
       :config=${x => x.config}
     ></fast-router>
@@ -47,45 +39,55 @@ export class FileView extends FASTElement {
 
   public connectedCallback(): void {
     super.connectedCallback();
-    this.addEventListener("navigatetoitem", this.handleNavigate);
-    // this.updateDirectory();
+    this.addEventListener("navigatetochild", this.handleNavigateToChild);
+    this.addEventListener("navigatetobreadcrumb", this.handleNavigateToBreadcrumb);
   }
 
   public disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.removeEventListener("navigatetoitem", this.handleNavigate);
-  }
-
-  public async pickDirectory(): Promise<void> {
-    try {;
-      this.fileViewService.setRootDirectoryHandle(await ((window as unknown) as WindowWithFS).showDirectoryPicker())
-    } catch {
-      return;
-    }
-
-    Route.path.push(`file-view/folder/${this.fileViewService.rootDirectoryHandle?.name}`);
+    this.removeEventListener("navigatetochild", this.handleNavigateToChild);
+    this.removeEventListener("navigatetobreadcrumb", this.handleNavigateToBreadcrumb);
   }
 
   async enter(phase: NavigationPhase) {
     const childRoute: string | undefined = phase.route.allParams['fast-child-route'];
-    console.log(childRoute);
+    const rootHandle: FileSystemHandle | undefined =this.fileViewService.getRootDirectoryHandle()
 
-    if (childRoute === "welcome"){
-      return;
-    }
-
-    if (this.fileViewService.getRootDirectoryHandle() === undefined) {
+    if (!rootHandle) {
+      if ( childRoute === "welcome" ){
+        return;
+      }
       phase.cancel(() => Route.path.replace(`file-view/welcome`));
       return;
     }
 
-    this.fileViewService.setCurrentDirectory(childRoute);
+    this.fileViewService.setCurrentPath(childRoute);
   }
 
-  private handleNavigate(e: Event): void {
+  private handleNavigateToChild(e: Event): void {
     const navTarget: fileSystemItem = (e as CustomEvent).detail as fileSystemItem;
     if (navTarget.fileHandle.kind === "directory") {
-      Route.path.push(`file-view/${this.fileViewService.currentPath}*${navTarget.fileName}`)
+      Route.path.push(`file-view/${this.fileViewService.getCurrentPath()}*${navTarget.fileName}`)
+    }
+  }
+
+  private async handleNavigateToBreadcrumb(e: Event): Promise<void> {
+    const navTarget: fileSystemItem = (e as CustomEvent).detail as fileSystemItem;
+    if (navTarget.fileHandle.kind === "directory") {
+      const itemPath: fileSystemItem[] | undefined = await this.fileViewService.getCurrentPathItems();
+      if (!itemPath || itemPath.length === 0) {
+        return;
+      }
+      let newPath:string = `file-view/folder/${itemPath[0].fileName}`
+      if (itemPath[0] !== navTarget){
+        for(let i = 1; i < itemPath.length; i++){
+          newPath = `${newPath}*${itemPath[i].fileName}`;
+          if (itemPath[i] === navTarget){
+            break;
+          }
+        }
+      }
+      Route.path.push(newPath);
     }
   }
 

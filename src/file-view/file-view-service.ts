@@ -10,7 +10,7 @@ export class FileViewService {
 
     public rootDirectoryHandle: undefined |  FileSystemDirectoryHandle;
 
-    public currentPath: string = "";
+    private currentPath: string = "";
     private currentDirectoryEntries: fileSystemItem[] | undefined;
     private currentPathItems: fileSystemItem[] | undefined;
 
@@ -27,13 +27,18 @@ export class FileViewService {
         this.currentPathItems = undefined;
     }
 
-    public setCurrentDirectory(newPath: string | undefined): void {
+    public setCurrentPath(newPath: string | undefined): void {
       this.currentDirectoryEntries = undefined;
+      this.currentPathItems = undefined;
       if (typeof newPath === "string" && newPath !== ""){
         this.currentPath = newPath;
       } else {
         this.currentPath = "";
       }
+    }
+
+    public getCurrentPath(): string {
+      return this.currentPath;
     }
 
     public async getCurrentDirectoryEntries(): Promise<fileSystemItem[] | undefined> {
