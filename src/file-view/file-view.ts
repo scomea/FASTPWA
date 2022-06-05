@@ -5,7 +5,7 @@ import {
   observable,
   ViewTemplate,
 } from "@microsoft/fast-element";
-import { inject } from "@microsoft/fast-foundation";
+import { ColumnDefinition, inject } from "@microsoft/fast-foundation";
 import { NavigationPhase, Route } from "@microsoft/fast-router";
 import { fileViewStyles } from "./file-view.styles";
 import { FileViewRoutes } from "./file-view-routes";
