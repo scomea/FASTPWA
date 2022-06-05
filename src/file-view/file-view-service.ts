@@ -82,6 +82,8 @@ export class FileViewService {
             if (!shallow){
               const children: fileSystemItem[] = await this.getDirectoryEntries(value as FileSystemDirectoryHandleWithFS, true);
               entries.push({ fileName: key, fileHandle: value as FileSystemDirectoryHandleWithFS, children });
+            } else {
+              entries.push({ fileName: key, fileHandle: value as FileSystemDirectoryHandleWithFS});
             }
           } else {
             const fileData: File = await (value as FileSystemFileHandle).getFile();

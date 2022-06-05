@@ -9,21 +9,35 @@ export const fileViewPanelStyles: ElementStyles =
     .container {
     }
 
-    .filename-button {
+    .filename-button,
+    .header-button{
         width: 100%;
     }
 
-    .filename-button::part(control){
+    .header-button::part(control){
+        background: var(--neutral-layer-floating);
+    }
+
+    .header-button::part(control):hover{
+        background: var(--accent-fill-hover);
+    }
+
+    .filename-button::part(control),
+    .header-button::part(control){
         justify-content: start;
-        padding: 0;
     }
 
     .sticky-header {
         background: var(--neutral-layer-floating);
     }
 
-    fluent-divider {
-        margin: 12px 0 12px 0;
+    .row-header,
+    .column-header {
+        padding: 0;
+    }
+
+    fluent-breadcrumb {
+        margin: 0 0 6px 0;
     }
 
     fluent-button {
