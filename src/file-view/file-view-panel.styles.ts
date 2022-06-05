@@ -36,8 +36,8 @@ export const fileViewPanelStyles: ElementStyles =
         padding: 0;
     }
 
-    fluent-divider {
-        margin: 12px 0 12px 0;
+    fluent-breadcrumb {
+        margin: 0 0 6px 0;
     }
 
     fluent-button {

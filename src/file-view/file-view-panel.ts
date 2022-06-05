@@ -34,7 +34,6 @@ import { FileViewService, fileSystemItem } from "./file-view-service";
         </fluent-breadcrumb-item>
       `)}
     </fluent-breadcrumb>
-    <fluent-divider></fluent-divider>
     <fluent-data-grid
       generate-header="sticky"
       :rowsData="${x => x.items}"
@@ -189,8 +188,8 @@ export class FileViewPanel extends FASTElement {
         break;
       case "fileData.type":
         this.items.sort((a: fileSystemItem, b: fileSystemItem): number => {
-          const A: string  = a.fileData ? a.fileData.type : "";
-          const B: string = b.fileData ? b.fileData.type : "";
+          const A: string  = a.fileData ? a.fileData.type : "folder";
+          const B: string = b.fileData ? b.fileData.type : "folder";
           if (A < B) {
             return -1;
           } else if (A > B) {
@@ -213,7 +212,7 @@ export class FileViewPanel extends FASTElement {
           }
         });
         break;
-      case "fileData.lastmodified":
+      case "fileData.lastModified":
         this.items.sort((a: fileSystemItem, b: fileSystemItem): number => {
           const A: number  = a.fileData ? a.fileData.lastModified : 0;
           const B: number = b.fileData ? b.fileData.lastModified : 0;
