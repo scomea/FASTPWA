@@ -17,9 +17,12 @@ import { fileViewWelcomeStyles } from "./file-view-welcome.styles";
  */
  export const fileViewWelcomeTemplate: ViewTemplate<FileViewWelcome> = html<FileViewWelcome>`
   <div>
+  You can see the file system from here...
   <p>
   This page demonstrates basic navigation of a local directory structure using the PWA's ability to access local files.
-  Click the button below to select a folder and browse.
+  Click the button below to select a folder on your local pc and browse - click on folders and breadcrumbs, back and forward browser navigation should work, colums are sortable.
+  <p>
+  This type of thing may may sense if you had a PWA that had need of a local working directory where a user could choose files to work on.
   <p>
   <fluent-button
     @click=${x => x.pickDirectory()}

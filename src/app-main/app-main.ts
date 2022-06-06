@@ -12,7 +12,7 @@ import { registerSW } from 'virtual:pwa-register';
 import { appMainStyles } from "./app-main.styles";
 import { MainRouterConfig } from './routes';
 import { SettingsPanel } from "../settings-panel/settings-panel";
-
+import '../styles/global.css';
 
 /**
  * Generates a template for the app

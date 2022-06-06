@@ -1,6 +1,7 @@
 import {
   customElement,
   FASTElement,
+  observable,
 } from "@microsoft/fast-element";
 import {
     baseLayerLuminance,
@@ -8,9 +9,27 @@ import {
     density,
     layerCornerRadius,
     StandardLuminance,
-    strokeWidth
+    strokeWidth,
+    typeRampBaseFontSize,
+    typeRampBaseLineHeight,
+    typeRampMinus2FontSize,
+    typeRampMinus2LineHeight,
+    typeRampMinus1FontSize,
+    typeRampMinus1LineHeight,
+    typeRampPlus1FontSize,
+    typeRampPlus1LineHeight,
+    typeRampPlus2FontSize,
+    typeRampPlus2LineHeight,
+    typeRampPlus3FontSize,
+    typeRampPlus3LineHeight,
+    typeRampPlus4FontSize,
+    typeRampPlus4LineHeight,
+    typeRampPlus5FontSize,
+    typeRampPlus5LineHeight,
+    typeRampPlus6FontSize,
+    typeRampPlus6LineHeight
 } from "@fluentui/web-components";
-import { Checkbox, Slider } from "@microsoft/fast-foundation";
+import { Checkbox, CSSDesignToken, Slider } from "@microsoft/fast-foundation";
 import { settingsPanelStyles } from "./settings-panel.styles";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 
@@ -86,7 +105,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
               <fluent-slider-label position="0">
               0
               </fluent-slider-label>
-              <fluent-slider-label position="20">
+              <fluent-slider-label position="10">
               10
               </fluent-slider-label>
               <fluent-slider-label position="${x => density.getValueFor(x)}">
@@ -112,9 +131,31 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
                 ${x => strokeWidth.getValueFor(x)}
               </fluent-slider-label>
             </fluent-slider>
+
+            <fluent-divider></fluent-divider>
+            <h2>Typography</h2>
+            <h4 id="type-ramp-grid-label">Type Ramp</h4>
             <fluent-divider></fluent-divider>
         </div>
 `;
+
+export interface typeRampRow {
+  key: string,
+  typeSizeToken: CSSDesignToken<string>,
+  lineHeightToken: CSSDesignToken<string>,
+}
+
+const typeRampRows: typeRampRow[] = [
+  {key: "Minus2", typeSizeToken: typeRampMinus2FontSize, lineHeightToken: typeRampMinus2LineHeight},
+  {key: "Minus1", typeSizeToken: typeRampMinus1FontSize, lineHeightToken: typeRampMinus1LineHeight},
+  {key: "Base", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+  {key: "Plus1", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+  {key: "Plus2", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+  {key: "Plus3", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+  {key: "Plus4", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+  {key: "Plus5", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+  {key: "Plus6", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+];
 
 @customElement({
   name: "settings-panel",
@@ -163,6 +204,16 @@ export class SettingsPanel extends FASTElement {
     localStorage.setItem("strokeWidth", (e.target as Slider).value);
   };
 
+  public static applySavedSetting(token: CSSDesignToken<string | number>): void {
+    const savedSetting: string | number | null = localStorage.getItem(token.name);
+    if (savedSetting){
+      token.setValueFor(
+        document.body,
+        typeof savedSetting === "string" ? savedSetting : Number.parseInt(savedSetting)
+      );
+    }
+  }
+
   public static applySavedSettings(): void {
     const darkModeSetting: string | null = localStorage.getItem("darkMode");
     if (darkModeSetting) {
@@ -171,37 +222,14 @@ export class SettingsPanel extends FASTElement {
         darkModeSetting === "true" ? StandardLuminance.DarkMode : StandardLuminance.LightMode
       );
     }
+    SettingsPanel.applySavedSetting(controlCornerRadius);
+    SettingsPanel.applySavedSetting(layerCornerRadius);
+    SettingsPanel.applySavedSetting(density);
+    SettingsPanel.applySavedSetting(strokeWidth);
 
-    const controlCornerRadiusSetting: string | null = localStorage.getItem("controlCornerRadius");
-    if (controlCornerRadiusSetting){
-      controlCornerRadius.setValueFor(
-        document.body,
-        Number.parseInt(controlCornerRadiusSetting)
-      );
-    }
-
-    const layerCornerRadiusSetting: string | null = localStorage.getItem("layerCornerRadius");
-    if (layerCornerRadiusSetting){
-      layerCornerRadius.setValueFor(
-        document.body,
-        Number.parseInt(layerCornerRadiusSetting)
-      );
-    }
-
-    const densitySetting: string | null = localStorage.getItem("density");
-    if (densitySetting){
-      density.setValueFor(
-        document.body,
-        Number.parseInt(densitySetting)
-      );
-    }
-
-    const strokeWidthSetting: string | null = localStorage.getItem("strokeWidth");
-    if (strokeWidthSetting){
-      strokeWidth.setValueFor(
-        document.body,
-        Number.parseInt(strokeWidthSetting)
-      );
-    }
+    typeRampRows.forEach(rowdata => {
+      SettingsPanel.applySavedSetting(rowdata.typeSizeToken);
+      SettingsPanel.applySavedSetting(rowdata.lineHeightToken);
+    });
   }
 }

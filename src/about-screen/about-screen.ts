@@ -17,12 +17,18 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
     <img class="image" src='assets/images/beach.jpg'>
     <h1>About this PWA</h1>
     <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    A project by Stephane Comeau.
     <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    Source code is <fluent-anchor appearance="hypertext" href="https://github.com/scomea/FASTPWA">here</fluent-anchor>.
     <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </div>
+    Initial template based on PWA builder's <fluent-anchor appearance="hypertext" href="https://github.com/pwa-builder/pwa-starter">starter template</fluent-anchor>.
+    <p>
+    UI is primarily built based on <fluent-anchor appearance="hypertext" href="https://github.com/microsoft/fast">FAST</fluent-anchor> web components and the <fluent-anchor appearance="hypertext" href="https://github.com/microsoft/fluentui/tree/master/packages/web-components">Fluent</fluent-anchor> implementations of them.
+    <p>
+    Uses the <fluent-anchor appearance="hypertext" href="https://github.com/microsoft/fast">FAST router</fluent-anchor>.
+    <p>
+
+    </div>
 `;
 
 @customElement({
