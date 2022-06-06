@@ -46,8 +46,10 @@ import {
 } from "@microsoft/fast-foundation";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 import { SettingsSlider } from "./settings-slider/settings-slider";
+import { ColorPicker } from "./color-picker/color-picker";
 import { settingsPanelStyles } from "./settings-panel.styles";
 
+ColorPicker;
 SettingsSlider;
 
 /**
@@ -192,7 +194,7 @@ SettingsSlider;
             <h4 id="type-ramp-grid-label">Type Ramp</h4>
             <fluent-data-grid
               :rowsData="${x => typeRampRows}"
-              grid-template-columns="140px 140px 140px"
+              grid-template-columns="100px 140px 140px"
               class="type-ramp-grid"
               ${ref('typeRampGrid')}
           ></fluent-data-grid>
@@ -233,7 +235,7 @@ const keyCellTemplate = html`
 const fontSizeCellTemplate = html`
   <template>
     <fluent-text-field
-      value="${ x => x.rowData.fontSizeToken.getValueFor(x)}"
+      :value="${ x => x.rowData.fontSizeToken.getValueFor(x)}"
       @change="${(x, c) => SettingsPanel.updateTypeRampToken(c.event, x.rowData.fontSizeToken)}"
     >
     </fluent-text-field>
@@ -243,10 +245,30 @@ const fontSizeCellTemplate = html`
 const lineHeightCellTemplate = html`
   <template>
     <fluent-text-field
-      value="${ x => x.rowData.lineHeightToken.getValueFor(x)}"
+      :value="${ x => x.rowData.lineHeightToken.getValueFor(x)}"
       @change="${(x, c) => SettingsPanel.updateTypeRampToken(c.event, x.rowData.lineHeightToken)}"
     >
     </fluent-text-field>
+  </template>
+`;
+
+const resetRowCellTemplate = html`
+  <template>
+    <fluent-button
+      @click="${(x, c) => SettingsPanel.clearTypeRampRow(x.rowData)}"
+    >
+    Reset
+    </fluent-button>
+  </template>
+`;
+
+const resetTypeRampCellTemplate = html`
+  <template>
+    <fluent-button
+      @click="${(x, c) => SettingsPanel.clearTypeRamp()}"
+    >
+    Reset
+    </fluent-button>
   </template>
 `;
 
@@ -270,6 +292,13 @@ const typeRampColumns: ColumnDefinition[] = [
     cellTemplate: lineHeightCellTemplate,
     cellFocusTargetCallback: getFocusTarget,
     headerCellTemplate: headerCellTemplate,
+  },
+  {
+    columnDataKey: "reset",
+    title:"Reset",
+    cellTemplate: resetRowCellTemplate,
+    cellFocusTargetCallback: getFocusTarget,
+    headerCellTemplate: resetTypeRampCellTemplate,
   },
 ];
 
@@ -302,6 +331,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as Slider).valueAsNumber
     );
+    localStorage.setItem(token.name, (e.target as Slider).currentValue)
   }
 
   public static updateTypeRampToken(e: Event, token: DesignToken<string>): void {
@@ -309,6 +339,7 @@ export class SettingsPanel extends FASTElement {
       document.body,
       (e.target as TextField).value
     );
+    localStorage.setItem(token.name, (e.target as TextField).value)
   }
 
   public static applySavedSetting(token: CSSDesignToken<string | number>): void {
@@ -321,11 +352,20 @@ export class SettingsPanel extends FASTElement {
     }
   }
 
+  public static clearSavedSetting(token: CSSDesignToken<string | number>): void {
+    const savedSetting: string | number | null = localStorage.getItem(token.name);
+    if (savedSetting){
+      localStorage.removeItem(token.name);
+      token.deleteValueFor(
+        document.body);
+    }
+  }
+
   public static resetToken( e: Event, token: CSSDesignToken<string | number> | undefined){
     if (!token){
       return;
     }
-    token.deleteValueFor(document.body);
+    SettingsPanel.clearSavedSetting(token);
   }
 
   public static applySavedSettings(): void {
@@ -340,11 +380,47 @@ export class SettingsPanel extends FASTElement {
     SettingsPanel.applySavedSetting(layerCornerRadius);
     SettingsPanel.applySavedSetting(density);
     SettingsPanel.applySavedSetting(strokeWidth);
+    SettingsPanel.applySavedSetting(designUnit);
+    SettingsPanel.applySavedSetting(disabledOpacity);
+    SettingsPanel.applySavedSetting(baseHorizontalSpacingMultiplier);
+    SettingsPanel.applySavedSetting(baseHeightMultiplier);
 
     typeRampRows.forEach(rowdata => {
       SettingsPanel.applySavedSetting(rowdata.fontSizeToken);
       SettingsPanel.applySavedSetting(rowdata.lineHeightToken);
     });
+  }
+
+  public static clearSavedSettings(): void {
+    const darkModeSetting: string | null = localStorage.getItem("darkMode");
+    if (darkModeSetting) {
+      baseLayerLuminance.setValueFor(
+        document.body,
+        darkModeSetting === "true" ? StandardLuminance.DarkMode : StandardLuminance.LightMode
+      );
+    }
+    SettingsPanel.clearSavedSetting(controlCornerRadius);
+    SettingsPanel.clearSavedSetting(layerCornerRadius);
+    SettingsPanel.clearSavedSetting(density);
+    SettingsPanel.clearSavedSetting(strokeWidth);
+    SettingsPanel.clearSavedSetting(designUnit);
+    SettingsPanel.clearSavedSetting(disabledOpacity);
+    SettingsPanel.clearSavedSetting(baseHorizontalSpacingMultiplier);
+    SettingsPanel.clearSavedSetting(baseHeightMultiplier);
+
+    SettingsPanel.clearTypeRamp();
+
+  }
+
+  public static clearTypeRamp(): void {
+    typeRampRows.forEach(rowData => {
+      SettingsPanel.clearTypeRampRow(rowData);
+    });
+  }
+
+  public static clearTypeRampRow(rowData: typeRampRow): void {
+    SettingsPanel.clearSavedSetting(rowData.fontSizeToken);
+    SettingsPanel.clearSavedSetting(rowData.lineHeightToken);
   }
 
   public connectedCallback(): void {
