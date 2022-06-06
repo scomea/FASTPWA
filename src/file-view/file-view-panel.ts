@@ -9,7 +9,6 @@ import {
   when
 } from "@microsoft/fast-element";
 import { ColumnDefinition, DataGrid, DataGridCell, inject } from "@microsoft/fast-foundation";
-import { Route } from "@microsoft/fast-router";
 import { fileViewPanelStyles } from "./file-view-panel.styles";
 import { FileViewService, fileSystemItem } from "./file-view-service";
 

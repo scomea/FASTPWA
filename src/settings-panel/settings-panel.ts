@@ -2,6 +2,7 @@ import {
   customElement,
   FASTElement,
   observable,
+  ref
 } from "@microsoft/fast-element";
 import {
     baseLayerLuminance,
@@ -29,7 +30,16 @@ import {
     typeRampPlus6FontSize,
     typeRampPlus6LineHeight
 } from "@fluentui/web-components";
-import { Checkbox, CSSDesignToken, Slider } from "@microsoft/fast-foundation";
+import {
+  Checkbox,
+  ColumnDefinition,
+  CSSDesignToken,
+  DataGrid,
+  DataGridCell,
+  DesignToken,
+  Slider,
+  TextField
+} from "@microsoft/fast-foundation";
 import { settingsPanelStyles } from "./settings-panel.styles";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 
@@ -60,7 +70,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-slider
               aria-labelledby="layer-corner-label"
               value="${x => layerCornerRadius.getValueFor(x)}"
-              @change="${(x, c) => SettingsPanel.updateLayerCornerRadius(c.event)}"
+              @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, layerCornerRadius)}"
               min="0"
               max="20"
             >
@@ -79,7 +89,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-slider
               aria-labelledby="control-corner-label"
               value="${x => controlCornerRadius.getValueFor(x)}"
-              @change="${(x, c) => SettingsPanel.updateControlCornerRadius(c.event)}"
+              @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, controlCornerRadius)}"
               min="0"
               max="20"
             >
@@ -98,7 +108,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-slider
               aria-labelledby="density-label"
               value=${x => density.getValueFor(x)}
-              @change="${(x, c) => SettingsPanel.updateDensity(c.event)}"
+              @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, density)}"
               min="0"
               max="10"
             >
@@ -117,7 +127,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-slider
               aria-labelledby="stroke-width-label"
               value="${ x => strokeWidth.getValueFor(x)}"
-              @change="${(x, c) => SettingsPanel.updateStrokeWidth(c.event)}"
+              @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, strokeWidth)}"
               min="0"
               max="4"
             >
@@ -135,27 +145,92 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-divider></fluent-divider>
             <h2>Typography</h2>
             <h4 id="type-ramp-grid-label">Type Ramp</h4>
+            <fluent-data-grid
+              :rowsData="${x => typeRampRows}"
+              grid-template-columns="140px 140px 140px"
+              class="type-ramp-grid"
+              ${ref('typeRampGrid')}
+          ></fluent-data-grid>
             <fluent-divider></fluent-divider>
         </div>
 `;
 
 export interface typeRampRow {
   key: string,
-  typeSizeToken: CSSDesignToken<string>,
+  fontSizeToken: CSSDesignToken<string>,
   lineHeightToken: CSSDesignToken<string>,
 }
 
 const typeRampRows: typeRampRow[] = [
-  {key: "Minus2", typeSizeToken: typeRampMinus2FontSize, lineHeightToken: typeRampMinus2LineHeight},
-  {key: "Minus1", typeSizeToken: typeRampMinus1FontSize, lineHeightToken: typeRampMinus1LineHeight},
-  {key: "Base", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
-  {key: "Plus1", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
-  {key: "Plus2", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
-  {key: "Plus3", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
-  {key: "Plus4", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
-  {key: "Plus5", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
-  {key: "Plus6", typeSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+  {key: "Minus2", fontSizeToken: typeRampMinus2FontSize, lineHeightToken: typeRampMinus2LineHeight},
+  {key: "Minus1", fontSizeToken: typeRampMinus1FontSize, lineHeightToken: typeRampMinus1LineHeight},
+  {key: "Base", fontSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
+  {key: "Plus1", fontSizeToken: typeRampPlus1FontSize, lineHeightToken: typeRampPlus1LineHeight},
+  {key: "Plus2", fontSizeToken: typeRampPlus2FontSize, lineHeightToken: typeRampPlus2LineHeight},
+  {key: "Plus3", fontSizeToken: typeRampPlus3FontSize, lineHeightToken: typeRampPlus3LineHeight},
+  {key: "Plus4", fontSizeToken: typeRampPlus4FontSize, lineHeightToken: typeRampPlus4LineHeight},
+  {key: "Plus5", fontSizeToken: typeRampPlus5FontSize, lineHeightToken: typeRampPlus5LineHeight},
+  {key: "Plus6", fontSizeToken: typeRampPlus6FontSize, lineHeightToken: typeRampPlus6LineHeight},
 ];
+
+const headerCellTemplate = html`
+  <template>
+    ${ x => x.columnDefinition.title }
+  </template>
+`;
+
+const keyCellTemplate = html`
+  <template>
+    ${ x => x.rowData.key }
+  </template>
+`;
+
+const fontSizeCellTemplate = html`
+  <template>
+    <fluent-text-field
+      value="${ x => x.rowData.fontSizeToken.getValueFor(x)}"
+      @change="${(x, c) => SettingsPanel.updateTypeRampToken(c.event, x.rowData.fontSizeToken)}"
+    >
+    </fluent-text-field>
+  </template>
+`;
+
+const lineHeightCellTemplate = html`
+  <template>
+    <fluent-text-field
+      value="${ x => x.rowData.lineHeightToken.getValueFor(x)}"
+      @change="${(x, c) => SettingsPanel.updateTypeRampToken(c.event, x.rowData.lineHeightToken)}"
+    >
+    </fluent-text-field>
+  </template>
+`;
+
+const typeRampColumns: ColumnDefinition[] = [
+  { columnDataKey: "key",
+    title:"Level",
+    isRowHeader: true,
+    cellTemplate: keyCellTemplate,
+    headerCellTemplate: headerCellTemplate,
+  },
+  {
+    columnDataKey: "fontSizeToken",
+    title:"Font Size",
+    cellTemplate: fontSizeCellTemplate,
+    cellFocusTargetCallback: getFocusTarget,
+    headerCellTemplate: headerCellTemplate,
+  },
+  {
+    columnDataKey: "lineHeightToken",
+    title:"Line Height",
+    cellTemplate: lineHeightCellTemplate,
+    cellFocusTargetCallback: getFocusTarget,
+    headerCellTemplate: headerCellTemplate,
+  },
+];
+
+function getFocusTarget(cell: DataGridCell): HTMLElement {
+  return cell.children[0] as HTMLElement;
+}
 
 @customElement({
   name: "settings-panel",
@@ -163,6 +238,8 @@ const typeRampRows: typeRampRow[] = [
   styles: settingsPanelStyles,
 })
 export class SettingsPanel extends FASTElement {
+
+  public typeRampGrid: DataGrid | undefined;
 
   public static toggleLightMode(e: Event): void {
     baseLayerLuminance.setValueFor(
@@ -172,37 +249,19 @@ export class SettingsPanel extends FASTElement {
     localStorage.setItem("darkMode", (e.target as Checkbox).checked ? "true" : "false")
   };
 
-  public static updateControlCornerRadius(e: Event): void {
-    controlCornerRadius.setValueFor(
+  public static updateTokenFromSlider(e: Event, token: DesignToken<number>): void {
+    token.setValueFor(
       document.body,
       (e.target as Slider).valueAsNumber
     );
-    localStorage.setItem("controlCornerRadius", (e.target as Slider).value);
-  };
+  }
 
-  public static updateLayerCornerRadius(e: Event): void {
-    layerCornerRadius.setValueFor(
+  public static updateTypeRampToken(e: Event, token: DesignToken<string>): void {
+    token.setValueFor(
       document.body,
-      (e.target as Slider).valueAsNumber
+      (e.target as TextField).value
     );
-    localStorage.setItem("layerCornerRadius", (e.target as Slider).value);
-  };
-
-  public static updateDensity(e: Event): void {
-    density.setValueFor(
-      document.body,
-      (e.target as Slider).valueAsNumber
-    );
-    localStorage.setItem("density", (e.target as Slider).value);
-  };
-
-  public static updateStrokeWidth(e: Event): void {
-    strokeWidth.setValueFor(
-      document.body,
-      (e.target as Slider).valueAsNumber
-    );
-    localStorage.setItem("strokeWidth", (e.target as Slider).value);
-  };
+  }
 
   public static applySavedSetting(token: CSSDesignToken<string | number>): void {
     const savedSetting: string | number | null = localStorage.getItem(token.name);
@@ -228,8 +287,15 @@ export class SettingsPanel extends FASTElement {
     SettingsPanel.applySavedSetting(strokeWidth);
 
     typeRampRows.forEach(rowdata => {
-      SettingsPanel.applySavedSetting(rowdata.typeSizeToken);
+      SettingsPanel.applySavedSetting(rowdata.fontSizeToken);
       SettingsPanel.applySavedSetting(rowdata.lineHeightToken);
     });
+  }
+
+  public connectedCallback(): void {
+    super.connectedCallback();
+    if (this.typeRampGrid){
+      this.typeRampGrid.columnDefinitions = typeRampColumns;
+    }
   }
 }

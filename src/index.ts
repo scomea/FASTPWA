@@ -44,7 +44,8 @@ provideFluentDesignSystem().register(
     fluentCard(),
     fluentSlider(),
     fluentSliderLabel(),
-    fluentSwitch()
+    fluentSwitch(),
+    fluentTextField(),
 );
 
 AppMain;
