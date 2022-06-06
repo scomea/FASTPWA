@@ -5,9 +5,13 @@ import {
   ref
 } from "@microsoft/fast-element";
 import {
+    baseHeightMultiplier,
     baseLayerLuminance,
+    baseHorizontalSpacingMultiplier,
     controlCornerRadius,
     density,
+    designUnit,
+    disabledOpacity,
     layerCornerRadius,
     StandardLuminance,
     strokeWidth,
@@ -40,8 +44,11 @@ import {
   Slider,
   TextField
 } from "@microsoft/fast-foundation";
-import { settingsPanelStyles } from "./settings-panel.styles";
 import { html, ViewTemplate } from "@microsoft/fast-element";
+import { SettingsSlider } from "./settings-slider/settings-slider";
+import { settingsPanelStyles } from "./settings-panel.styles";
+
+SettingsSlider;
 
 /**
  * Generates a template
@@ -57,7 +64,23 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
             <fluent-divider></fluent-divider>
             <h2>Colors</h2>
 
+            <settings-slider
+              slider-label="Disabled Opacity"
+              min="0"
+              max="1"
+              step="0.01"
+              :token="${x => disabledOpacity}"
+            >
+              <fluent-slider-label position="0">
+              0
+              </fluent-slider-label>
+              <fluent-slider-label position="1">
+              1
+              </fluent-slider-label>
+            </settings-slider>
+
             <fluent-checkbox
+              class="dark-mode-checkbox"
               checked="${x => baseLayerLuminance.getValueFor(x) === StandardLuminance.DarkMode ? true : void 0 }"
               @change="${(x, c) => SettingsPanel.toggleLightMode(c.event)}"
             >Dark Mode</fluent-checkbox>
@@ -66,13 +89,11 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
 
             <h2>Layout</h2>
 
-            <h4 id="layer-corner-label">Layer corner radius</h4>
-            <fluent-slider
-              aria-labelledby="layer-corner-label"
-              value="${x => layerCornerRadius.getValueFor(x)}"
-              @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, layerCornerRadius)}"
+            <settings-slider
+              slider-label="Layer corner radius"
               min="0"
               max="20"
+              :token="${x => layerCornerRadius}"
             >
               <fluent-slider-label position="0">
               0
@@ -80,18 +101,13 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
               <fluent-slider-label position="20">
               20
               </fluent-slider-label>
-              <fluent-slider-label position="${x => layerCornerRadius.getValueFor(x)}">
-                ${x => layerCornerRadius.getValueFor(x)}
-              </fluent-slider-label>
-            </fluent-slider>
+            </settings-slider>
 
-            <h4 id="control-corner-label">Control corner radius</h4>
-            <fluent-slider
-              aria-labelledby="control-corner-label"
-              value="${x => controlCornerRadius.getValueFor(x)}"
-              @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, controlCornerRadius)}"
+            <settings-slider
+              slider-label="Control corner radius"
               min="0"
               max="20"
+              :token="${x => controlCornerRadius}"
             >
               <fluent-slider-label position="0">
               0
@@ -99,18 +115,13 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
               <fluent-slider-label position="20">
               20
               </fluent-slider-label>
-              <fluent-slider-label position="${x => controlCornerRadius.getValueFor(x)}">
-                ${x =>controlCornerRadius.getValueFor(x)}
-              </fluent-slider-label>
-            </fluent-slider>
+            </settings-slider>
 
-            <h4 id="density-label">Density</h4>
-            <fluent-slider
-              aria-labelledby="density-label"
-              value=${x => density.getValueFor(x)}
-              @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, density)}"
+            <settings-slider
+              slider-label="Density"
               min="0"
               max="10"
+              :token="${x => density}"
             >
               <fluent-slider-label position="0">
               0
@@ -118,18 +129,13 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
               <fluent-slider-label position="10">
               10
               </fluent-slider-label>
-              <fluent-slider-label position="${x => density.getValueFor(x)}">
-                ${x => density.getValueFor(x)}
-              </fluent-slider-label>
-            </fluent-slider>
+            </settings-slider>
 
-            <h4 id="stroke-width-label">Stroke width</h4>
-            <fluent-slider
-              aria-labelledby="stroke-width-label"
-              value="${ x => strokeWidth.getValueFor(x)}"
-              @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, strokeWidth)}"
+            <settings-slider
+              slider-label="Stroke width"
               min="0"
               max="4"
+              :token="${x => strokeWidth}"
             >
               <fluent-slider-label position="0">
               0
@@ -137,10 +143,49 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
               <fluent-slider-label position="4">
               4
               </fluent-slider-label>
-              <fluent-slider-label position="${x => strokeWidth.getValueFor(x)}">
-                ${x => strokeWidth.getValueFor(x)}
+            </settings-slider>
+
+            <settings-slider
+              slider-label="Design unit"
+              min="0"
+              max="10"
+              :token="${x => designUnit}"
+            >
+              <fluent-slider-label position="0">
+              0
               </fluent-slider-label>
-            </fluent-slider>
+              <fluent-slider-label position="10">
+              10
+              </fluent-slider-label>
+            </settings-slider>
+
+            <settings-slider
+              slider-label="Base Height Multiplier"
+              min="0"
+              max="10"
+              :token="${x => baseHeightMultiplier}"
+            >
+              <fluent-slider-label position="0">
+              0
+              </fluent-slider-label>
+              <fluent-slider-label position="10">
+              10
+              </fluent-slider-label>
+            </settings-slider>
+
+            <settings-slider
+              slider-label="Base Horizontal Spacing Multiplier"
+              min="0"
+              max="10"
+              :token="${x => baseHorizontalSpacingMultiplier}"
+            >
+              <fluent-slider-label position="0">
+              0
+              </fluent-slider-label>
+              <fluent-slider-label position="10">
+              10
+              </fluent-slider-label>
+            </settings-slider>
 
             <fluent-divider></fluent-divider>
             <h2>Typography</h2>
@@ -249,7 +294,10 @@ export class SettingsPanel extends FASTElement {
     localStorage.setItem("darkMode", (e.target as Checkbox).checked ? "true" : "false")
   };
 
-  public static updateTokenFromSlider(e: Event, token: DesignToken<number>): void {
+  public static updateTokenFromSlider(e: Event, token: DesignToken<number> | undefined): void {
+    if (!token){
+      return;
+    }
     token.setValueFor(
       document.body,
       (e.target as Slider).valueAsNumber
@@ -268,9 +316,16 @@ export class SettingsPanel extends FASTElement {
     if (savedSetting){
       token.setValueFor(
         document.body,
-        typeof savedSetting === "string" ? savedSetting : Number.parseInt(savedSetting)
+        typeof savedSetting === "string" ? savedSetting : Number.parseFloat(savedSetting)
       );
     }
+  }
+
+  public static resetToken( e: Event, token: CSSDesignToken<string | number> | undefined){
+    if (!token){
+      return;
+    }
+    token.deleteValueFor(document.body);
   }
 
   public static applySavedSettings(): void {
