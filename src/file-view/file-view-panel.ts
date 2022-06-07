@@ -6,7 +6,6 @@ import {
   observable,
   ref,
   ViewTemplate,
-  when
 } from "@microsoft/fast-element";
 import { ColumnDefinition, DataGrid, DataGridCell, inject } from "@microsoft/fast-foundation";
 import { fileViewPanelStyles } from "./file-view-panel.styles";

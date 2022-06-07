@@ -18,21 +18,25 @@ export const fileViewPanelStyles: ElementStyles =
         background: var(--neutral-layer-floating);
     }
 
+    .filename-button::part(control),
+    .header-button::part(control){
+        padding: 0 12px;
+    }
+
     .header-button::part(control):hover{
         background: var(--accent-fill-hover);
     }
 
-    .filename-button::part(control),
-    .header-button::part(control){
+    fluent-button::part(control){
         justify-content: start;
+        padding: 0 12px;
     }
 
     .sticky-header {
         background: var(--neutral-layer-floating);
     }
 
-    .row-header,
-    .column-header {
+    .row-header, .column-header {
         padding: 0;
     }
 

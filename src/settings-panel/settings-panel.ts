@@ -15,39 +15,22 @@ import {
     layerCornerRadius,
     StandardLuminance,
     strokeWidth,
-    typeRampBaseFontSize,
-    typeRampBaseLineHeight,
-    typeRampMinus2FontSize,
-    typeRampMinus2LineHeight,
-    typeRampMinus1FontSize,
-    typeRampMinus1LineHeight,
-    typeRampPlus1FontSize,
-    typeRampPlus1LineHeight,
-    typeRampPlus2FontSize,
-    typeRampPlus2LineHeight,
-    typeRampPlus3FontSize,
-    typeRampPlus3LineHeight,
-    typeRampPlus4FontSize,
-    typeRampPlus4LineHeight,
-    typeRampPlus5FontSize,
-    typeRampPlus5LineHeight,
-    typeRampPlus6FontSize,
-    typeRampPlus6LineHeight
 } from "@fluentui/web-components";
 import {
   Checkbox,
   ColumnDefinition,
-  CSSDesignToken,
   DataGrid,
   DataGridCell,
   DesignToken,
-  Slider,
   TextField
 } from "@microsoft/fast-foundation";
 import { html, ViewTemplate } from "@microsoft/fast-element";
+import { SettingsService, typeRampRow, typeRampRows } from "./settings-service";
 import { SettingsSlider } from "./settings-slider/settings-slider";
+import { ColorPicker } from "./color-picker/color-picker";
 import { settingsPanelStyles } from "./settings-panel.styles";
 
+ColorPicker;
 SettingsSlider;
 
 /**
@@ -176,14 +159,15 @@ SettingsSlider;
             <settings-slider
               slider-label="Base Horizontal Spacing Multiplier"
               min="0"
-              max="10"
+              max="6"
+              step="1"
               :token="${x => baseHorizontalSpacingMultiplier}"
             >
               <fluent-slider-label position="0">
               0
               </fluent-slider-label>
-              <fluent-slider-label position="10">
-              10
+              <fluent-slider-label position="6">
+              6
               </fluent-slider-label>
             </settings-slider>
 
@@ -192,31 +176,13 @@ SettingsSlider;
             <h4 id="type-ramp-grid-label">Type Ramp</h4>
             <fluent-data-grid
               :rowsData="${x => typeRampRows}"
-              grid-template-columns="140px 140px 140px"
+              grid-template-columns="100px 140px 140px"
               class="type-ramp-grid"
               ${ref('typeRampGrid')}
           ></fluent-data-grid>
             <fluent-divider></fluent-divider>
         </div>
 `;
-
-export interface typeRampRow {
-  key: string,
-  fontSizeToken: CSSDesignToken<string>,
-  lineHeightToken: CSSDesignToken<string>,
-}
-
-const typeRampRows: typeRampRow[] = [
-  {key: "Minus2", fontSizeToken: typeRampMinus2FontSize, lineHeightToken: typeRampMinus2LineHeight},
-  {key: "Minus1", fontSizeToken: typeRampMinus1FontSize, lineHeightToken: typeRampMinus1LineHeight},
-  {key: "Base", fontSizeToken: typeRampBaseFontSize, lineHeightToken: typeRampBaseLineHeight},
-  {key: "Plus1", fontSizeToken: typeRampPlus1FontSize, lineHeightToken: typeRampPlus1LineHeight},
-  {key: "Plus2", fontSizeToken: typeRampPlus2FontSize, lineHeightToken: typeRampPlus2LineHeight},
-  {key: "Plus3", fontSizeToken: typeRampPlus3FontSize, lineHeightToken: typeRampPlus3LineHeight},
-  {key: "Plus4", fontSizeToken: typeRampPlus4FontSize, lineHeightToken: typeRampPlus4LineHeight},
-  {key: "Plus5", fontSizeToken: typeRampPlus5FontSize, lineHeightToken: typeRampPlus5LineHeight},
-  {key: "Plus6", fontSizeToken: typeRampPlus6FontSize, lineHeightToken: typeRampPlus6LineHeight},
-];
 
 const headerCellTemplate = html`
   <template>
@@ -233,7 +199,7 @@ const keyCellTemplate = html`
 const fontSizeCellTemplate = html`
   <template>
     <fluent-text-field
-      value="${ x => x.rowData.fontSizeToken.getValueFor(x)}"
+      :value="${ x => x.rowData.fontSizeToken.getValueFor(x)}"
       @change="${(x, c) => SettingsPanel.updateTypeRampToken(c.event, x.rowData.fontSizeToken)}"
     >
     </fluent-text-field>
@@ -243,10 +209,30 @@ const fontSizeCellTemplate = html`
 const lineHeightCellTemplate = html`
   <template>
     <fluent-text-field
-      value="${ x => x.rowData.lineHeightToken.getValueFor(x)}"
+      :value="${ x => x.rowData.lineHeightToken.getValueFor(x)}"
       @change="${(x, c) => SettingsPanel.updateTypeRampToken(c.event, x.rowData.lineHeightToken)}"
     >
     </fluent-text-field>
+  </template>
+`;
+
+const resetRowCellTemplate = html`
+  <template>
+    <fluent-button
+      @click="${(x, c) => SettingsPanel.clearTypeRampRow(c.event, x.rowData)}"
+    >
+    Reset
+    </fluent-button>
+  </template>
+`;
+
+const resetTypeRampCellTemplate = html`
+  <template>
+    <fluent-button
+      @click="${(x, c) => SettingsPanel.clearTypeRamp(c.event)}"
+    >
+    Reset
+    </fluent-button>
   </template>
 `;
 
@@ -271,6 +257,13 @@ const typeRampColumns: ColumnDefinition[] = [
     cellFocusTargetCallback: getFocusTarget,
     headerCellTemplate: headerCellTemplate,
   },
+  {
+    columnDataKey: "reset",
+    title:"Reset",
+    cellTemplate: resetRowCellTemplate,
+    cellFocusTargetCallback: getFocusTarget,
+    headerCellTemplate: resetTypeRampCellTemplate,
+  },
 ];
 
 function getFocusTarget(cell: DataGridCell): HTMLElement {
@@ -287,64 +280,19 @@ export class SettingsPanel extends FASTElement {
   public typeRampGrid: DataGrid | undefined;
 
   public static toggleLightMode(e: Event): void {
-    baseLayerLuminance.setValueFor(
-      document.body,
-      (e.target as Checkbox).checked ? StandardLuminance.DarkMode : StandardLuminance.LightMode
-    );
-    localStorage.setItem("darkMode", (e.target as Checkbox).checked ? "true" : "false")
+    SettingsService.toggleLightMode((e.target as Checkbox).checked);
   };
 
-  public static updateTokenFromSlider(e: Event, token: DesignToken<number> | undefined): void {
-    if (!token){
-      return;
-    }
-    token.setValueFor(
-      document.body,
-      (e.target as Slider).valueAsNumber
-    );
-  }
-
   public static updateTypeRampToken(e: Event, token: DesignToken<string>): void {
-    token.setValueFor(
-      document.body,
-      (e.target as TextField).value
-    );
+    SettingsService.updateToken((e.target as TextField).value, token);
   }
 
-  public static applySavedSetting(token: CSSDesignToken<string | number>): void {
-    const savedSetting: string | number | null = localStorage.getItem(token.name);
-    if (savedSetting){
-      token.setValueFor(
-        document.body,
-        typeof savedSetting === "string" ? savedSetting : Number.parseFloat(savedSetting)
-      );
-    }
+  public static clearTypeRamp(e: Event): void {
+    SettingsService.clearTypeRamp();
   }
 
-  public static resetToken( e: Event, token: CSSDesignToken<string | number> | undefined){
-    if (!token){
-      return;
-    }
-    token.deleteValueFor(document.body);
-  }
-
-  public static applySavedSettings(): void {
-    const darkModeSetting: string | null = localStorage.getItem("darkMode");
-    if (darkModeSetting) {
-      baseLayerLuminance.setValueFor(
-        document.body,
-        darkModeSetting === "true" ? StandardLuminance.DarkMode : StandardLuminance.LightMode
-      );
-    }
-    SettingsPanel.applySavedSetting(controlCornerRadius);
-    SettingsPanel.applySavedSetting(layerCornerRadius);
-    SettingsPanel.applySavedSetting(density);
-    SettingsPanel.applySavedSetting(strokeWidth);
-
-    typeRampRows.forEach(rowdata => {
-      SettingsPanel.applySavedSetting(rowdata.fontSizeToken);
-      SettingsPanel.applySavedSetting(rowdata.lineHeightToken);
-    });
+  public static clearTypeRampRow(e: Event, rowData: typeRampRow): void {
+    SettingsService.clearTypeRampRow(rowData);
   }
 
   public connectedCallback(): void {
