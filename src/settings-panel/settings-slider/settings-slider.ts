@@ -70,21 +70,20 @@ export class SettingsSlider extends FASTElement {
   @observable
   public token: CSSDesignToken<number> | undefined;
 
+  @observable
+  public target: HTMLElement | undefined;
+
   public updateToken(e: Event, token: CSSDesignToken<number> | undefined): void {
-    if (!token){
+    if (!token || !this.target){
       return;
     }
-    token.setValueFor(
-      document.body,
-      (e.target as Slider).valueAsNumber
-    );
-    localStorage.setItem(token.name, (e.target as Slider).currentValue)
+    SettingsService.updateToken((e.target as Slider).valueAsNumber, token, this.target)
   }
 
   public resetToken(e: Event, token: CSSDesignToken<number> | undefined): void {
-    if (!token){
+    if (!token || !this.target){
       return;
     }
-    SettingsService.clearToken(token);
+    SettingsService.clearToken(token, this.target);
   }
 }

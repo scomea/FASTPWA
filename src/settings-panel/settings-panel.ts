@@ -52,6 +52,7 @@ SettingsSlider;
               min="0"
               max="1"
               step="0.01"
+              :target="${x => x.target}"
               :token="${x => disabledOpacity}"
             >
               <fluent-slider-label position="0">
@@ -76,6 +77,7 @@ SettingsSlider;
               slider-label="Layer corner radius"
               min="0"
               max="20"
+              :target="${x => x.target}"
               :token="${x => layerCornerRadius}"
             >
               <fluent-slider-label position="0">
@@ -90,6 +92,7 @@ SettingsSlider;
               slider-label="Control corner radius"
               min="0"
               max="20"
+              :target="${x => x.target}"
               :token="${x => controlCornerRadius}"
             >
               <fluent-slider-label position="0">
@@ -104,6 +107,7 @@ SettingsSlider;
               slider-label="Density"
               min="0"
               max="10"
+              :target="${x => x.target}"
               :token="${x => density}"
             >
               <fluent-slider-label position="0">
@@ -118,6 +122,7 @@ SettingsSlider;
               slider-label="Stroke width"
               min="0"
               max="4"
+              :target="${x => x.target}"
               :token="${x => strokeWidth}"
             >
               <fluent-slider-label position="0">
@@ -132,6 +137,7 @@ SettingsSlider;
               slider-label="Design unit"
               min="0"
               max="10"
+              :target="${x => x.target}"
               :token="${x => designUnit}"
             >
               <fluent-slider-label position="0">
@@ -146,6 +152,7 @@ SettingsSlider;
               slider-label="Base Height Multiplier"
               min="0"
               max="10"
+              :target="${x => x.target}"
               :token="${x => baseHeightMultiplier}"
             >
               <fluent-slider-label position="0">
@@ -161,6 +168,7 @@ SettingsSlider;
               min="0"
               max="6"
               step="1"
+              :target="${x => x.target}"
               :token="${x => baseHorizontalSpacingMultiplier}"
             >
               <fluent-slider-label position="0">
@@ -277,22 +285,23 @@ function getFocusTarget(cell: DataGridCell): HTMLElement {
 })
 export class SettingsPanel extends FASTElement {
 
+  public target: HTMLElement = document.body;
   public typeRampGrid: DataGrid | undefined;
 
-  public static toggleLightMode(e: Event): void {
-    SettingsService.toggleLightMode((e.target as Checkbox).checked);
+  public static toggleLightMode(e: Event, target: HTMLElement): void {
+    SettingsService.toggleLightMode((e.target as Checkbox).checked, target);
   };
 
-  public static updateTypeRampToken(e: Event, token: DesignToken<string>): void {
-    SettingsService.updateToken((e.target as TextField).value, token);
+  public static updateTypeRampToken(e: Event, token: DesignToken<string>, target: HTMLElement): void {
+    SettingsService.updateToken((e.target as TextField).value, token, target);
   }
 
-  public static clearTypeRamp(e: Event): void {
-    SettingsService.clearTypeRamp();
+  public static clearTypeRamp(e: Event, target: HTMLElement): void {
+    SettingsService.clearTypeRamp(target);
   }
 
-  public static clearTypeRampRow(e: Event, rowData: typeRampRow): void {
-    SettingsService.clearTypeRampRow(rowData);
+  public static clearTypeRampRow(e: Event, rowData: typeRampRow, target: HTMLElement): void {
+    SettingsService.clearTypeRampRow(rowData, target);
   }
 
   public connectedCallback(): void {
