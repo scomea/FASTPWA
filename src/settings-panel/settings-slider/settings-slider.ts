@@ -3,20 +3,13 @@ import {
   customElement,
   FASTElement,
   observable,
-  ref
 } from "@microsoft/fast-element";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 import {
-  Checkbox,
-  ColumnDefinition,
   CSSDesignToken,
-  DataGrid,
-  DataGridCell,
-  DesignToken,
   Slider,
-  TextField
 } from "@microsoft/fast-foundation";
-import { SettingsPanel } from "../settings-panel"
+import { SettingsService } from "../settings-service";
 import { settingsSliderStyles } from "./settings-slider.styles";
 
 /**
@@ -33,7 +26,7 @@ import { settingsSliderStyles } from "./settings-slider.styles";
         class="slider"
         aria-labelledby="label"
         :value="${x => x.token?.getValueFor(document.body)}"
-        @change="${(x, c) => SettingsPanel.updateTokenFromSlider(c.event, x.token)}"
+        @change="${(x, c) => x.updateToken(c.event, x.token)}"
         min="${x => x.min}"
         max="${x => x.max}"
         step="${x => x.step}"
@@ -48,7 +41,7 @@ import { settingsSliderStyles } from "./settings-slider.styles";
     <fluent-button
       class="reset-btn"
       appearance="stealth"
-      @click="${(x, c) => SettingsPanel.resetToken(c.event, x.token)}"
+      @click="${(x, c) => x.resetToken(c.event, x.token)}"
     >
       reset
     </fluent-button>
@@ -76,4 +69,22 @@ export class SettingsSlider extends FASTElement {
 
   @observable
   public token: CSSDesignToken<number> | undefined;
+
+  public updateToken(e: Event, token: CSSDesignToken<number> | undefined): void {
+    if (!token){
+      return;
+    }
+    token.setValueFor(
+      document.body,
+      (e.target as Slider).valueAsNumber
+    );
+    localStorage.setItem(token.name, (e.target as Slider).currentValue)
+  }
+
+  public resetToken(e: Event, token: CSSDesignToken<number> | undefined): void {
+    if (!token){
+      return;
+    }
+    SettingsService.clearToken(token);
+  }
 }

@@ -14,11 +14,6 @@ export const settingsPanelStyles: ElementStyles =
         margin: 12px 0 24px 0;
     }
 
-    fluent-slider {
-        width: 200px;
-        margin: 0 0 30px 0;
-    }
-
     .dark-mode-checkbox {
         margin: 12px 0 24px 24px;
     }
