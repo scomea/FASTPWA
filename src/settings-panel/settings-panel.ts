@@ -1,7 +1,6 @@
 import {
   customElement,
   FASTElement,
-  observable,
   ref
 } from "@microsoft/fast-element";
 import {
@@ -19,9 +18,9 @@ import {
 import {
   Checkbox,
   ColumnDefinition,
+  CSSDesignToken,
   DataGrid,
   DataGridCell,
-  DesignToken,
   TextField
 } from "@microsoft/fast-foundation";
 import { html, ViewTemplate } from "@microsoft/fast-element";
@@ -66,7 +65,7 @@ SettingsSlider;
             <fluent-checkbox
               class="dark-mode-checkbox"
               checked="${x => baseLayerLuminance.getValueFor(x) === StandardLuminance.DarkMode ? true : void 0 }"
-              @change="${(x, c) => SettingsPanel.toggleLightMode(c.event)}"
+              @change="${(x, c) => x.toggleLightMode(c.event)}"
             >Dark Mode</fluent-checkbox>
 
             <fluent-divider></fluent-divider>
@@ -208,7 +207,7 @@ const fontSizeCellTemplate = html`
   <template>
     <fluent-text-field
       :value="${ x => x.rowData.fontSizeToken.getValueFor(x)}"
-      @change="${(x, c) => SettingsPanel.updateTypeRampToken(c.event, x.rowData.fontSizeToken)}"
+      @change="${(x, c) => x.$emit('updatetyperamptoken', { token: x.rowData.fontSizeToken, source: c.event.target })}"
     >
     </fluent-text-field>
   </template>
@@ -217,8 +216,8 @@ const fontSizeCellTemplate = html`
 const lineHeightCellTemplate = html`
   <template>
     <fluent-text-field
-      :value="${ x => x.rowData.lineHeightToken.getValueFor(x)}"
-      @change="${(x, c) => SettingsPanel.updateTypeRampToken(c.event, x.rowData.lineHeightToken)}"
+      :value="${x => x.rowData.lineHeightToken.getValueFor(x)}"
+      @change="${(x, c) => x.$emit('updatetyperamptoken', { token: x.rowData.lineHeightToken, source: c.event.target })}"
     >
     </fluent-text-field>
   </template>
@@ -227,7 +226,7 @@ const lineHeightCellTemplate = html`
 const resetRowCellTemplate = html`
   <template>
     <fluent-button
-      @click="${(x, c) => SettingsPanel.clearTypeRampRow(c.event, x.rowData)}"
+      @click="${x => x.$emit('cleartyperamprow', x.rowData)}"
     >
     Reset
     </fluent-button>
@@ -237,12 +236,17 @@ const resetRowCellTemplate = html`
 const resetTypeRampCellTemplate = html`
   <template>
     <fluent-button
-      @click="${(x, c) => SettingsPanel.clearTypeRamp(c.event)}"
+      @click="${x => x.$emit('cleartyperamp')}"
     >
     Reset
     </fluent-button>
   </template>
 `;
+
+interface updateTypeRampTokenEventDetails {
+  token: CSSDesignToken<string>;
+  source: TextField;
+}
 
 const typeRampColumns: ColumnDefinition[] = [
   { columnDataKey: "key",
@@ -288,26 +292,38 @@ export class SettingsPanel extends FASTElement {
   public target: HTMLElement = document.body;
   public typeRampGrid: DataGrid | undefined;
 
-  public static toggleLightMode(e: Event, target: HTMLElement): void {
-    SettingsService.toggleLightMode((e.target as Checkbox).checked, target);
-  };
-
-  public static updateTypeRampToken(e: Event, token: DesignToken<string>, target: HTMLElement): void {
-    SettingsService.updateToken((e.target as TextField).value, token, target);
-  }
-
-  public static clearTypeRamp(e: Event, target: HTMLElement): void {
-    SettingsService.clearTypeRamp(target);
-  }
-
-  public static clearTypeRampRow(e: Event, rowData: typeRampRow, target: HTMLElement): void {
-    SettingsService.clearTypeRampRow(rowData, target);
-  }
-
   public connectedCallback(): void {
     super.connectedCallback();
+    this.addEventListener("updatetyperamptoken", this.updateTypeRampToken);
+    this.addEventListener("cleartyperamprow", this.clearTypeRampRow);
+    this.addEventListener("cleartyperamp", this.clearTypeRamp);
     if (this.typeRampGrid){
       this.typeRampGrid.columnDefinitions = typeRampColumns;
     }
   }
+
+  public disconnectedCallback(): void {
+    this.removeEventListener("updatetyperamptoken", this.updateTypeRampToken);
+    this.removeEventListener("cleartyperamprow", this.clearTypeRampRow);
+    this.removeEventListener("cleartyperamp", this.clearTypeRamp);
+    super.disconnectedCallback();
+  }
+
+  public toggleLightMode = (e: Event): void => {
+    SettingsService.toggleLightMode((e.target as Checkbox).checked, this.target);
+  };
+
+  public updateTypeRampToken = (e: Event): void => {
+    const details: updateTypeRampTokenEventDetails = (e as CustomEvent).detail;
+    SettingsService.updateToken(details.source.value, details.token, this.target);
+  }
+
+  public clearTypeRamp(e: Event): void {
+    SettingsService.clearTypeRamp(this.target);
+  }
+
+  public clearTypeRampRow(e: Event): void {
+    SettingsService.clearTypeRampRow((e as CustomEvent).detail, this.target);
+  }
+
 }

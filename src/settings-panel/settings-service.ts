@@ -74,7 +74,7 @@ export class SettingsService {
       target,
       newVal
     );
-    localStorage.setItem(token.name, (typeof newVal === "number") ?`newval` : newVal);
+    localStorage.setItem(token.name, (typeof newVal === "number") ? `${newVal}` : newVal);
   }
 
   public static applySavedSetting(token: CSSDesignToken<string | number>, target: HTMLElement): void {
@@ -91,8 +91,9 @@ export class SettingsService {
     const savedSetting: string | number | null = localStorage.getItem(token.name);
     if (savedSetting){
       localStorage.removeItem(token.name);
-      token.deleteValueFor(
-        target);
+      console.debug(token.getValueFor(target));
+      token.deleteValueFor(target);
+      console.debug(token.getValueFor(target));
     }
   }
 

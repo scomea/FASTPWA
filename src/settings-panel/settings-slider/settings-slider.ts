@@ -25,23 +25,23 @@ import { settingsSliderStyles } from "./settings-slider.styles";
       <fluent-slider
         class="slider"
         aria-labelledby="label"
-        :value="${x => x.token?.getValueFor(document.body)}"
-        @change="${(x, c) => x.updateToken(c.event, x.token)}"
+        :value="${x => x.token?.getValueFor(x.target)}"
+        @change="${(x, c) => x.updateToken(c.event)}"
         min="${x => x.min}"
         max="${x => x.max}"
         step="${x => x.step}"
       >
       <slot></slot>
       <fluent-slider-label
-        position="${x => x.token?.getValueFor(document.body)}"
+        position="${x => x.token?.getValueFor(x.target)}"
       >
-        ${x => x.token?.getValueFor(document.body)}
+        ${x => x.token?.getValueFor(x.target)}
       </fluent-slider-label>
     </fluent-slider>
     <fluent-button
       class="reset-btn"
       appearance="stealth"
-      @click="${(x, c) => x.resetToken(c.event, x.token)}"
+      @click="${(x, c) => x.resetToken(c.event)}"
     >
       reset
     </fluent-button>
@@ -71,19 +71,20 @@ export class SettingsSlider extends FASTElement {
   public token: CSSDesignToken<number> | undefined;
 
   @observable
-  public target: HTMLElement | undefined;
+  public target: HTMLElement = document.body;
 
-  public updateToken(e: Event, token: CSSDesignToken<number> | undefined): void {
-    if (!token || !this.target){
+  public updateToken(e: Event): void {
+    if (!this.token || !this.target){
       return;
     }
-    SettingsService.updateToken((e.target as Slider).valueAsNumber, token, this.target)
+    SettingsService.updateToken((e.target as Slider).valueAsNumber, this.token, this.target)
   }
 
-  public resetToken(e: Event, token: CSSDesignToken<number> | undefined): void {
-    if (!token || !this.target){
+  public resetToken(e: Event): void {
+    if (!this.token || !this.target){
       return;
     }
-    SettingsService.clearToken(token, this.target);
+    SettingsService.clearToken(this.token, this.target);
+    (e.target as Slider).value = `${this.token.getValueFor(this.target)}}`;
   }
 }

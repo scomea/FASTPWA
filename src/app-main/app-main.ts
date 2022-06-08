@@ -57,7 +57,7 @@ export class AppMain extends FASTElement {
 
   constructor() {
     super();
-    SettingsService.applySavedSettings();
+    SettingsService.applySavedSettings(document.body);
   };
 
   /**
