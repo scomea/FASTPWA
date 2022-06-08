@@ -51,10 +51,6 @@ export class AppMain extends FASTElement {
   @Container container!: Container;
   @observable provider!: any;
 
-  public static pick(): void {
-
-  }
-
   constructor() {
     super();
     SettingsService.setAppRoot(this);
