@@ -289,7 +289,7 @@ function getFocusTarget(cell: DataGridCell): HTMLElement {
 })
 export class SettingsPanel extends FASTElement {
 
-  public target: HTMLElement = document.body;
+  public target: HTMLElement = SettingsService.appRoot;
   public typeRampGrid: DataGrid | undefined;
 
   public connectedCallback(): void {

@@ -25,7 +25,7 @@ import { settingsSliderStyles } from "./settings-slider.styles";
       <fluent-slider
         class="slider"
         aria-labelledby="label"
-        :value="${x => x.token?.getValueFor(x.target)}"
+        :value="${x => `${x.token?.getValueFor(x.target)}`}"
         @change="${(x, c) => x.updateToken(c.event)}"
         min="${x => x.min}"
         max="${x => x.max}"
@@ -77,6 +77,7 @@ export class SettingsSlider extends FASTElement {
     if (!this.token || !this.target){
       return;
     }
+    console.log(`updatetoken ${this.token.name} ${this.token.getValueFor(this.target)} ${(e.target as Slider).valueAsNumber}`)
     SettingsService.updateToken((e.target as Slider).valueAsNumber, this.token, this.target)
   }
 
@@ -85,6 +86,5 @@ export class SettingsSlider extends FASTElement {
       return;
     }
     SettingsService.clearToken(this.token, this.target);
-    (e.target as Slider).value = `${this.token.getValueFor(this.target)}}`;
   }
 }

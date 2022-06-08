@@ -54,6 +54,8 @@ export const typeRampRows: typeRampRow[] = [
 
 export class SettingsService {
 
+  public static appRoot: HTMLElement = document.body;
+
   public static toggleLightMode(newVal: boolean, target: HTMLElement): void {
     baseLayerLuminance.setValueFor(
       target,
@@ -61,6 +63,10 @@ export class SettingsService {
     );
     localStorage.setItem("darkMode", newVal ? "true" : "false")
   };
+
+  public static setAppRoot(element: HTMLElement): void{
+    SettingsService.appRoot = element;
+  }
 
   public static updateToken(
     newVal: number | string,
