@@ -2,16 +2,8 @@ import { css, ElementStyles } from "@microsoft/fast-element";
 import {
     forcedColorsStylesheetBehavior,
 } from "@microsoft/fast-foundation";
-// import {
-//     bodyFont,
-//     controlCornerRadius,
-//     designUnit,
-//     focusStrokeOuter,
-//     neutralForegroundRest,
-//     strokeWidth,
-//     typeRampBaseFontSize,
-//     typeRampBaseLineHeight,
-// } from "../design-tokens.js";
+import { typeRampBase, typeRampPlus6 } from "@fluentui/web-components"
+
 
 /**
  * Styles
@@ -22,6 +14,13 @@ export const notFoundStyles: ElementStyles =
     :host {
     }
 
+    html, body, p {
+        ${typeRampBase}
+    }
+
+    h1 {
+        ${typeRampPlus6}
+    }
 `.withBehaviors(
         forcedColorsStylesheetBehavior(
             css`

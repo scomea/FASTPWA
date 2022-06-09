@@ -1,4 +1,5 @@
 import { css, ElementStyles } from "@microsoft/fast-element";
+import { typeRampBase, typeRampPlus6 } from "@fluentui/web-components"
 
 /**
  * Styles
@@ -7,6 +8,14 @@ import { css, ElementStyles } from "@microsoft/fast-element";
 export const fileViewStyles: ElementStyles =
     css`
     :host {
+    }
+
+    html, body, p {
+        ${typeRampBase}
+    }
+
+    h1 {
+        ${typeRampPlus6}
     }
 
     .container {
