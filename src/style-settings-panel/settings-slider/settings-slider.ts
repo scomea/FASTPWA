@@ -3,13 +3,14 @@ import {
   customElement,
   FASTElement,
   observable,
+  ref
 } from "@microsoft/fast-element";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 import {
   CSSDesignToken,
   Slider,
 } from "@microsoft/fast-foundation";
-import { SettingsService } from "../settings-service";
+import { StyleSettingsService } from "../style-settings-service";
 import { settingsSliderStyles } from "./settings-slider.styles";
 
 /**
@@ -21,7 +22,7 @@ import { settingsSliderStyles } from "./settings-slider.styles";
   <fluent card
     class="container"
   >
-      <h3 id="label" class="label">${x => x.sliderLabel}</h3>
+      <h4 id="label" class="label">${x => x.sliderLabel}</h4>
       <fluent-slider
         class="slider"
         aria-labelledby="label"
@@ -30,6 +31,7 @@ import { settingsSliderStyles } from "./settings-slider.styles";
         min="${x => x.min}"
         max="${x => x.max}"
         step="${x => x.step}"
+        ${ref('slider')}
       >
       <slot></slot>
       <fluent-slider-label
@@ -73,18 +75,20 @@ export class SettingsSlider extends FASTElement {
   @observable
   public target: HTMLElement = document.body;
 
+  public slider: Slider | undefined;
+
   public updateToken(e: Event): void {
     if (!this.token || !this.target){
       return;
     }
-    console.log(`updatetoken ${this.token.name} ${this.token.getValueFor(this.target)} ${(e.target as Slider).valueAsNumber}`)
-    SettingsService.updateToken((e.target as Slider).valueAsNumber, this.token, this.target)
+    StyleSettingsService.updateToken((e.target as Slider).valueAsNumber, this.token, this.target)
   }
 
   public resetToken(e: Event): void {
-    if (!this.token || !this.target){
+    if (!this.token || !this.target || !this.slider){
       return;
     }
-    SettingsService.clearToken(this.token, this.target);
+    StyleSettingsService.clearToken(this.token, this.target);
+    this.slider.value = `${this.token.getValueFor(this.target)}`;
   }
 }

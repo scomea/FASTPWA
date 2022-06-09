@@ -24,10 +24,10 @@ import {
   TextField
 } from "@microsoft/fast-foundation";
 import { html, ViewTemplate } from "@microsoft/fast-element";
-import { SettingsService, typeRampRow, typeRampRows } from "./settings-service";
+import { StyleSettingsService, typeRampRows } from "./style-settings-service";
 import { SettingsSlider } from "./settings-slider/settings-slider";
 import { ColorPicker } from "./color-picker/color-picker";
-import { settingsPanelStyles } from "./settings-panel.styles";
+import { styleSettingsPanelStyles } from "./style-settings-panel.styles";
 
 ColorPicker;
 SettingsSlider;
@@ -37,14 +37,14 @@ SettingsSlider;
  *
  * @public
  */
- export const settingsPanelTemplate: ViewTemplate<SettingsPanel> = html<SettingsPanel>`
+ export const styleSettingsPanelTemplate: ViewTemplate<StyleSettingsPanel> = html<StyleSettingsPanel>`
         <div
           class="container"
         >
-            <h1>Settings</h1>
+            <h2>Style settings</h2>
 
             <fluent-divider></fluent-divider>
-            <h2>Colors</h2>
+            <h3>Colors</h3>
 
             <settings-slider
               slider-label="Disabled Opacity"
@@ -70,8 +70,11 @@ SettingsSlider;
 
             <fluent-divider></fluent-divider>
 
-            <h2>Layout</h2>
+            <h3>Layout</h3>
 
+            <div
+              class="layout-sliders"
+            >
             <settings-slider
               slider-label="Layer corner radius"
               min="0"
@@ -166,7 +169,6 @@ SettingsSlider;
               slider-label="Base Horizontal Spacing Multiplier"
               min="0"
               max="6"
-              step="1"
               :target="${x => x.target}"
               :token="${x => baseHorizontalSpacingMultiplier}"
             >
@@ -177,17 +179,17 @@ SettingsSlider;
               6
               </fluent-slider-label>
             </settings-slider>
+            </div>
 
             <fluent-divider></fluent-divider>
-            <h2>Typography</h2>
+            <h3>Typography</h3>
             <h4 id="type-ramp-grid-label">Type Ramp</h4>
             <fluent-data-grid
               :rowsData="${x => typeRampRows}"
-              grid-template-columns="100px 140px 140px"
+              grid-template-columns="80px 100px 100px 100px"
               class="type-ramp-grid"
               ${ref('typeRampGrid')}
           ></fluent-data-grid>
-            <fluent-divider></fluent-divider>
         </div>
 `;
 
@@ -283,13 +285,13 @@ function getFocusTarget(cell: DataGridCell): HTMLElement {
 }
 
 @customElement({
-  name: "settings-panel",
-  template: settingsPanelTemplate,
-  styles: settingsPanelStyles,
+  name: "style-settings-panel",
+  template: styleSettingsPanelTemplate,
+  styles: styleSettingsPanelStyles,
 })
-export class SettingsPanel extends FASTElement {
+export class StyleSettingsPanel extends FASTElement {
 
-  public target: HTMLElement = SettingsService.appRoot;
+  public target: HTMLElement = StyleSettingsService.appRoot;
   public typeRampGrid: DataGrid | undefined;
 
   public connectedCallback(): void {
@@ -310,20 +312,19 @@ export class SettingsPanel extends FASTElement {
   }
 
   public toggleLightMode = (e: Event): void => {
-    SettingsService.toggleLightMode((e.target as Checkbox).checked, this.target);
+    StyleSettingsService.toggleLightMode((e.target as Checkbox).checked, this.target);
   };
 
   public updateTypeRampToken = (e: Event): void => {
     const details: updateTypeRampTokenEventDetails = (e as CustomEvent).detail;
-    SettingsService.updateToken(details.source.value, details.token, this.target);
+    StyleSettingsService.updateToken(details.source.value, details.token, this.target);
   }
 
   public clearTypeRamp(e: Event): void {
-    SettingsService.clearTypeRamp(this.target);
+    StyleSettingsService.clearTypeRamp(this.target);
   }
 
   public clearTypeRampRow(e: Event): void {
-    SettingsService.clearTypeRampRow((e as CustomEvent).detail, this.target);
+    StyleSettingsService.clearTypeRampRow((e as CustomEvent).detail, this.target);
   }
-
 }

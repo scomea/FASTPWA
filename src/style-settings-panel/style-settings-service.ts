@@ -52,12 +52,12 @@ export const typeRampRows: typeRampRow[] = [
   {key: "Plus6", fontSizeToken: typeRampPlus6FontSize, lineHeightToken: typeRampPlus6LineHeight},
 ];
 
-export class SettingsService {
+export class StyleSettingsService {
 
   public static appRoot: HTMLElement = document.body;
 
   public static setAppRoot(element: HTMLElement): void{
-    SettingsService.appRoot = element;
+    StyleSettingsService.appRoot = element;
   }
 
   public static toggleLightMode(newVal: boolean, target: HTMLElement, settingGroup?: string): void {
@@ -66,7 +66,7 @@ export class SettingsService {
       newVal ? StandardLuminance.DarkMode : StandardLuminance.LightMode
     );
 
-    localStorage.setItem(SettingsService.settingName("darkMode", settingGroup), newVal ? "true" : "false")
+    localStorage.setItem(StyleSettingsService.settingName("darkMode", settingGroup), newVal ? "true" : "false")
   };
 
   public static updateToken(
@@ -82,7 +82,7 @@ export class SettingsService {
       target,
       newVal
     );
-    localStorage.setItem(SettingsService.settingName(token.name, settingGroup), (typeof newVal === "number") ? `${newVal}` : newVal);
+    localStorage.setItem(StyleSettingsService.settingName(token.name, settingGroup), (typeof newVal === "number") ? `${newVal}` : newVal);
   }
 
   public static applySavedSetting(
@@ -90,7 +90,7 @@ export class SettingsService {
     target: HTMLElement,
     settingGroup?: string
   ): void {
-    const savedSetting: string | number | null = localStorage.getItem(SettingsService.settingName(token.name, settingGroup));
+    const savedSetting: string | number | null = localStorage.getItem(StyleSettingsService.settingName(token.name, settingGroup));
     if (savedSetting){
       token.setValueFor(
         target,
@@ -104,36 +104,36 @@ export class SettingsService {
     target: HTMLElement,
     settingGroup?: string
   ): void {
-    const savedSetting: string | number | null = localStorage.getItem(SettingsService.settingName(token.name, settingGroup));
+    const savedSetting: string | number | null = localStorage.getItem(StyleSettingsService.settingName(token.name, settingGroup));
     if (savedSetting){
-      localStorage.removeItem(SettingsService.settingName(token.name, settingGroup));
-      token.deleteValueFor(target);
+      localStorage.removeItem(StyleSettingsService.settingName(token.name, settingGroup));
     }
+    token.deleteValueFor(target);
   }
 
   public static applySavedSettings(
     target: HTMLElement,
     settingGroup?: string
   ): void {
-    const darkModeSetting: string | null = localStorage.getItem(SettingsService.settingName("darkMode", settingGroup));
+    const darkModeSetting: string | null = localStorage.getItem(StyleSettingsService.settingName("darkMode", settingGroup));
     if (darkModeSetting) {
       baseLayerLuminance.setValueFor(
         target,
         darkModeSetting === "true" ? StandardLuminance.DarkMode : StandardLuminance.LightMode
       );
     }
-    SettingsService.applySavedSetting(controlCornerRadius, target, settingGroup);
-    SettingsService.applySavedSetting(layerCornerRadius, target, settingGroup);
-    SettingsService.applySavedSetting(density, target, settingGroup);
-    SettingsService.applySavedSetting(strokeWidth, target, settingGroup);
-    SettingsService.applySavedSetting(designUnit, target, settingGroup);
-    SettingsService.applySavedSetting(disabledOpacity, target, settingGroup);
-    SettingsService.applySavedSetting(baseHorizontalSpacingMultiplier, target, settingGroup);
-    SettingsService.applySavedSetting(baseHeightMultiplier, target, settingGroup);
+    StyleSettingsService.applySavedSetting(controlCornerRadius, target, settingGroup);
+    StyleSettingsService.applySavedSetting(layerCornerRadius, target, settingGroup);
+    StyleSettingsService.applySavedSetting(density, target, settingGroup);
+    StyleSettingsService.applySavedSetting(strokeWidth, target, settingGroup);
+    StyleSettingsService.applySavedSetting(designUnit, target, settingGroup);
+    StyleSettingsService.applySavedSetting(disabledOpacity, target, settingGroup);
+    StyleSettingsService.applySavedSetting(baseHorizontalSpacingMultiplier, target, settingGroup);
+    StyleSettingsService.applySavedSetting(baseHeightMultiplier, target, settingGroup);
 
     typeRampRows.forEach(rowdata => {
-      SettingsService.applySavedSetting(rowdata.fontSizeToken, target, settingGroup);
-      SettingsService.applySavedSetting(rowdata.lineHeightToken, target, settingGroup);
+      StyleSettingsService.applySavedSetting(rowdata.fontSizeToken, target, settingGroup);
+      StyleSettingsService.applySavedSetting(rowdata.lineHeightToken, target, settingGroup);
     });
   }
 
@@ -141,23 +141,23 @@ export class SettingsService {
     target: HTMLElement,
     settingGroup?: string
   ): void {
-    const darkModeSetting: string | null = localStorage.getItem(SettingsService.settingName("darkMode", settingGroup));
+    const darkModeSetting: string | null = localStorage.getItem(StyleSettingsService.settingName("darkMode", settingGroup));
     if (darkModeSetting) {
       baseLayerLuminance.setValueFor(
         target,
         darkModeSetting === "true" ? StandardLuminance.DarkMode : StandardLuminance.LightMode
       );
     }
-    SettingsService.clearToken(controlCornerRadius, target, settingGroup);
-    SettingsService.clearToken(layerCornerRadius, target, settingGroup);
-    SettingsService.clearToken(density, target, settingGroup);
-    SettingsService.clearToken(strokeWidth, target, settingGroup);
-    SettingsService.clearToken(designUnit, target, settingGroup);
-    SettingsService.clearToken(disabledOpacity, target, settingGroup);
-    SettingsService.clearToken(baseHorizontalSpacingMultiplier, target, settingGroup);
-    SettingsService.clearToken(baseHeightMultiplier, target, settingGroup);
+    StyleSettingsService.clearToken(controlCornerRadius, target, settingGroup);
+    StyleSettingsService.clearToken(layerCornerRadius, target, settingGroup);
+    StyleSettingsService.clearToken(density, target, settingGroup);
+    StyleSettingsService.clearToken(strokeWidth, target, settingGroup);
+    StyleSettingsService.clearToken(designUnit, target, settingGroup);
+    StyleSettingsService.clearToken(disabledOpacity, target, settingGroup);
+    StyleSettingsService.clearToken(baseHorizontalSpacingMultiplier, target, settingGroup);
+    StyleSettingsService.clearToken(baseHeightMultiplier, target, settingGroup);
 
-    SettingsService.clearTypeRamp(target, settingGroup);
+    StyleSettingsService.clearTypeRamp(target, settingGroup);
   }
 
   public static clearTypeRamp(
@@ -165,7 +165,7 @@ export class SettingsService {
     settingGroup?: string
   ): void {
     typeRampRows.forEach(rowData => {
-      SettingsService.clearTypeRampRow(rowData, target, settingGroup);
+      StyleSettingsService.clearTypeRampRow(rowData, target, settingGroup);
     });
   }
 
@@ -173,8 +173,8 @@ export class SettingsService {
     rowData: typeRampRow,
     target: HTMLElement,
     settingGroup?: string): void {
-    SettingsService.clearToken(rowData.fontSizeToken, target, settingGroup);
-    SettingsService.clearToken(rowData.lineHeightToken, target, settingGroup);
+    StyleSettingsService.clearToken(rowData.fontSizeToken, target, settingGroup);
+    StyleSettingsService.clearToken(rowData.lineHeightToken, target, settingGroup);
   }
 
   private static settingName(baseSettingName: string, settingGroup?: string): string {

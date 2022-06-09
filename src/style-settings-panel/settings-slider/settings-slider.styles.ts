@@ -10,6 +10,7 @@ export const settingsSliderStyles: ElementStyles =
         display: grid;
         grid-template-columns: 1fr auto;
         grid-template-rows: max-content max-content;
+        width: 360px;
         margin: 12px;
     }
 

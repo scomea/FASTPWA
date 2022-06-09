@@ -23,7 +23,7 @@ import { FASTRouter } from "@microsoft/fast-router"
 import { AppMain } from "./app-main/app-main";
 import { NavBar } from "./nav-bar/nav-bar";
 import { NotFound } from "./not-found/not-found";
-import { SettingsPanel } from "./settings-panel/settings-panel";
+import { SettingsScreen } from "./settings-screen/settings-screen";
 
 
 provideFluentDesignSystem().register(
@@ -52,4 +52,4 @@ AppMain;
 NavBar;
 NotFound;
 FASTRouter;
-SettingsPanel;
+SettingsScreen;
