@@ -2,7 +2,7 @@ import { Constructable } from '@microsoft/fast-element';
 import { Container } from '@microsoft/fast-foundation';
 import { RouterConfiguration } from '@microsoft/fast-router';
 import { NotFound } from '../not-found/not-found';
-import { SettingsPanel } from '../settings-panel/settings-panel';
+import { SettingsScreen } from '../settings-screen/settings-screen';
 import { navBarLayout } from '../layouts/nav-bar.layout';
 
 type RouteSettings = {
@@ -23,7 +23,7 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
       { path: 'article', element: () => import("../article-view/article-view").then(module => new module.ArticleView()), title: 'Article', name: 'article' },
       { path: 'article/{id}', element: () => import("../article-view/article-view").then(module => new module.ArticleView()), title: 'Article', name: 'article' },
       { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found', layout: navBarLayout },
-      { path: 'settings-panel', element: SettingsPanel, title: 'Settings', name: 'settings-panel', layout: navBarLayout },
+      { path: 'settings-panel', element: SettingsScreen, title: 'Settings', name: 'settings-panel', layout: navBarLayout },
       { path: 'file-view', element: () => import("../file-view/file-view").then(module => new module.FileView()), title: 'File viewer', name: 'file-view', childRouters: true },
       { path: 'about-screen', element: () => import("../about-screen/about-screen").then(module => new module.AboutScreen()), title: 'About', name: 'about-screen' },
     );

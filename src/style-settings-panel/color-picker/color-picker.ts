@@ -16,7 +16,7 @@ import {
   Slider,
   TextField
 } from "@microsoft/fast-foundation";
-import { SettingsPanel } from "../settings-panel"
+import { StyleSettingsPanel } from "../style-settings-panel"
 import { colorPickerStyles } from "./color-picker.styles";
 
 /**

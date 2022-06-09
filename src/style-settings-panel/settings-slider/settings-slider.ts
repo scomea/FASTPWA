@@ -3,13 +3,14 @@ import {
   customElement,
   FASTElement,
   observable,
+  ref
 } from "@microsoft/fast-element";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 import {
   CSSDesignToken,
   Slider,
 } from "@microsoft/fast-foundation";
-import { SettingsService } from "../settings-service";
+import { StyleSettingsService } from "../style-settings-service";
 import { settingsSliderStyles } from "./settings-slider.styles";
 
 /**
@@ -21,27 +22,28 @@ import { settingsSliderStyles } from "./settings-slider.styles";
   <fluent card
     class="container"
   >
-      <h3 id="label" class="label">${x => x.sliderLabel}</h3>
+      <h4 id="label" class="label">${x => x.sliderLabel}</h4>
       <fluent-slider
         class="slider"
         aria-labelledby="label"
-        :value="${x => x.token?.getValueFor(document.body)}"
-        @change="${(x, c) => x.updateToken(c.event, x.token)}"
+        :value="${x => `${x.token?.getValueFor(x.target)}`}"
+        @change="${(x, c) => x.updateToken(c.event)}"
         min="${x => x.min}"
         max="${x => x.max}"
         step="${x => x.step}"
+        ${ref('slider')}
       >
       <slot></slot>
       <fluent-slider-label
-        position="${x => x.token?.getValueFor(document.body)}"
+        position="${x => x.token?.getValueFor(x.target)}"
       >
-        ${x => x.token?.getValueFor(document.body)}
+        ${x => x.token?.getValueFor(x.target)}
       </fluent-slider-label>
     </fluent-slider>
     <fluent-button
       class="reset-btn"
       appearance="stealth"
-      @click="${(x, c) => x.resetToken(c.event, x.token)}"
+      @click="${(x, c) => x.resetToken(c.event)}"
     >
       reset
     </fluent-button>
@@ -70,21 +72,23 @@ export class SettingsSlider extends FASTElement {
   @observable
   public token: CSSDesignToken<number> | undefined;
 
-  public updateToken(e: Event, token: CSSDesignToken<number> | undefined): void {
-    if (!token){
+  @observable
+  public target: HTMLElement = document.body;
+
+  public slider: Slider | undefined;
+
+  public updateToken(e: Event): void {
+    if (!this.token || !this.target){
       return;
     }
-    token.setValueFor(
-      document.body,
-      (e.target as Slider).valueAsNumber
-    );
-    localStorage.setItem(token.name, (e.target as Slider).currentValue)
+    StyleSettingsService.updateToken((e.target as Slider).valueAsNumber, this.token, this.target)
   }
 
-  public resetToken(e: Event, token: CSSDesignToken<number> | undefined): void {
-    if (!token){
+  public resetToken(e: Event): void {
+    if (!this.token || !this.target || !this.slider){
       return;
     }
-    SettingsService.clearToken(token);
+    StyleSettingsService.clearToken(this.token, this.target);
+    this.slider.value = `${this.token.getValueFor(this.target)}`;
   }
 }

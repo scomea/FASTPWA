@@ -11,7 +11,7 @@ import { DefaultRouteRecognizer } from '@microsoft/fast-router';
 import { registerSW } from 'virtual:pwa-register';
 import { appMainStyles } from "./app-main.styles";
 import { MainRouterConfig } from './routes';
-import { SettingsService } from "../settings-panel/settings-service";
+import { StyleSettingsService } from "../style-settings-panel/style-settings-service";
 import '../styles/global.css';
 
 /**
@@ -51,13 +51,10 @@ export class AppMain extends FASTElement {
   @Container container!: Container;
   @observable provider!: any;
 
-  public static pick(): void {
-
-  }
-
   constructor() {
     super();
-    SettingsService.applySavedSettings();
+    StyleSettingsService.setAppRoot(this);
+    StyleSettingsService.applySavedSettings(StyleSettingsService.appRoot);
   };
 
   /**
