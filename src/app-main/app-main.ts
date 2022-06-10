@@ -3,11 +3,11 @@ import {
   FASTElement,
   html,
   observable,
-  ref,
-  ViewTemplate
+  ViewTemplate,
+  when
 } from "@microsoft/fast-element";
 import { Container, inject, Registration } from '@microsoft/fast-foundation';
-import { DefaultRouteRecognizer } from '@microsoft/fast-router';
+import { DefaultRouteRecognizer, Route } from '@microsoft/fast-router';
 import { registerSW } from 'virtual:pwa-register';
 import { appMainStyles } from "./app-main.styles";
 import { MainRouterConfig } from './routes';
@@ -20,10 +20,8 @@ import '../styles/global.css';
  * @public
  */
  export const appMainTemplate: ViewTemplate<AppMain> = html<AppMain>`
-    <fluent-design-system-provider
+    <div
       class="provider"
-      use-defaults
-      ${ref('provider')}
     >
       <div
         class="app-background"
@@ -37,8 +35,57 @@ import '../styles/global.css';
       <div
         class="app-foreground"
       >
+      ${when(
+        x => x.loadMenu,
+        html`
+        <fluent-menu
+          class="app-menu"
+        >
+        <fluent-menu-item
+          @click="${x => Route.name.push(x, 'home-screen')}"
+        >
+          Welcome
+        </fluent-menu-item>
+        <fluent-menu-item>
+          Articles
+        <fluent-menu>
+          <fluent-menu-item
+            @click="${x => {Route.name.push(x, 'article', {id:"one"});}}"
+          >
+            Article 1
+          </fluent-menu-item>
+          <fluent-menu-item
+            @click="${x => Route.name.push(x, 'article', {id:"two"})}"
+          >
+            Article 2
+          </fluent-menu-item>
+          <fluent-menu-item
+            @click="${x => Route.name.push(x, 'article', {id:"three"})}"
+          >
+            Article 3
+          </fluent-menu-item>
+        </fluent-menu>
+      </fluent-menu-item>
+    <fluent-menu-item
+      @click="${x => Route.name.push(x, 'file-view')}"
+    >
+      File viewer
+    </fluent-menu-item>
+    <fluent-menu-item
+      @click="${x => Route.name.push(x, 'about-screen')}"
+    >
+      About
+    </fluent-menu-item>
+    <fluent-menu-item
+      @click="${x => Route.name.push(x, 'settings-panel')}"
+    >
+      Settings
+    </fluent-menu-item>
+  </fluent-menu class="app-menu">
+        `
+      )}
       </div>
-    </fluent-design-system-provider>
+    </div>
 `;
 
 @customElement({
@@ -51,10 +98,14 @@ export class AppMain extends FASTElement {
   @Container container!: Container;
   @observable provider!: any;
 
+  @observable
+  public loadMenu = false;
+
   constructor() {
     super();
     StyleSettingsService.setAppRoot(this);
     StyleSettingsService.applySavedSettings(StyleSettingsService.appRoot);
+    registerSW({ immediate: true });
   };
 
   /**
@@ -65,6 +116,8 @@ export class AppMain extends FASTElement {
       Registration.transient(DefaultRouteRecognizer, DefaultRouteRecognizer)
     );
     super.connectedCallback();
-    registerSW({ immediate: true });
+    // not sure why yet, but without delay loading the submenu doens't behave properly
+    // adding this workaround for now
+    this.loadMenu = true;
   }
 }
