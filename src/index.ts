@@ -23,6 +23,7 @@ import { FASTRouter } from "@microsoft/fast-router"
 import { AppMain } from "./app-main/app-main";
 import { NotFound } from "./not-found/not-found";
 import { SettingsScreen } from "./settings-screen/settings-screen";
+import { AppPage } from "./app-page/app-page";
 
 
 provideFluentDesignSystem().register(
@@ -48,6 +49,7 @@ provideFluentDesignSystem().register(
 );
 
 AppMain;
+AppPage;
 NotFound;
 FASTRouter;
 SettingsScreen;

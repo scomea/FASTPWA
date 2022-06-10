@@ -14,11 +14,15 @@ import { articleViewStyles } from "./article-view.styles";
  * @public
  */
  export const articleViewTemplate: ViewTemplate<ArticleView> = html<ArticleView>`
-  <iframe
-    class="frame"
-    ${ref("frame")}
-  >
-  </iframe>
+ <app-page
+  class="page"
+ >
+    <iframe
+      class="frame"
+      ${ref("frame")}
+    >
+    </iframe>
+  </app-page>
 `;
 
 @customElement({

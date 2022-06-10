@@ -11,9 +11,9 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  * @public
  */
  export const notFoundTemplate: ViewTemplate<NotFound> = html<NotFound>`
-        <div>
-          <h1>Can't find that :(-</h1>
-        </div>
+ <app-page>
+  <h1>Can't find that :(-</h1>
+</app-page>
 `;
 
 @customElement({

@@ -10,12 +10,6 @@ import {
  */
 export const homeScreenStyles: ElementStyles =
     css`
-    :host {
-        height: 100%;
-        width: 100%;
-        overflow: scroll;
-    }
-
     html, body, p {
         ${typeRampBase}
     }
@@ -26,10 +20,6 @@ export const homeScreenStyles: ElementStyles =
 
     .image {
         width: 100%;
-    }
-
-    .container {
-        padding: 0 12px;
     }
 
 `.withBehaviors(

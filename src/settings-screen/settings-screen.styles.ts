@@ -7,10 +7,6 @@ import { typeRampBase, typeRampPlus6 } from "@fluentui/web-components"
  */
 export const settingsScreenStyles: ElementStyles =
     css`
-    .container {'
-        padding: 0 12px;
-    }
-
     fluent-divider {
         margin: 12px 0 24px 0;
     }

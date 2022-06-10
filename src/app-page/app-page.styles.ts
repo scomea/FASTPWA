@@ -4,15 +4,13 @@ import { css, ElementStyles } from "@microsoft/fast-element";
  * Styles
  * @public
  */
-export const articleViewStyles: ElementStyles =
+export const appPageStyles: ElementStyles =
     css`
-    .frame {
+    :host {
         height: 100%;
         width: 100%
+        box-sizing: border-box;
+        display: block;
+        padding: 0 12px;
     }
-
-    .page {
-        overflow: hidden;
-    }
-
 `

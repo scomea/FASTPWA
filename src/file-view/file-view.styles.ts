@@ -7,19 +7,12 @@ import { typeRampBase, typeRampPlus6 } from "@fluentui/web-components"
  */
 export const fileViewStyles: ElementStyles =
     css`
-    :host {
-    }
-
     html, body, p {
         ${typeRampBase}
     }
 
     h1 {
         ${typeRampPlus6}
-    }
-
-    .container {
-        padding: 0 12px;
     }
 
     fluent-divider {

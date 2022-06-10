@@ -15,16 +15,12 @@ StyleSettingsPanel;
  * @public
  */
  export const settingsScreenTemplate: ViewTemplate<SettingsScreen> = html<SettingsScreen>`
-  <div
-    class="container"
-  >
-    <h1>Settings</h1>
-      <fluent-divider></fluent-divider>
-      <style-settings-panel
-      >
-      </style-settings-panel>
-      <fluent-divider></fluent-divider>
-  </div>
+<app-page>
+  <h1>Settings</h1>
+  <fluent-divider></fluent-divider>
+  <style-settings-panel></style-settings-panel>
+  <fluent-divider></fluent-divider>
+</app-page>
 `;
 
 
@@ -35,14 +31,5 @@ StyleSettingsPanel;
   styles: settingsScreenStyles,
 })
 export class SettingsScreen extends FASTElement {
-
   public target: HTMLElement = StyleSettingsService.appRoot;
-
-  public connectedCallback(): void {
-    super.connectedCallback();
-  }
-
-  public disconnectedCallback(): void {
-    super.disconnectedCallback();
-  }
 }

@@ -11,9 +11,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  * @public
  */
  export const aboutScreenTemplate: ViewTemplate<AboutScreen> = html<AboutScreen>`
-  <div
-    class="container"
-  >
+ <app-page>
     <img class="image" src='assets/images/beach.jpg'>
     <h1>About this PWA</h1>
     <p>
@@ -28,7 +26,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
     Uses the <fluent-anchor appearance="hypertext" href="https://github.com/microsoft/fast">FAST router</fluent-anchor>.
     <p>
 
-    </div>
+    </app-page>
 `;
 
 @customElement({

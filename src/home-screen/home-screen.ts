@@ -11,9 +11,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  * @public
  */
  export const homeScreenTemplate: ViewTemplate<HomeScreen> = html<HomeScreen>`
-  <div
-    class="container"
-  >
+ <app-page>
       <img class="image" src='assets/images/beach.jpg'>
       <h1>Welcome!</h1>
       <p>
@@ -23,7 +21,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
       <p>
       We use the FAST router for navigation, FAST based Fluent web-components and design system for the UI.
       <p>
-  </div>
+</app-page>
 `;
 
 @customElement({

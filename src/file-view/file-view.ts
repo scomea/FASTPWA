@@ -17,15 +17,13 @@ import { FileViewService, fileSystemItem } from "./file-view-service";
  * @public
  */
  export const fileViewTemplate: ViewTemplate<FileView> = html<FileView>`
-  <div
-    class="container"
-  >
+ <app-page>
   <h1>File viewer</h1>
   <fluent-divider></fluent-divider>
     <fast-router
       :config=${x => x.config}
     ></fast-router>
-  </div>
+</app-page>
 `;
 
 @customElement({
