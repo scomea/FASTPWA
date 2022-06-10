@@ -2,7 +2,7 @@ import {
   customElement,
   FASTElement,
 } from "@microsoft/fast-element";
-import { homeScreenStyles } from "./home-screen.styles";
+import { homePageStyles } from "./home-page.styles";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 
 /**
@@ -10,7 +10,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  *
  * @public
  */
- export const homeScreenTemplate: ViewTemplate<HomeScreen> = html<HomeScreen>`
+ export const homePageTemplate: ViewTemplate<HomePage> = html<HomePage>`
  <app-page>
       <img class="image" src='assets/images/beach.jpg'>
       <h1>Welcome!</h1>
@@ -25,9 +25,9 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
 `;
 
 @customElement({
-  name: "home-screen",
-  template: homeScreenTemplate,
-  styles: homeScreenStyles,
+  name: "home-page",
+  template: homePageTemplate,
+  styles: homePageStyles,
 })
-export class HomeScreen extends FASTElement {
+export class HomePage extends FASTElement {
 }

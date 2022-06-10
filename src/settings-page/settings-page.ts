@@ -5,7 +5,7 @@ import {
 import { html, ViewTemplate } from "@microsoft/fast-element";
 import { StyleSettingsPanel } from "../style-settings-panel/style-settings-panel";
 import { StyleSettingsService } from "../style-settings-panel/style-settings-service";
-import { settingsScreenStyles } from "./settings-screen.styles";
+import { settingsPageStyles } from "./settings-page.styles";
 
 StyleSettingsPanel;
 
@@ -14,7 +14,7 @@ StyleSettingsPanel;
  *
  * @public
  */
- export const settingsScreenTemplate: ViewTemplate<SettingsScreen> = html<SettingsScreen>`
+ export const settingsPageTemplate: ViewTemplate<SettingsPage> = html<SettingsPage>`
 <app-page>
   <h1>Settings</h1>
   <fluent-divider></fluent-divider>
@@ -23,13 +23,11 @@ StyleSettingsPanel;
 </app-page>
 `;
 
-
-
 @customElement({
-  name: "settings-screen",
-  template: settingsScreenTemplate,
-  styles: settingsScreenStyles,
+  name: "settings-page",
+  template: settingsPageTemplate,
+  styles: settingsPageStyles,
 })
-export class SettingsScreen extends FASTElement {
+export class SettingsPage extends FASTElement {
   public target: HTMLElement = StyleSettingsService.appRoot;
 }

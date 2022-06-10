@@ -21,8 +21,8 @@ import {
 } from "@fluentui/web-components";
 import { FASTRouter } from "@microsoft/fast-router"
 import { AppMain } from "./app-main/app-main";
-import { NotFound } from "./not-found/not-found";
-import { SettingsScreen } from "./settings-screen/settings-screen";
+import { NotFoundPage } from "./not-found-page/not-found-page";
+import { SettingsPage } from "./settings-page/settings-page";
 import { AppPage } from "./app-page/app-page";
 
 
@@ -50,6 +50,6 @@ provideFluentDesignSystem().register(
 
 AppMain;
 AppPage;
-NotFound;
+NotFoundPage;
 FASTRouter;
-SettingsScreen;
+SettingsPage;

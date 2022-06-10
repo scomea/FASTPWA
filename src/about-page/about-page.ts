@@ -2,7 +2,7 @@ import {
   customElement,
   FASTElement,
 } from "@microsoft/fast-element";
-import { aboutScreenStyles } from "./about-screen.styles";
+import { aboutPageStyles } from "./about-page.styles";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 
 /**
@@ -10,7 +10,7 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  *
  * @public
  */
- export const aboutScreenTemplate: ViewTemplate<AboutScreen> = html<AboutScreen>`
+ export const aboutPageTemplate: ViewTemplate<AboutPage> = html<AboutPage>`
  <app-page>
     <img class="image" src='assets/images/beach.jpg'>
     <h1>About this PWA</h1>
@@ -30,9 +30,9 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
 `;
 
 @customElement({
-  name: "about-screen",
-  template: aboutScreenTemplate,
-  styles: aboutScreenStyles,
+  name: "about-page",
+  template: aboutPageTemplate,
+  styles: aboutPageStyles,
 })
-export class AboutScreen extends FASTElement {
+export class AboutPage extends FASTElement {
 }

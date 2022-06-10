@@ -4,7 +4,7 @@ import { css, ElementStyles } from "@microsoft/fast-element";
  * Styles
  * @public
  */
-export const articleViewStyles: ElementStyles =
+export const articlePageStyles: ElementStyles =
     css`
     .frame {
         height: 100%;

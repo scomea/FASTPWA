@@ -6,14 +6,14 @@ import {
   ViewTemplate
 } from "@microsoft/fast-element";
 import { NavigationPhase, Route } from "@microsoft/fast-router";
-import { articleViewStyles } from "./article-view.styles";
+import { articlePageStyles } from "./article-page.styles";
 
 /**
  * Generates a template
  *
  * @public
  */
- export const articleViewTemplate: ViewTemplate<ArticleView> = html<ArticleView>`
+ export const articlePageTemplate: ViewTemplate<ArticlePage> = html<ArticlePage>`
  <app-page
   class="page"
  >
@@ -27,11 +27,11 @@ import { articleViewStyles } from "./article-view.styles";
 
 @customElement({
   name: "article-view",
-  template: articleViewTemplate,
-  styles: articleViewStyles,
+  template: articlePageTemplate,
+  styles: articlePageStyles,
 })
 
-export class ArticleView extends FASTElement {
+export class ArticlePage extends FASTElement {
   /**
    * reference to the iframe
    *

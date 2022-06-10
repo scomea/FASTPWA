@@ -5,14 +5,10 @@ import { typeRampBase, typeRampPlus6 } from "@fluentui/web-components"
  * Styles
  * @public
  */
-export const settingsScreenStyles: ElementStyles =
+export const aboutPageStyles: ElementStyles =
     css`
-    fluent-divider {
-        margin: 12px 0 24px 0;
-    }
-
-    .dark-mode-checkbox {
-        margin: 12px 0 24px 24px;
+    .image {
+        width: 100%;
     }
 
     html, body, p {
@@ -22,4 +18,5 @@ export const settingsScreenStyles: ElementStyles =
     h1 {
         ${typeRampPlus6}
     }
+
 `

@@ -42,7 +42,7 @@ import '../styles/global.css';
           class="app-menu"
         >
         <fluent-menu-item
-          @click="${x => Route.name.push(x, 'home-screen')}"
+          @click="${x => Route.name.push(x, 'home-page')}"
         >
           Welcome
         </fluent-menu-item>
@@ -50,34 +50,34 @@ import '../styles/global.css';
           Articles
         <fluent-menu>
           <fluent-menu-item
-            @click="${x => {Route.name.push(x, 'article', {id:"one"});}}"
+            @click="${x => {Route.name.push(x, 'article-page', {id:"one"});}}"
           >
             Article 1
           </fluent-menu-item>
           <fluent-menu-item
-            @click="${x => Route.name.push(x, 'article', {id:"two"})}"
+            @click="${x => Route.name.push(x, 'article-page', {id:"two"})}"
           >
             Article 2
           </fluent-menu-item>
           <fluent-menu-item
-            @click="${x => Route.name.push(x, 'article', {id:"three"})}"
+            @click="${x => Route.name.push(x, 'article-page', {id:"three"})}"
           >
             Article 3
           </fluent-menu-item>
         </fluent-menu>
       </fluent-menu-item>
     <fluent-menu-item
-      @click="${x => Route.name.push(x, 'file-view')}"
+      @click="${x => Route.name.push(x, 'file-view-page')}"
     >
       File viewer
     </fluent-menu-item>
     <fluent-menu-item
-      @click="${x => Route.name.push(x, 'about-screen')}"
+      @click="${x => Route.name.push(x, 'about-page')}"
     >
       About
     </fluent-menu-item>
     <fluent-menu-item
-      @click="${x => Route.name.push(x, 'settings-panel')}"
+      @click="${x => Route.name.push(x, 'settings-page')}"
     >
       Settings
     </fluent-menu-item>

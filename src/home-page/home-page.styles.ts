@@ -1,19 +1,15 @@
 import { css, ElementStyles } from "@microsoft/fast-element";
+import { typeRampBase, typeRampPlus6 } from "@fluentui/web-components"
 import {
     forcedColorsStylesheetBehavior,
 } from "@microsoft/fast-foundation";
-import { typeRampBase, typeRampPlus6 } from "@fluentui/web-components"
-
 
 /**
  * Styles
  * @public
  */
-export const notFoundStyles: ElementStyles =
+export const homePageStyles: ElementStyles =
     css`
-    :host {
-    }
-
     html, body, p {
         ${typeRampBase}
     }
@@ -21,6 +17,11 @@ export const notFoundStyles: ElementStyles =
     h1 {
         ${typeRampPlus6}
     }
+
+    .image {
+        width: 100%;
+    }
+
 `.withBehaviors(
         forcedColorsStylesheetBehavior(
             css`

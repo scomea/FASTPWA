@@ -5,7 +5,7 @@ import { typeRampBase, typeRampPlus6 } from "@fluentui/web-components"
  * Styles
  * @public
  */
-export const fileViewStyles: ElementStyles =
+export const fileViewPageStyles: ElementStyles =
     css`
     html, body, p {
         ${typeRampBase}

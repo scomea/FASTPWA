@@ -50,6 +50,6 @@ export class FileViewWelcome extends FASTElement {
       return;
     }
 
-    Route.path.push(`file-view/folder/${this.fileViewService.rootDirectoryHandle?.name}`);
+    Route.path.push(`file-view-page/folder/${this.fileViewService.rootDirectoryHandle?.name}`);
   }
 }
