@@ -4,17 +4,13 @@ import { css, ElementStyles } from "@microsoft/fast-element";
  * Styles
  * @public
  */
-export const fileViewStyles: ElementStyles =
+export const appPageStyles: ElementStyles =
     css`
     :host {
-    }
-
-    .container {
+        height: 100%;
+        width: 100%
+        box-sizing: border-box;
+        display: block;
         padding: 0 12px;
     }
-
-    fluent-divider {
-        margin: 12px 0 12px 0;
-    }
-
 `

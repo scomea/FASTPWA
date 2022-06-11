@@ -1,4 +1,5 @@
 import { css, ElementStyles } from "@microsoft/fast-element";
+import { typeRampPlus4, typeRampPlus5 } from "@fluentui/web-components";
 
 /**
  * Styles
@@ -6,6 +7,15 @@ import { css, ElementStyles } from "@microsoft/fast-element";
  */
 export const styleSettingsPanelStyles: ElementStyles =
     css`
+
+    h3 {
+        ${typeRampPlus5}
+    }
+
+    h4 {
+        ${typeRampPlus4}
+    }
+
     .container {'
         padding: 0 12px;
     }

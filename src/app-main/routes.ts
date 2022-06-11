@@ -1,9 +1,9 @@
 import { Constructable } from '@microsoft/fast-element';
 import { Container } from '@microsoft/fast-foundation';
 import { RouterConfiguration } from '@microsoft/fast-router';
-import { NotFound } from '../not-found/not-found';
-import { SettingsScreen } from '../settings-screen/settings-screen';
-import { navBarLayout } from '../layouts/nav-bar.layout';
+import { NotFoundPage } from '../not-found-page/not-found-page';
+import { SettingsPage } from '../settings-page/settings-page';
+import { defaultLayout } from '../layouts/default.layout';
 
 type RouteSettings = {
   public?: boolean
@@ -16,20 +16,20 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
 
   public configure() {
     this.title = "FAST PWA";
-    this.defaultLayout = navBarLayout;
+    this.defaultLayout = defaultLayout;
     this.routes.map(
-      { path: '', redirect: 'home-screen' },
-      { path: 'home-screen', element: () => import("../home-screen/home-screen").then(module => new module.HomeScreen()), title: 'Home', name: 'home-screen' },
-      { path: 'article', element: () => import("../article-view/article-view").then(module => new module.ArticleView()), title: 'Article', name: 'article' },
-      { path: 'article/{id}', element: () => import("../article-view/article-view").then(module => new module.ArticleView()), title: 'Article', name: 'article' },
-      { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found', layout: navBarLayout },
-      { path: 'settings-panel', element: SettingsScreen, title: 'Settings', name: 'settings-panel', layout: navBarLayout },
-      { path: 'file-view', element: () => import("../file-view/file-view").then(module => new module.FileView()), title: 'File viewer', name: 'file-view', childRouters: true },
-      { path: 'about-screen', element: () => import("../about-screen/about-screen").then(module => new module.AboutScreen()), title: 'About', name: 'about-screen' },
+      { path: '', redirect: 'home-page' },
+      { path: 'home-page', element: () => import("../home-page/home-page").then(module => new module.HomePage()), title: 'Home', name: 'home-page' },
+      { path: 'article-page', element: () => import("../article-page/article-page").then(module => new module.ArticlePage()), title: 'Articles', name: 'article-page' },
+      { path: 'article-page/{id}', element: () => import("../article-page/article-page").then(module => new module.ArticlePage()), title: 'Articles', name: 'article-page' },
+      { path: 'not-found-page', element: NotFoundPage, title: 'Not Found', name: 'not-found-page' },
+      { path: 'settings-page', element: SettingsPage, title: 'Settings', name: 'settings-page' },
+      { path: 'file-view-page', element: () => import("../file-view-page/file-view-page").then(module => new module.FileViewPage()), title: 'File viewer', name: 'file-view-page', childRouters: true },
+      { path: 'about-page', element: () => import("../about-page/about-page").then(module => new module.AboutPage()), title: 'About', name: 'about-page' },
     );
 
     this.routes.fallback(
-      { redirect: 'not-found' }
+      { redirect: 'not-found-page' }
     );
   }
 

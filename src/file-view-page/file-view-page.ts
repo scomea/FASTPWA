@@ -2,12 +2,11 @@ import {
   customElement,
   FASTElement,
   html,
-  observable,
   ViewTemplate,
 } from "@microsoft/fast-element";
-import { ColumnDefinition, inject } from "@microsoft/fast-foundation";
+import { inject } from "@microsoft/fast-foundation";
 import { NavigationPhase, Route } from "@microsoft/fast-router";
-import { fileViewStyles } from "./file-view.styles";
+import { fileViewPageStyles } from "./file-view-page.styles";
 import { FileViewRoutes } from "./file-view-routes";
 import { FileViewService, fileSystemItem } from "./file-view-service";
 
@@ -16,24 +15,22 @@ import { FileViewService, fileSystemItem } from "./file-view-service";
  *
  * @public
  */
- export const fileViewTemplate: ViewTemplate<FileView> = html<FileView>`
-  <div
-    class="container"
-  >
+ export const fileViewPageTemplate: ViewTemplate<FileViewPage> = html<FileViewPage>`
+ <app-page>
   <h1>File viewer</h1>
   <fluent-divider></fluent-divider>
     <fast-router
       :config=${x => x.config}
     ></fast-router>
-  </div>
+</app-page>
 `;
 
 @customElement({
-  name: "file-view",
-  template: fileViewTemplate,
-  styles: fileViewStyles,
+  name: "file-view-page",
+  template: fileViewPageTemplate,
+  styles: fileViewPageStyles,
 })
-export class FileView extends FASTElement {
+export class FileViewPage extends FASTElement {
   config = new FileViewRoutes();
   @inject(FileViewService) fileViewService!: FileViewService;
 
@@ -57,12 +54,12 @@ export class FileView extends FASTElement {
       if ( childRoute === "welcome" ){
         return;
       }
-      phase.cancel(() => Route.path.replace(`file-view/welcome`));
+      phase.cancel(() => Route.path.replace(`file-view-page/welcome`));
       return;
     }
 
     if (childRoute === "welcome" || childRoute === undefined) {
-      phase.cancel(() => Route.path.replace(`file-view/folder/${this.fileViewService.rootDirectoryHandle?.name}`));
+      phase.cancel(() => Route.path.replace(`file-view-page/folder/${this.fileViewService.rootDirectoryHandle?.name}`));
       return;
     }
 
@@ -72,7 +69,7 @@ export class FileView extends FASTElement {
   private handleNavigateToChild(e: Event): void {
     const navTarget: fileSystemItem = (e as CustomEvent).detail as fileSystemItem;
     if (navTarget.fileHandle.kind === "directory") {
-      Route.path.push(`file-view/${this.fileViewService.getCurrentPath()}*${navTarget.fileName}`)
+      Route.path.push(`file-view-page/${this.fileViewService.getCurrentPath()}*${navTarget.fileName}`)
     }
   }
 
@@ -83,7 +80,7 @@ export class FileView extends FASTElement {
       if (!itemPath || itemPath.length === 0) {
         return;
       }
-      let newPath:string = `file-view/folder/${itemPath[0].fileName}`
+      let newPath:string = `file-view-page/folder/${itemPath[0].fileName}`
       if (itemPath[0] !== navTarget){
         for(let i = 1; i < itemPath.length; i++){
           newPath = `${newPath}*${itemPath[i].fileName}`;

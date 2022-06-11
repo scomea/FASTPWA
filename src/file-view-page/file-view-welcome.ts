@@ -17,7 +17,9 @@ import { fileViewWelcomeStyles } from "./file-view-welcome.styles";
  */
  export const fileViewWelcomeTemplate: ViewTemplate<FileViewWelcome> = html<FileViewWelcome>`
   <div>
+  <h1>
   You can see the file system from here...
+  </h1>
   <p>
   This page demonstrates basic navigation of a local directory structure using the PWA's ability to access local files.
   Click the button below to select a folder on your local pc and browse - click on folders and breadcrumbs, back and forward browser navigation should work, colums are sortable.
@@ -48,6 +50,6 @@ export class FileViewWelcome extends FASTElement {
       return;
     }
 
-    Route.path.push(`file-view/folder/${this.fileViewService.rootDirectoryHandle?.name}`);
+    Route.path.push(`file-view-page/folder/${this.fileViewService.rootDirectoryHandle?.name}`);
   }
 }
