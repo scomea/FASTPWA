@@ -25,8 +25,8 @@ import {
 } from "@microsoft/fast-foundation";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 import { StyleSettingsService, typeRampRows } from "./style-settings-service";
-import { SettingsSlider } from "./settings-slider/settings-slider";
-import { ColorPicker } from "./color-picker/color-picker";
+import { SettingsSlider } from "../settings-slider/settings-slider";
+import { ColorPicker } from "../color-picker/color-picker";
 import { styleSettingsPanelStyles } from "./style-settings-panel.styles";
 
 ColorPicker;

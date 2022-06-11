@@ -3,8 +3,8 @@ import {
   FASTElement,
 } from "@microsoft/fast-element";
 import { html, ViewTemplate } from "@microsoft/fast-element";
-import { StyleSettingsPanel } from "../style-settings-panel/style-settings-panel";
-import { StyleSettingsService } from "../style-settings-panel/style-settings-service";
+import { StyleSettingsPanel } from "../../components/style-settings-panel/style-settings-panel";
+import { StyleSettingsService } from "../../components/style-settings-panel/style-settings-service";
 import { settingsPageStyles } from "./settings-page.styles";
 
 StyleSettingsPanel;

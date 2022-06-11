@@ -11,7 +11,7 @@ import { DefaultRouteRecognizer, Route } from '@microsoft/fast-router';
 import { registerSW } from 'virtual:pwa-register';
 import { appMainStyles } from "./app-main.styles";
 import { MainRouterConfig } from './routes';
-import { StyleSettingsService } from "../style-settings-panel/style-settings-service";
+import { StyleSettingsService } from "../components/style-settings-panel/style-settings-service";
 import '../styles/global.css';
 
 /**
