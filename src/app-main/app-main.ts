@@ -39,6 +39,92 @@ AppBar;
             @click="${(x, c) => x.menuButtonClick(c.event as PointerEvent)}"
           >Menu</fluent-button>
         </app-bar>
+        ${when(
+          x => x.showMenu,
+          html<AppMain>`
+          <fluent-anchored-region
+            class="menu-region"
+            ${ref("menuRegion")}
+            id="menu-region"
+            vertical-positioning-mode="locktodefault"
+            vertical-default-position="bottom"
+            vertical-scaling="content"
+            horizontal-positioning-mode="locktodefault"
+            horizontal-default-position="left"
+            horizontal-scaling="anchor"
+            horizontal-inset="true"
+            auto-update-mode="auto"
+            @loaded="${(x, c) => x.menuLoaded(c.event as CustomEvent)}"
+          >
+            <fluent-menu
+              class="app-menu"
+            >
+            <fluent-menu-item
+              ${ref("homeMenuItem")}
+              @change="${x => {
+                Route.name.push(x, 'home-page');
+                x.showMenu = false;
+              }}"
+            >
+              Welcome
+            </fluent-menu-item>
+            <fluent-menu-item>
+              Articles
+            <fluent-menu>
+              <fluent-menu-item
+                @change="${x => {
+                  Route.name.push(x, 'article-page', {id:"one"});
+                  x.showMenu = false;
+                }}"
+              >
+                Article 1
+              </fluent-menu-item>
+              <fluent-menu-item
+                @change="${x => {
+                  Route.name.push(x, 'article-page', {id:"two"});
+                  x.showMenu = false;
+                }}"
+              >
+                Article 2
+              </fluent-menu-item>
+              <fluent-menu-item
+                @change="${x => {
+                  Route.name.push(x, 'article-page', {id:"three"});
+                  x.showMenu = false;
+              }}"
+              >
+                Article 3
+              </fluent-menu-item>
+            </fluent-menu>
+          </fluent-menu-item>
+        <fluent-menu-item
+          @change="${x => {
+            Route.name.push(x, 'file-view-page');
+            x.showMenu = false;
+        }}"
+        >
+          File viewer
+        </fluent-menu-item>
+        <fluent-menu-item
+          @change="${x => {
+            Route.name.push(x, 'about-page');
+            x.showMenu = false;
+          }}"
+        >
+          About
+        </fluent-menu-item>
+        <fluent-menu-item
+          @change="${x => {
+            Route.name.push(x, 'settings-page');
+            x.showMenu = false;
+          }}"
+        >
+          Settings
+        </fluent-menu-item>
+      </fluent-menu>
+      </fluent-anchored-region>
+          `
+    )}
         <fast-router
           :config=${x=> x.config}
           class="app-router"
@@ -48,70 +134,6 @@ AppBar;
       <div
         class="foreground-layer"
       >
-      ${when(
-        x => x.loadMenu,
-        html<AppMain>`
-        <fluent-anchored-region
-          class="menu-region"
-          ${ref("menuRegion")}
-          id="menu-region"
-          fixed-placement="true"
-          vertical-positioning-mode="locktodefault"
-          vertical-default-position="bottom"
-          vertical-scaling="fill"
-          horizontal-positioning-mode="locktodefault"
-          horizontal-default-position="left"
-          horizontal-scaling="anchor"
-          horizontal-inset="true"
-          auto-update-mode="auto"
-        >
-          <fluent-menu
-            class="app-menu"
-          >
-          <fluent-menu-item
-            @click="${x => Route.name.push(x, 'home-page')}"
-          >
-            Welcome
-          </fluent-menu-item>
-          <fluent-menu-item>
-            Articles
-          <fluent-menu>
-            <fluent-menu-item
-              @click="${x => {Route.name.push(x, 'article-page', {id:"one"});}}"
-            >
-              Article 1
-            </fluent-menu-item>
-            <fluent-menu-item
-              @click="${x => Route.name.push(x, 'article-page', {id:"two"})}"
-            >
-              Article 2
-            </fluent-menu-item>
-            <fluent-menu-item
-              @click="${x => Route.name.push(x, 'article-page', {id:"three"})}"
-            >
-              Article 3
-            </fluent-menu-item>
-          </fluent-menu>
-        </fluent-menu-item>
-      <fluent-menu-item
-        @click="${x => Route.name.push(x, 'file-view-page')}"
-      >
-        File viewer
-      </fluent-menu-item>
-      <fluent-menu-item
-        @click="${x => Route.name.push(x, 'about-page')}"
-      >
-        About
-      </fluent-menu-item>
-      <fluent-menu-item
-        @click="${x => Route.name.push(x, 'settings-page')}"
-      >
-        Settings
-      </fluent-menu-item>
-    </fluent-menu>
-    </fluent-anchored-region>
-        `
-      )}
   </div>
 `;
 
@@ -126,13 +148,23 @@ export class AppMain extends FASTElement {
   @observable provider!: any;
 
   @observable
-  public loadMenu: boolean = false;
+  public showMenu: boolean = false;
+  public showMenuChanged(prev: boolean, next: boolean): void {
+    if (prev === next){
+      return;
+    }
+    if (next){
+      DOM.queueUpdate(() => {
+        this.setRegionProps();
+      });
+    } else {
+      this.removeEventListener("focusout", this.handleMenuBlur)
+    }
+  }
 
-  @observable
   public menuButton: HTMLElement | undefined;
-
-  @observable
   public menuRegion: AnchoredRegion | undefined;
+  public homeMenuItem: HTMLElement | undefined;
 
   constructor() {
     super();
@@ -152,18 +184,30 @@ export class AppMain extends FASTElement {
   }
 
   public menuButtonClick = (e: PointerEvent): void => {
-    this.loadMenu = !this.loadMenu;
-    if (this.loadMenu){
-      DOM.queueUpdate(this.setRegionProps);
+    this.showMenu = !this.showMenu;
+  }
+
+  public menuLoaded = (e: CustomEvent): void => {
+    this.homeMenuItem?.focus();
+  }
+
+  public handleMenuBlur = (e: FocusEvent): void => {
+    if (!e.relatedTarget || (!this.menuRegion?.contains(e.relatedTarget as Element) && e.relatedTarget !== this.menuButton)){
+      this.showMenu = false;
     }
   }
 
   private setRegionProps = (): void => {
     if (!this.menuRegion || !this.menuButton){
+      //todo: simplify, likely by fixing anchored region to recognize shadow dom id's
+      DOM.queueUpdate(() => {
+        this.setRegionProps();
+      });
       return;
     }
 
     this.menuRegion.viewportElement = this;
     this.menuRegion.anchorElement = this.menuButton;
+    this.menuRegion.addEventListener("focusout", this.handleMenuBlur)
   }
 }
