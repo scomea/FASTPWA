@@ -27,17 +27,20 @@
 
     <script type="module" src="/src/index.ts"></script>
     <style>
-      html, body, app-main {
-        width: 100%;
-        height: 100%;
+      html, body, .provider {
         padding: 0;
         margin: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
       }
+
     </style>
   </head>
 
   <body>
     <fluent-design-system-provider
+      class="provider"
       use-defaults
     >
       <app-main>

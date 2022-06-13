@@ -9,40 +9,57 @@ export const appMainStyles: ElementStyles =
         :host{
             height: 100%;
             width: 100%;
+            display: block;
             color: var(--neutral-foreground-rest);
-            --menu-width: 180px;
+            --app-bar-height: 40px;
+            overflow: hidden;
         }
 
-        .provider{
+        .foreground-layer{
             height: 100%;
             width: 100%;
-        }
-
-        .app-foreground{
             position: absolute;
-            height: 100%;
-            width: 100%;
             pointer-events: none;
         }
 
-        .app-background{
-            position: absolute;
+        .background-layer{
             height: 100%;
             width: 100%;
+            position: absolute;
             background: var(--neutral-layer-1);
         }
 
-        .app-router{
-            margin-left: calc(var(--menu-width) + 12px);
-            position: absolute;
+        .main-layer{
             height: 100%;
-            width: calc(100% - calc(var(--menu-width) + 12px));
+            width: 100%;
+            position: absolute;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 1fr;
+        }
+
+        .app-router{
+            overflow: auto;
+            grid-row: 2;
+            grid-column: 1;
         }
 
         .app-menu{
-            margin: 12px;
-            width: var(--menu-width);
             pointer-events: auto;
+        }
+
+        app-bar {
+            height: var(--app-bar-height);
+            grid-row: 1;
+            grid-column: 1;
+        }
+
+        .menu-button {
+            width: 120px;
+        }
+
+        .menu-region {
         }
 
 `

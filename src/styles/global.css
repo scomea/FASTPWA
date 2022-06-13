@@ -3,7 +3,7 @@
   This file is used for all of your global styles and CSS variables.
 */
 :root {
-  --font-family: sans-serif;
+  --font-family: system-ui;
 }
 
 html, body {
