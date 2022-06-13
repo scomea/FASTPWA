@@ -10,7 +10,7 @@ import {
   CSSDesignToken,
   Slider,
 } from "@microsoft/fast-foundation";
-import { StyleSettingsService } from "../style-settings-service";
+import { StyleSettingsService } from "../style-settings-panel/style-settings-service";
 import { settingsSliderStyles } from "./settings-slider.styles";
 
 /**

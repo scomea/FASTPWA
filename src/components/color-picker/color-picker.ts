@@ -3,20 +3,11 @@ import {
   customElement,
   FASTElement,
   observable,
-  ref
 } from "@microsoft/fast-element";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 import {
-  Checkbox,
-  ColumnDefinition,
   CSSDesignToken,
-  DataGrid,
-  DataGridCell,
-  DesignToken,
-  Slider,
-  TextField
 } from "@microsoft/fast-foundation";
-import { StyleSettingsPanel } from "../style-settings-panel"
 import { colorPickerStyles } from "./color-picker.styles";
 
 /**

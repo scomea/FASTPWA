@@ -17,13 +17,14 @@ import {
     fluentSliderLabel,
     fluentSwitch,
     fluentTextField,
-    provideFluentDesignSystem
+    provideFluentDesignSystem,
+    fluentToolbar
 } from "@fluentui/web-components";
 import { FASTRouter } from "@microsoft/fast-router"
 import { AppMain } from "./app-main/app-main";
-import { NotFoundPage } from "./not-found-page/not-found-page";
-import { SettingsPage } from "./settings-page/settings-page";
-import { AppPage } from "./app-page/app-page";
+import { NotFoundPage } from "./pages/not-found-page/not-found-page";
+import { SettingsPage } from "./pages/settings-page/settings-page";
+import { AppPage } from "./components/app-page/app-page";
 
 
 provideFluentDesignSystem().register(
@@ -39,13 +40,13 @@ provideFluentDesignSystem().register(
     fluentDataGridRow(),
     fluentDataGridCell(),
     fluentDivider(),
-    fluentTextField(),
     fluentMenu(),
     fluentMenuItem(),
     fluentSlider(),
     fluentSliderLabel(),
     fluentSwitch(),
     fluentTextField(),
+    fluentToolbar(),
 );
 
 AppMain;
