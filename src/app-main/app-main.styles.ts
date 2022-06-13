@@ -60,6 +60,10 @@ export const appMainStyles: ElementStyles =
         }
 
         .menu-region {
+            z-index: 10;
+            overflow: visible;
+            min-height: 10px;
+            min-width: 10px;
         }
 
 `
