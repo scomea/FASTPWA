@@ -24,8 +24,8 @@
 
     <!-- Imports the manifest to represent the web application. A web app must have a manifest to be a PWA. -->
     <link rel="manifest" href="/manifest.json" />
-
     <script type="module" src="/src/index.ts"></script>
+    <script>navigator.serviceWorker.register("dist/sw.js")</script>
     <style>
       html, body, .provider {
         padding: 0;
@@ -34,7 +34,6 @@
         width: 100%;
         overflow: hidden;
       }
-
     </style>
   </head>
 
