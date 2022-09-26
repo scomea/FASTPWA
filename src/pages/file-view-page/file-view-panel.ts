@@ -146,6 +146,9 @@ export class FileViewPanel extends FASTElement {
 
   public displayGrid: DataGrid | undefined;
 
+  private currentSort: string = "fileName";
+  private invertSort: boolean = false;
+
   public connectedCallback(): void {
     super.connectedCallback();
     this.addEventListener("updatesort", this.handleUpdateSort);
@@ -170,15 +173,23 @@ export class FileViewPanel extends FASTElement {
 
   public handleUpdateSort = (e: Event): void => {
     const columnDefinition: ColumnDefinition = (e as CustomEvent).detail as ColumnDefinition;
-    switch (columnDefinition.columnDataKey) {
+
+    if (this.currentSort === columnDefinition.columnDataKey) {
+      this.invertSort = !this.invertSort;
+    } else {
+      this.invertSort = false;
+      this.currentSort =  columnDefinition.columnDataKey;
+    }
+
+    switch (this.currentSort) {
       case "fileName":
         this.items.sort((a: fileSystemItem, b: fileSystemItem): number => {
           const A: string = a.fileName;
           const B: string = b.fileName;
           if (A < B) {
-            return -1;
+            return this.invertSort ? -1 : 1;
           } else if (A > B) {
-            return 1;
+            return this.invertSort ? 1 : -1;
           } else {
             return 0;
           }
@@ -189,9 +200,9 @@ export class FileViewPanel extends FASTElement {
           const A: string  = a.fileData ? a.fileData.type : "folder";
           const B: string = b.fileData ? b.fileData.type : "folder";
           if (A < B) {
-            return -1;
+            return this.invertSort ? -1 : 1;
           } else if (A > B) {
-            return 1;
+            return this.invertSort ? 1 : -1;
           } else {
             return 0;
           }
@@ -202,9 +213,9 @@ export class FileViewPanel extends FASTElement {
           const A: number  = a.fileData ? a.fileData.size : 0;
           const B: number = b.fileData ? b.fileData.size : 0;
           if (A < B) {
-            return -1;
+            return this.invertSort ? -1 : 1;
           } else if (A > B) {
-            return 1;
+            return this.invertSort ? 1 : -1;
           } else {
             return 0;
           }
@@ -215,9 +226,9 @@ export class FileViewPanel extends FASTElement {
           const A: number  = a.fileData ? a.fileData.lastModified : 0;
           const B: number = b.fileData ? b.fileData.lastModified : 0;
           if (A < B) {
-            return -1;
+            return this.invertSort ? -1 : 1;
           } else if (A > B) {
-            return 1;
+            return this.invertSort ? 1 : -1;
           } else {
             return 0;
           }
