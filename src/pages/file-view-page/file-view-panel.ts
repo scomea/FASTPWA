@@ -174,6 +174,10 @@ export class FileViewPanel extends FASTElement {
   public handleUpdateSort = (e: Event): void => {
     const columnDefinition: ColumnDefinition = (e as CustomEvent).detail as ColumnDefinition;
 
+    if (!this.displayGrid){
+      return;
+    }
+
     if (this.currentSort === columnDefinition.columnDataKey) {
       this.invertSort = !this.invertSort;
     } else {
@@ -194,6 +198,7 @@ export class FileViewPanel extends FASTElement {
             return 0;
           }
         });
+        this.displayGrid.gridTemplateColumns ="1fr 120px 120px 140px"
         break;
       case "fileData.type":
         this.items.sort((a: fileSystemItem, b: fileSystemItem): number => {
@@ -207,6 +212,7 @@ export class FileViewPanel extends FASTElement {
             return 0;
           }
         });
+        this.displayGrid.gridTemplateColumns ="1fr 240px 120px 140px"
         break;
       case "fileData.size":
         this.items.sort((a: fileSystemItem, b: fileSystemItem): number => {
@@ -220,6 +226,7 @@ export class FileViewPanel extends FASTElement {
             return 0;
           }
         });
+        this.displayGrid.gridTemplateColumns ="1fr 120px 240px 140px"
         break;
       case "fileData.lastModified":
         this.items.sort((a: fileSystemItem, b: fileSystemItem): number => {
@@ -233,6 +240,7 @@ export class FileViewPanel extends FASTElement {
             return 0;
           }
         });
+        this.displayGrid.gridTemplateColumns ="1fr 120px 120px 240px"
         break;
     }
   }
