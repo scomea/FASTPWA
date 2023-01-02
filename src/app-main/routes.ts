@@ -26,6 +26,7 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
       { path: 'settings-page', element: SettingsPage, title: 'Settings', name: 'settings-page' },
       { path: 'file-view-page', element: () => import("../pages/file-view-page/file-view-page").then(module => new module.FileViewPage()), title: 'File viewer', name: 'file-view-page', childRouters: true },
       { path: 'about-page', element: () => import("../pages/about-page/about-page").then(module => new module.AboutPage()), title: 'About', name: 'about-page' },
+      { path: 'video-page', element: () => import("../pages/video-page/video-page").then(module => new module.VideoPage()), title: 'Video', name: 'video-page' },
     );
 
     this.routes.fallback(

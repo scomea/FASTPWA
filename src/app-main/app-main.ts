@@ -107,6 +107,14 @@ AppBar;
         </fluent-menu-item>
         <fluent-menu-item
           @change="${x => {
+            Route.name.push(x, 'video-page');
+            x.showMenu = false;
+        }}"
+      >
+        Video feeds
+      </fluent-menu-item>
+        <fluent-menu-item
+          @change="${x => {
             Route.name.push(x, 'about-page');
             x.showMenu = false;
           }}"
