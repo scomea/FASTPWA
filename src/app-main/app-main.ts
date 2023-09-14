@@ -8,7 +8,6 @@ import {
   ViewTemplate,
   when
 } from "@microsoft/fast-element";
-import {} from "@microsoft/fast-element";
 import { Registration, Container, inject } from '@microsoft/fast-element/di';
 import { FASTAnchoredRegion } from '@microsoft/fast-foundation';
 import { DefaultRouteRecognizer, Route } from '@microsoft/fast-router';

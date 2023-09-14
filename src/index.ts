@@ -7,11 +7,9 @@ import { NotFoundPage } from "./pages/not-found-page/not-found-page.js";
 import { SettingsPage } from "./pages/settings-page/settings-page.js";
 import { AppPage } from "./components/app-page/app-page.js";
 
-DesignToken.registerDefaultStyleTarget();
-
-AdaptiveDesignSystem.defineComponents(AllComponents);
-
+FASTRouter;
 AppMain;
 AppPage;
 NotFoundPage;
-FASTRouter;
+DesignToken.registerDefaultStyleTarget();
+AdaptiveDesignSystem.defineComponents(AllComponents);
