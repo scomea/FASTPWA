@@ -35,16 +35,16 @@ AppBar;
         class="main-layer"
       >
         <app-bar>
-          <fluent-button
+          <adaptive-button
             class="menu-button"
             ${ref("menuButton")}
             @click="${(x, c) => x.menuButtonClick(c.event as PointerEvent)}"
-          >Menu</fluent-button>
+          >Menu</adaptive-button>
         </app-bar>
         ${when(
           x => x.showMenu,
           html<AppMain>`
-          <fluent-anchored-region
+          <adaptive-anchored-region
             class="menu-region"
             ${ref("menuRegion")}
             id="menu-region"
@@ -58,10 +58,10 @@ AppBar;
             auto-update-mode="auto"
             @loaded="${(x, c) => x.menuLoaded(c.event as CustomEvent)}"
           >
-            <fluent-menu
+            <adaptive-menu
               class="app-menu"
             >
-            <fluent-menu-item
+            <adaptive-menu-item
               ${ref("homeMenuItem")}
               @change="${x => {
                 Route.name.push(x, 'home-page');
@@ -69,62 +69,62 @@ AppBar;
               }}"
             >
               Welcome
-            </fluent-menu-item>
-            <fluent-menu-item>
+            </adaptive-menu-item>
+            <adaptive-menu-item>
               Articles
-            <fluent-menu>
-              <fluent-menu-item
+            <adaptive-menu>
+              <adaptive-menu-item
                 @change="${x => {
                   Route.name.push(x, 'article-page', {id:"one"});
                   x.showMenu = false;
                 }}"
               >
                 Article 1
-              </fluent-menu-item>
-              <fluent-menu-item
+              </adaptive-menu-item>
+              <adaptive-menu-item
                 @change="${x => {
                   Route.name.push(x, 'article-page', {id:"two"});
                   x.showMenu = false;
                 }}"
               >
                 Article 2
-              </fluent-menu-item>
-              <fluent-menu-item
+              </adaptive-menu-item>
+              <adaptive-menu-item
                 @change="${x => {
                   Route.name.push(x, 'article-page', {id:"three"});
                   x.showMenu = false;
               }}"
               >
                 Article 3
-              </fluent-menu-item>
-            </fluent-menu>
-          </fluent-menu-item>
-        <fluent-menu-item
+              </adaptive-menu-item>
+            </adaptive-menu>
+          </adaptive-menu-item>
+        <adaptive-menu-item
           @change="${x => {
             Route.name.push(x, 'file-view-page');
             x.showMenu = false;
         }}"
         >
           File viewer
-        </fluent-menu-item>
-        <fluent-menu-item
+        </adaptive-menu-item>
+        <adaptive-menu-item
           @change="${x => {
             Route.name.push(x, 'about-page');
             x.showMenu = false;
           }}"
         >
           About
-        </fluent-menu-item>
-        <fluent-menu-item
+        </adaptive-menu-item>
+        <adaptive-menu-item
           @change="${x => {
             Route.name.push(x, 'settings-page');
             x.showMenu = false;
           }}"
         >
           Settings
-        </fluent-menu-item>
-      </fluent-menu>
-      </fluent-anchored-region>
+        </adaptive-menu-item>
+      </adaptive-menu>
+      </adaptive-anchored-region>
           `
     )}
         <fast-router

@@ -25,7 +25,7 @@ export const fileViewPanelStyles: ElementStyles =
     .header-button::part(control):hover{
     }
 
-    fluent-button::part(control){
+    adaptive-button::part(control){
         justify-content: start;
         padding: 0 12px;
     }
@@ -37,11 +37,11 @@ export const fileViewPanelStyles: ElementStyles =
         padding: 0;
     }
 
-    fluent-breadcrumb {
+    adaptive-breadcrumb {
         margin: 0 0 6px 0;
     }
 
-    fluent-button {
+    adaptive-button {
         position: unset;
     }
 `

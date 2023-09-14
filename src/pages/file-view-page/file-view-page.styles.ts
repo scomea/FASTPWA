@@ -12,7 +12,7 @@ export const fileViewPageStyles: ElementStyles =
     h1 {
     }
 
-    fluent-divider {
+    adaptive-divider {
         margin: 12px 0 12px 0;
     }
 

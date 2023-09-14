@@ -14,7 +14,7 @@
 //     layerCornerRadius,
 //     StandardLuminance,
 //     strokeWidth,
-// } from "@fluentui/web-components";
+// } from "@adaptiveui/web-components";
 // import {
 //   Checkbox,
 //   ColumnDefinition,
@@ -43,7 +43,7 @@
 //         >
 //             <h2>Style settings</h2>
 
-//             <fluent-divider></fluent-divider>
+//             <adaptive-divider></adaptive-divider>
 //             <h3>Colors</h3>
 
 //             <settings-slider
@@ -54,21 +54,21 @@
 //               :target="${x => x.target}"
 //               :token="${x => disabledOpacity}"
 //             >
-//               <fluent-slider-label position="0">
+//               <adaptive-slider-label position="0">
 //               0
-//               </fluent-slider-label>
-//               <fluent-slider-label position="1">
+//               </adaptive-slider-label>
+//               <adaptive-slider-label position="1">
 //               1
-//               </fluent-slider-label>
+//               </adaptive-slider-label>
 //             </settings-slider>
 
-//             <fluent-checkbox
+//             <adaptive-checkbox
 //               class="dark-mode-checkbox"
 //               checked="${x => baseLayerLuminance.getValueFor(x) === StandardLuminance.DarkMode ? true : void 0 }"
 //               @change="${(x, c) => x.toggleLightMode(c.event)}"
-//             >Dark Mode</fluent-checkbox>
+//             >Dark Mode</adaptive-checkbox>
 
-//             <fluent-divider></fluent-divider>
+//             <adaptive-divider></adaptive-divider>
 
 //             <h3>Layout</h3>
 
@@ -82,12 +82,12 @@
 //               :target="${x => x.target}"
 //               :token="${x => layerCornerRadius}"
 //             >
-//               <fluent-slider-label position="0">
+//               <adaptive-slider-label position="0">
 //               0
-//               </fluent-slider-label>
-//               <fluent-slider-label position="20">
+//               </adaptive-slider-label>
+//               <adaptive-slider-label position="20">
 //               20
-//               </fluent-slider-label>
+//               </adaptive-slider-label>
 //             </settings-slider>
 
 //             <settings-slider
@@ -97,12 +97,12 @@
 //               :target="${x => x.target}"
 //               :token="${x => controlCornerRadius}"
 //             >
-//               <fluent-slider-label position="0">
+//               <adaptive-slider-label position="0">
 //               0
-//               </fluent-slider-label>
-//               <fluent-slider-label position="20">
+//               </adaptive-slider-label>
+//               <adaptive-slider-label position="20">
 //               20
-//               </fluent-slider-label>
+//               </adaptive-slider-label>
 //             </settings-slider>
 
 //             <settings-slider
@@ -112,12 +112,12 @@
 //               :target="${x => x.target}"
 //               :token="${x => density}"
 //             >
-//               <fluent-slider-label position="0">
+//               <adaptive-slider-label position="0">
 //               0
-//               </fluent-slider-label>
-//               <fluent-slider-label position="10">
+//               </adaptive-slider-label>
+//               <adaptive-slider-label position="10">
 //               10
-//               </fluent-slider-label>
+//               </adaptive-slider-label>
 //             </settings-slider>
 
 //             <settings-slider
@@ -127,12 +127,12 @@
 //               :target="${x => x.target}"
 //               :token="${x => strokeWidth}"
 //             >
-//               <fluent-slider-label position="0">
+//               <adaptive-slider-label position="0">
 //               0
-//               </fluent-slider-label>
-//               <fluent-slider-label position="4">
+//               </adaptive-slider-label>
+//               <adaptive-slider-label position="4">
 //               4
-//               </fluent-slider-label>
+//               </adaptive-slider-label>
 //             </settings-slider>
 
 //             <settings-slider
@@ -142,12 +142,12 @@
 //               :target="${x => x.target}"
 //               :token="${x => designUnit}"
 //             >
-//               <fluent-slider-label position="0">
+//               <adaptive-slider-label position="0">
 //               0
-//               </fluent-slider-label>
-//               <fluent-slider-label position="10">
+//               </adaptive-slider-label>
+//               <adaptive-slider-label position="10">
 //               10
-//               </fluent-slider-label>
+//               </adaptive-slider-label>
 //             </settings-slider>
 
 //             <settings-slider
@@ -157,12 +157,12 @@
 //               :target="${x => x.target}"
 //               :token="${x => baseHeightMultiplier}"
 //             >
-//               <fluent-slider-label position="0">
+//               <adaptive-slider-label position="0">
 //               0
-//               </fluent-slider-label>
-//               <fluent-slider-label position="10">
+//               </adaptive-slider-label>
+//               <adaptive-slider-label position="10">
 //               10
-//               </fluent-slider-label>
+//               </adaptive-slider-label>
 //             </settings-slider>
 
 //             <settings-slider
@@ -172,24 +172,24 @@
 //               :target="${x => x.target}"
 //               :token="${x => baseHorizontalSpacingMultiplier}"
 //             >
-//               <fluent-slider-label position="0">
+//               <adaptive-slider-label position="0">
 //               0
-//               </fluent-slider-label>
-//               <fluent-slider-label position="6">
+//               </adaptive-slider-label>
+//               <adaptive-slider-label position="6">
 //               6
-//               </fluent-slider-label>
+//               </adaptive-slider-label>
 //             </settings-slider>
 //             </div>
 
-//             <fluent-divider></fluent-divider>
+//             <adaptive-divider></adaptive-divider>
 //             <h3>Typography</h3>
 //             <h4 id="type-ramp-grid-label">Type Ramp</h4>
-//             <fluent-data-grid
+//             <adaptive-data-grid
 //               :rowsData="${x => typeRampRows}"
 //               grid-template-columns="80px 100px 100px 100px"
 //               class="type-ramp-grid"
 //               ${ref('typeRampGrid')}
-//           ></fluent-data-grid>
+//           ></adaptive-data-grid>
 //         </div>
 // `;
 
@@ -207,41 +207,41 @@
 
 // const fontSizeCellTemplate = html`
 //   <template>
-//     <fluent-text-field
+//     <adaptive-text-field
 //       :value="${ x => x.rowData.fontSizeToken.getValueFor(x)}"
 //       @change="${(x, c) => x.$emit('updatetyperamptoken', { token: x.rowData.fontSizeToken, source: c.event.target })}"
 //     >
-//     </fluent-text-field>
+//     </adaptive-text-field>
 //   </template>
 // `;
 
 // const lineHeightCellTemplate = html`
 //   <template>
-//     <fluent-text-field
+//     <adaptive-text-field
 //       :value="${x => x.rowData.lineHeightToken.getValueFor(x)}"
 //       @change="${(x, c) => x.$emit('updatetyperamptoken', { token: x.rowData.lineHeightToken, source: c.event.target })}"
 //     >
-//     </fluent-text-field>
+//     </adaptive-text-field>
 //   </template>
 // `;
 
 // const resetRowCellTemplate = html`
 //   <template>
-//     <fluent-button
+//     <adaptive-button
 //       @click="${x => x.$emit('cleartyperamprow', x.rowData)}"
 //     >
 //     Reset
-//     </fluent-button>
+//     </adaptive-button>
 //   </template>
 // `;
 
 // const resetTypeRampCellTemplate = html`
 //   <template>
-//     <fluent-button
+//     <adaptive-button
 //       @click="${x => x.$emit('cleartyperamp')}"
 //     >
 //     Reset
-//     </fluent-button>
+//     </adaptive-button>
 //   </template>
 // `;
 

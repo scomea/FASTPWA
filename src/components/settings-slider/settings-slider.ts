@@ -19,11 +19,11 @@
 //  * @public
 //  */
 //  export const settingsSliderTemplate: ViewTemplate<SettingsSlider> = html<SettingsSlider>`
-//   <fluent card
+//   <adaptive card
 //     class="container"
 //   >
 //       <h4 id="label" class="label">${x => x.sliderLabel}</h4>
-//       <fluent-slider
+//       <adaptive-slider
 //         class="slider"
 //         aria-labelledby="label"
 //         :value="${x => `${x.token?.getValueFor(x.target)}`}"
@@ -34,20 +34,20 @@
 //         ${ref('slider')}
 //       >
 //       <slot></slot>
-//       <fluent-slider-label
+//       <adaptive-slider-label
 //         position="${x => x.token?.getValueFor(x.target)}"
 //       >
 //         ${x => x.token?.getValueFor(x.target)}
-//       </fluent-slider-label>
-//     </fluent-slider>
-//     <fluent-button
+//       </adaptive-slider-label>
+//     </adaptive-slider>
+//     <adaptive-button
 //       class="reset-btn"
 //       appearance="stealth"
 //       @click="${(x, c) => x.resetToken(c.event)}"
 //     >
 //       reset
-//     </fluent-button>
-//   </fluent-card>
+//     </adaptive-button>
+//   </adaptive-card>
 // `;
 
 // @customElement({

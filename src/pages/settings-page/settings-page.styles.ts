@@ -6,7 +6,7 @@ import { css, ElementStyles } from "@microsoft/fast-element";
  */
 export const settingsPageStyles: ElementStyles =
     css`
-    fluent-divider {
+    adaptive-divider {
         margin: 12px 0 24px 0;
     }
 

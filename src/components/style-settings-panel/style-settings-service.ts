@@ -27,7 +27,7 @@
 //     typeRampPlus5LineHeight,
 //     typeRampPlus6FontSize,
 //     typeRampPlus6LineHeight
-// } from "@fluentui/web-components";
+// } from "@adaptiveui/web-components";
 // import {
 //   CSSDesignToken,
 //   DesignToken,

@@ -11,7 +11,7 @@ export const appBarStyles: ElementStyles =
         display: block;
     }
 
-    fluent-toolbar {
+    adaptive-toolbar {
         background: transparent;
     }
 `

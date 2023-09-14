@@ -23,33 +23,33 @@ import { FileViewService, fileSystemItem } from "./file-view-service.js";
  */
  export const fileViewPanelTemplate: ViewTemplate<FileViewPanel> = html<FileViewPanel>`
   <div class="container">
-    <fluent-breadcrumb
+    <adaptive-breadcrumb
       class="breadcrumbs"
     >
       ${repeat(x => x.pathItems, html`
-        <fluent-breadcrumb-item>
-          <fluent-button
+        <adaptive-breadcrumb-item>
+          <adaptive-button
             appearance="lightweight"
             @click="${(x, c) => c.parent.$emit('navigatetobreadcrumb', x)}"
           >
             ${x => x.fileName}
-          </fluent-button>
-        </fluent-breadcrumb-item>
+          </adaptive-button>
+        </adaptive-breadcrumb-item>
       `)}
-    </fluent-breadcrumb>
-    <fluent-data-grid
+    </adaptive-breadcrumb>
+    <adaptive-data-grid
       generate-header="sticky"
       :rowsData="${x => x.items}"
       grid-template-columns="1fr 120px 120px 140px"
       class="display-grid"
       ${ref('displayGrid')}
-    ></fluent-data-grid>
+    ></adaptive-data-grid>
   </div>
 `;
 
 const fileNameCellTemplate = html`
 <template>
-    <fluent-button
+    <adaptive-button
       class="filename-button"
       @click="${x => x.$emit('navigatetochild', x.rowData)}"
       appearance="stealth"
@@ -57,19 +57,19 @@ const fileNameCellTemplate = html`
     ${x =>
       x.rowData.fileName
     }
-    </fluent-button>
+    </adaptive-button>
   </template>
 `;
 
 const headerCellTemplate = html`
 <template>
-    <fluent-button
+    <adaptive-button
       class="header-button"
       @click="${(x, c) => x.$emit('updatesort', x.columnDefinition)}"
       appearance="stealth"
     >
     ${ x => x.columnDefinition.title }
-    </fluent-button>
+    </adaptive-button>
   </template>
 `;
 

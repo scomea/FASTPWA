@@ -26,12 +26,12 @@ import { fileViewWelcomeStyles } from "./file-view-welcome.styles.js";
   <p>
   This type of thing may may sense if you had a PWA that had need of a local working directory where a user could choose files to work on.
   <p>
-  <fluent-button
+  <adaptive-button
     @click=${x => x.pickDirectory()}
   >
     Choose root folder
-  </fluent-button>
-  <fluent-divider></fluent-divider>
+  </adaptive-button>
+  <adaptive-divider></adaptive-divider>
   </div>
 `;
 
