@@ -1,5 +1,5 @@
 import { Constructable } from '@microsoft/fast-element';
-import { Container } from '@microsoft/fast-foundation';
+import { Container } from '@microsoft/fast-element/di';
 import { RouterConfiguration } from '@microsoft/fast-router';
 import { NotFoundPage } from '../pages/not-found-page/not-found-page.js';
 import { SettingsPage } from '../pages/settings-page/settings-page.js';
