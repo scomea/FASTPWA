@@ -10,7 +10,6 @@ export const appMainStyles: ElementStyles =
             height: 100%;
             width: 100%;
             display: block;
-            color: var(--neutral-foreground-rest);
             --app-bar-height: 40px;
             overflow: hidden;
         }
@@ -26,7 +25,6 @@ export const appMainStyles: ElementStyles =
             height: 100%;
             width: 100%;
             position: absolute;
-            background: var(--neutral-layer-1);
         }
 
         .main-layer{
@@ -50,7 +48,6 @@ export const appMainStyles: ElementStyles =
         }
 
         app-bar {
-            height: var(--app-bar-height);
             grid-row: 1;
             grid-column: 1;
         }

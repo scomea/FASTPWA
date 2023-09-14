@@ -1,8 +1,9 @@
 {
   "name": "fast-pwa",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A demo pwa built with FAST",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite --open",
     "dev-task": "vite",
@@ -13,20 +14,22 @@
   "author": "Stephane Comeau",
   "license": "ISC",
   "dependencies": {
+    "@adaptive-web/adaptive-ui": "^0.2.0",
+    "@adaptive-web/adaptive-web-components": "^0.4.0",
+    "@fluentui/svg-icons": "^1.1.192",
+    "@microsoft/fast-element": "2.0.0-beta.24",
+    "@microsoft/fast-foundation": "3.0.0-alpha.28",
+    "@microsoft/fast-router": "1.0.0-alpha.24",
+    "@microsoft/fast-web-utilities": "6.0.0",
     "@pwabuilder/pwainstall": "^1.6.7",
-    "@microsoft/fast-element":"^1.10.1",
-    "@microsoft/fast-foundation": "^2.46.2",
-    "@microsoft/fast-router": "^0.4.1",
-    "@microsoft/fast-web-utilities": "latest",
-    "@fluentui/web-components": "^2.5.0",
     "workbox-build": "^6.5.2",
     "workbox-core": "^6.5.2",
     "workbox-precaching": "^6.5.2"
   },
   "devDependencies": {
-    "typescript": "^4.6.3",
-    "vite": "^2.9.0",
-    "vite-plugin-pwa": "^0.11.13"
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vite-plugin-pwa": "^0.16.5"
   },
   "prettier": {
     "tabWidth": 2,

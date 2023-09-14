@@ -3,11 +3,11 @@ import {
   FASTElement,
 } from "@microsoft/fast-element";
 import { html, ViewTemplate } from "@microsoft/fast-element";
-import { StyleSettingsPanel } from "../../components/style-settings-panel/style-settings-panel";
-import { StyleSettingsService } from "../../components/style-settings-panel/style-settings-service";
+// import { StyleSettingsPanel } from "../../components/style-settings-panel/style-settings-panel";
+// import { StyleSettingsService } from "../../components/style-settings-panel/style-settings-service";
 import { settingsPageStyles } from "./settings-page.styles";
 
-StyleSettingsPanel;
+// StyleSettingsPanel;
 
 /**
  * Generates a template
@@ -17,9 +17,9 @@ StyleSettingsPanel;
  export const settingsPageTemplate: ViewTemplate<SettingsPage> = html<SettingsPage>`
 <app-page>
   <h1>Settings</h1>
-  <fluent-divider></fluent-divider>
-  <style-settings-panel></style-settings-panel>
-  <fluent-divider></fluent-divider>
+  <adaptive-divider></adaptive-divider>
+  <!-- <style-settings-panel></style-settings-panel> -->
+  <adaptive-divider></adaptive-divider>
 </app-page>
 `;
 
@@ -29,5 +29,5 @@ StyleSettingsPanel;
   styles: settingsPageStyles,
 })
 export class SettingsPage extends FASTElement {
-  public target: HTMLElement = StyleSettingsService.appRoot;
+  // public target: HTMLElement = StyleSettingsService.appRoot;
 }

@@ -15,7 +15,6 @@ export const fileViewPanelStyles: ElementStyles =
     }
 
     .header-button::part(control){
-        background: var(--neutral-layer-floating);
     }
 
     .filename-button::part(control),
@@ -24,7 +23,6 @@ export const fileViewPanelStyles: ElementStyles =
     }
 
     .header-button::part(control):hover{
-        background: var(--accent-fill-hover);
     }
 
     fluent-button::part(control){
@@ -33,7 +31,6 @@ export const fileViewPanelStyles: ElementStyles =
     }
 
     .sticky-header {
-        background: var(--neutral-layer-floating);
     }
 
     .row-header, .column-header {

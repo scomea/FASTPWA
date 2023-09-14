@@ -4,9 +4,9 @@ import {
   html,
   ViewTemplate,
 } from "@microsoft/fast-element";
-import { inject } from "@microsoft/fast-foundation";
+import { inject } from "@microsoft/fast-element/di";
 import { Route } from "@microsoft/fast-router";
-import { FileViewService, fileSystemItem } from "./file-view-service";
+import { FileViewService } from "./file-view-service";
 import { fileViewWelcomeStyles } from "./file-view-welcome.styles";
 
 

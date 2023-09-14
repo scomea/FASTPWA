@@ -1,19 +1,21 @@
 import {
   customElement,
-  DOM,
   FASTElement,
   html,
   observable,
   ref,
+  Updates,
   ViewTemplate,
   when
 } from "@microsoft/fast-element";
-import { AnchoredRegion, Container, inject, Registration } from '@microsoft/fast-foundation';
+import {} from "@microsoft/fast-element";
+import { Registration, Container, inject } from '@microsoft/fast-element/di';
+import { FASTAnchoredRegion } from '@microsoft/fast-foundation';
 import { DefaultRouteRecognizer, Route } from '@microsoft/fast-router';
 import { registerSW } from 'virtual:pwa-register';
 import { appMainStyles } from "./app-main.styles";
 import { MainRouterConfig } from './routes';
-import { StyleSettingsService } from "../components/style-settings-panel/style-settings-service";
+// import { StyleSettingsService } from "../components/style-settings-panel/style-settings-service";
 import { AppBar } from "../components/app-bar/app-bar";
 import '../styles/global.css';
 
@@ -154,7 +156,7 @@ export class AppMain extends FASTElement {
       return;
     }
     if (next){
-      DOM.queueUpdate(() => {
+      Updates.enqueue(() => {
         this.setRegionProps();
       });
     } else {
@@ -163,13 +165,13 @@ export class AppMain extends FASTElement {
   }
 
   public menuButton: HTMLElement | undefined;
-  public menuRegion: AnchoredRegion | undefined;
+  public menuRegion: FASTAnchoredRegion | undefined;
   public homeMenuItem: HTMLElement | undefined;
 
   constructor() {
     super();
-    StyleSettingsService.setAppRoot(this);
-    StyleSettingsService.applySavedSettings(StyleSettingsService.appRoot);
+    // StyleSettingsService.setAppRoot(this);
+    // StyleSettingsService.applySavedSettings(StyleSettingsService.appRoot);
     registerSW({ immediate: true });
   };
 
@@ -200,7 +202,7 @@ export class AppMain extends FASTElement {
   private setRegionProps = (): void => {
     if (!this.menuRegion || !this.menuButton){
       //todo: simplify, likely by fixing anchored region to recognize shadow dom id's
-      DOM.queueUpdate(() => {
+      Updates.enqueue(() => {
         this.setRegionProps();
       });
       return;

@@ -15,9 +15,9 @@ import { appBarStyles } from "./app-bar.styles";
  * @public
  */
  export const appBarTemplate: ViewTemplate<AppBar> = html<AppBar>`
-  <fluent-toolbar>
+  <adaptive-toolbar>
     <slot></slot>
-  </fluent-toolbard>
+  </adaptive-toolbard>
 `;
 
 @customElement({

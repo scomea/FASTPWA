@@ -9,7 +9,6 @@ export const appBarStyles: ElementStyles =
     :host {
         box-sizing: border-box;
         display: block;
-        background: var(--neutral-layer-floating);
     }
 
     fluent-toolbar {

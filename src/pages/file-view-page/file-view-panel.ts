@@ -7,7 +7,12 @@ import {
   ref,
   ViewTemplate,
 } from "@microsoft/fast-element";
-import { ColumnDefinition, DataGrid, DataGridCell, inject } from "@microsoft/fast-foundation";
+import {
+  ColumnDefinition,
+  FASTDataGrid,
+  FASTDataGridCell
+} from "@microsoft/fast-foundation";
+import { inject } from '@microsoft/fast-element/di';
 import { fileViewPanelStyles } from "./file-view-panel.styles";
 import { FileViewService, fileSystemItem } from "./file-view-service";
 
@@ -125,7 +130,7 @@ const baseColumns: ColumnDefinition[] = [
   },
 ];
 
-function getFocusTarget(cell: DataGridCell): HTMLElement {
+function getFocusTarget(cell: FASTDataGridCell): HTMLElement {
   return cell.children[0] as HTMLElement;
 }
 
@@ -144,7 +149,7 @@ export class FileViewPanel extends FASTElement {
   @observable
   public pathItems: fileSystemItem[] = [];
 
-  public displayGrid: DataGrid | undefined;
+  public displayGrid: FASTDataGrid | undefined;
 
   private currentSort: string = "fileName";
   private invertSort: boolean = false;

@@ -4,7 +4,7 @@ import {
   html,
   ViewTemplate,
 } from "@microsoft/fast-element";
-import { inject } from "@microsoft/fast-foundation";
+import { inject } from "@microsoft/fast-element/di";
 import { NavigationPhase, Route } from "@microsoft/fast-router";
 import { fileViewPageStyles } from "./file-view-page.styles";
 import { FileViewRoutes } from "./file-view-routes";
@@ -18,7 +18,7 @@ import { FileViewService, fileSystemItem } from "./file-view-service";
  export const fileViewPageTemplate: ViewTemplate<FileViewPage> = html<FileViewPage>`
  <app-page>
   <h1>File viewer</h1>
-  <fluent-divider></fluent-divider>
+  <adaptive-divider></adaptive-divider>
     <fast-router
       :config=${x => x.config}
     ></fast-router>

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-      "module": "esnext",
-      "target": "esnext",
+      "module": "Node16",
+      "target": "ESNext",
       "lib": ["es2017", "esnext", "dom", "dom.iterable"],
       "declaration": true,
       "emitDeclarationOnly": true,
@@ -11,12 +11,11 @@
       "noUnusedParameters": false,
       "noImplicitReturns": true,
       "noFallthroughCasesInSwitch": true,
-      "moduleResolution": "node",
+      "moduleResolution": "Node16",
       "allowSyntheticDefaultImports": true,
       "experimentalDecorators": true,
       "forceConsistentCasingInFileNames": true,
       "useDefineForClassFields": false,
-      "isolatedModules": true,
       "types": [
           "vite-plugin-pwa/client"
       ]
