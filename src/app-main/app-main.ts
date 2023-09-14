@@ -13,10 +13,10 @@ import { Registration, Container, inject } from '@microsoft/fast-element/di';
 import { FASTAnchoredRegion } from '@microsoft/fast-foundation';
 import { DefaultRouteRecognizer, Route } from '@microsoft/fast-router';
 import { registerSW } from 'virtual:pwa-register';
-import { appMainStyles } from "./app-main.styles";
-import { MainRouterConfig } from './routes';
+import { appMainStyles } from "./app-main.styles.js";
+import { MainRouterConfig } from './routes.js';
 // import { StyleSettingsService } from "../components/style-settings-panel/style-settings-service";
-import { AppBar } from "../components/app-bar/app-bar";
+import { AppBar } from "../components/app-bar/app-bar.js";
 import '../styles/global.css';
 
 AppBar;

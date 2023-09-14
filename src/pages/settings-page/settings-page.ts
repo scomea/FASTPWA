@@ -5,7 +5,7 @@ import {
 import { html, ViewTemplate } from "@microsoft/fast-element";
 // import { StyleSettingsPanel } from "../../components/style-settings-panel/style-settings-panel";
 // import { StyleSettingsService } from "../../components/style-settings-panel/style-settings-service";
-import { settingsPageStyles } from "./settings-page.styles";
+import { settingsPageStyles } from "./settings-page.styles.js";
 
 // StyleSettingsPanel;
 

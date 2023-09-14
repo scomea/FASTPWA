@@ -4,7 +4,7 @@ import {
   html,
   ViewTemplate
 } from "@microsoft/fast-element";
-import { appPageStyles } from "./app-page.styles";
+import { appPageStyles } from "./app-page.styles.js";
 
 /**
  * Generates a template

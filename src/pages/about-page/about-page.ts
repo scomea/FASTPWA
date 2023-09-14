@@ -2,7 +2,7 @@ import {
   customElement,
   FASTElement,
 } from "@microsoft/fast-element";
-import { aboutPageStyles } from "./about-page.styles";
+import { aboutPageStyles } from "./about-page.styles.js";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 
 /**

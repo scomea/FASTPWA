@@ -6,7 +6,7 @@ import {
   ViewTemplate
 } from "@microsoft/fast-element";
 import { NavigationPhase, Route } from "@microsoft/fast-router";
-import { articlePageStyles } from "./article-page.styles";
+import { articlePageStyles } from "./article-page.styles.js";
 
 /**
  * Generates a template

@@ -6,8 +6,8 @@ import {
 } from "@microsoft/fast-element";
 import { inject } from "@microsoft/fast-element/di";
 import { Route } from "@microsoft/fast-router";
-import { FileViewService } from "./file-view-service";
-import { fileViewWelcomeStyles } from "./file-view-welcome.styles";
+import { FileViewService } from "./file-view-service.js";
+import { fileViewWelcomeStyles } from "./file-view-welcome.styles.js";
 
 
 /**

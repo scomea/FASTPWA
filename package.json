@@ -26,6 +26,10 @@
     "workbox-core": "^6.5.2",
     "workbox-precaching": "^6.5.2"
   },
+  "engines": {
+    "node": ">=18.12.0",
+    "npm": ">=8.19.2"
+  },
   "devDependencies": {
     "typescript": "^5.2.2",
     "vite": "^4.4.9",

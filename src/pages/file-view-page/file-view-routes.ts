@@ -1,6 +1,6 @@
 import { RouterConfiguration } from "@microsoft/fast-router";
-import { FileViewWelcome } from "./file-view-welcome";
-import { FileViewPanel } from "./file-view-panel";
+import { FileViewWelcome } from "./file-view-welcome.js";
+import { FileViewPanel } from "./file-view-panel.js";
 
 export class FileViewRoutes extends RouterConfiguration {
   configure() {

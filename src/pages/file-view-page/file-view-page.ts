@@ -6,9 +6,9 @@ import {
 } from "@microsoft/fast-element";
 import { inject } from "@microsoft/fast-element/di";
 import { NavigationPhase, Route } from "@microsoft/fast-router";
-import { fileViewPageStyles } from "./file-view-page.styles";
-import { FileViewRoutes } from "./file-view-routes";
-import { FileViewService, fileSystemItem } from "./file-view-service";
+import { fileViewPageStyles } from "./file-view-page.styles.js";
+import { FileViewRoutes } from "./file-view-routes.js";
+import { FileViewService, fileSystemItem } from "./file-view-service.js";
 
 /**
  * Generates a template

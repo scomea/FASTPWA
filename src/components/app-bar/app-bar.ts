@@ -6,7 +6,7 @@ import {
   ref
 } from "@microsoft/fast-element";
 import { html, ViewTemplate } from "@microsoft/fast-element";
-import { appBarStyles } from "./app-bar.styles";
+import { appBarStyles } from "./app-bar.styles.js";
 
 
 /**

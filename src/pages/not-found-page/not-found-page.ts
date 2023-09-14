@@ -2,7 +2,7 @@ import {
   customElement,
   FASTElement,
 } from "@microsoft/fast-element";
-import { notFoundPageStyles } from "./not-found-page.styles";
+import { notFoundPageStyles } from "./not-found-page.styles.js";
 import { html, ViewTemplate } from "@microsoft/fast-element";
 
 /**

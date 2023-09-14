@@ -13,8 +13,8 @@ import {
   FASTDataGridCell
 } from "@microsoft/fast-foundation";
 import { inject } from '@microsoft/fast-element/di';
-import { fileViewPanelStyles } from "./file-view-panel.styles";
-import { FileViewService, fileSystemItem } from "./file-view-service";
+import { fileViewPanelStyles } from "./file-view-panel.styles.js";
+import { FileViewService, fileSystemItem } from "./file-view-service.js";
 
 /**
  * Generates a template
