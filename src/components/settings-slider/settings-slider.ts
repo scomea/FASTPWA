@@ -42,7 +42,6 @@
 //     </adaptive-slider>
 //     <adaptive-button
 //       class="reset-btn"
-//       appearance="stealth"
 //       @click="${(x, c) => x.resetToken(c.event)}"
 //     >
 //       reset

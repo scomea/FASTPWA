@@ -17,7 +17,7 @@ export default defineConfig({
       workbox: {
         globDirectory: 'dist',
         globPatterns: [
-          '**/*.{html,js,css,png,webp,jpg}'
+          '**/*.{html,js,css,png,jpg}'
         ],
         runtimeCaching: [
           {

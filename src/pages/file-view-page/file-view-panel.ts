@@ -29,7 +29,6 @@ import { FileViewService, fileSystemItem } from "./file-view-service.js";
       ${repeat(x => x.pathItems, html`
         <adaptive-breadcrumb-item>
           <adaptive-button
-            appearance="lightweight"
             @click="${(x, c) => c.parent.$emit('navigatetobreadcrumb', x)}"
           >
             ${x => x.fileName}
@@ -52,7 +51,6 @@ const fileNameCellTemplate = html`
     <adaptive-button
       class="filename-button"
       @click="${x => x.$emit('navigatetochild', x.rowData)}"
-      appearance="stealth"
     >
     ${x =>
       x.rowData.fileName
@@ -66,7 +64,6 @@ const headerCellTemplate = html`
     <adaptive-button
       class="header-button"
       @click="${(x, c) => x.$emit('updatesort', x.columnDefinition)}"
-      appearance="stealth"
     >
     ${ x => x.columnDefinition.title }
     </adaptive-button>

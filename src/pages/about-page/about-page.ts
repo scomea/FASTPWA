@@ -17,13 +17,13 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
     <p>
     A project by Stephane Comeau.
     <p>
-    Source code is <adaptive-anchor appearance="hypertext" href="https://github.com/scomea/FASTPWA">here</adaptive-anchor>.
+    Source code is <a href="https://github.com/scomea/FASTPWA">here</a>.
     <p>
-    Initial template based on PWA builder's <adaptive-anchor appearance="hypertext" href="https://github.com/pwa-builder/pwa-starter">starter template</adaptive-anchor>.
+    Initial template based on PWA builder's <a href="https://github.com/pwa-builder/pwa-starter">starter template</a>.
     <p>
-    UI is primarily built based on <adaptive-anchor appearance="hypertext" href="https://github.com/microsoft/fast">FAST</adaptive-anchor> web components and the <adaptive-anchor appearance="hypertext" href="https://github.com/microsoft/adaptiveui/tree/master/packages/web-components">adaptive</adaptive-anchor> implementations of them.
+    UI is primarily built based on <a href="https://github.com/microsoft/fast">FAST</a> web components and the <a href="https://github.com/microsoft/adaptiveui/tree/master/packages/web-components">adaptive</a> implementations of them.
     <p>
-    Uses the <adaptive-anchor appearance="hypertext" href="https://github.com/microsoft/fast">FAST router</adaptive-anchor>.
+    Uses the <a href="https://github.com/microsoft/fast">FAST router</a>.
     <p>
 
     </app-page>
