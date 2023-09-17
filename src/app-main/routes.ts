@@ -4,6 +4,7 @@ import { RouterConfiguration } from '@microsoft/fast-router';
 import { NotFoundPage } from '../pages/not-found-page/not-found-page.js';
 import { SettingsPage } from '../pages/settings-page/settings-page.js';
 import { defaultLayout } from '../layouts/default.layout.js';
+import { ARPositionDemo } from "../sft/components/anchored-element/stories/examples/ar-position-demo.js";
 
 type RouteSettings = {
   public?: boolean
@@ -26,6 +27,7 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
       { path: 'settings-page', element: SettingsPage, title: 'Settings', name: 'settings-page' },
       { path: 'file-view-page', element: () => import("../pages/file-view-page/file-view-page.js").then(module => new module.FileViewPage()), title: 'File viewer', name: 'file-view-page', childRouters: true },
       { path: 'about-page', element: () => import("../pages/about-page/about-page.js").then(module => new module.AboutPage()), title: 'About', name: 'about-page' },
+      { path: 'ae-position-page', element: () => import("../sft/components/anchored-element/stories/examples/ar-position-demo.js").then(module => new module.ARPositionDemo()), title: 'Anchored Element Positions', name: 'ae-position-page' },
     );
 
     this.routes.fallback(
