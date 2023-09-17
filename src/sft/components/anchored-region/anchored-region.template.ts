@@ -1,7 +1,7 @@
 import { ElementViewTemplate, html, when } from "@microsoft/fast-element";
 import { ComponentAnatomy, Interactivity } from "@adaptive-web/adaptive-ui";
 import { DesignSystem } from "@adaptive-web/adaptive-web-components";
-import { SFTAnchoredElement } from "./anchored-element.js";
+import { SFTAnchoredElement } from "./anchored-region.js";
 
 /**
  * @public
@@ -30,13 +30,13 @@ export const AnchoredElementAnatomy: ComponentAnatomy<typeof AnchoredElementCond
  */
 export const template: (ds: DesignSystem) => ElementViewTemplate<SFTAnchoredElement> =
     () =>
-    anchoredElementTemplate();
+    anchoredRegionTemplate();
 
 /**
  * The template for the Anchored Element component.
  * @public
  */
-export function anchoredElementTemplate<
+export function anchoredRegionTemplate<
     T extends SFTAnchoredElement
 >(): ElementViewTemplate<T> {
     return html<T>`

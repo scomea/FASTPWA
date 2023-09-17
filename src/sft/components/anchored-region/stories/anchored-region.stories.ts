@@ -1,19 +1,19 @@
 // import { html } from "@microsoft/fast-element";
 // import { uniqueId } from "@microsoft/fast-web-utilities";
 // import { Meta, renderComponent, Story, StoryArgs } from "../../../utilities/storybook-helpers.js";
-// import type { SFTAnchoredElement } from "../anchored-element.js";
+// import type { SFTAnchoredElement } from "../anchored-region.js";
 // import {
 //     AutoUpdateMode,
 //     AxisPositioningMode,
 //     AxisScalingMode,
 //     HorizontalPosition,
 //     VerticalPosition,
-// } from "../anchored-element.options.js";
+// } from "../anchored-region.options.js";
 // import type { DraggableAnchor } from "./examples/draggable-anchor.js";
 // import { ArPositions } from "./examples/ar-position-demo.js";
 
 // const storyTemplate = html<StoryArgs<SFTAnchoredElement>>`
-//         <adaptive-anchored-element
+//         <adaptive-anchored-region
 //             class="region"
 //             ?use-virtual-anchor="${x => x.useVirtualAnchor}"
 //             :virtualAnchorX="${x => x.virtualAnchorX}"
@@ -36,7 +36,7 @@
 //             viewport="${x => x.viewport}"
 //         >
 //             ${x => x.storyContent}
-//         </adaptive-anchored-element>
+//         </adaptive-anchored-region>
 //     </div>
 // `;
 

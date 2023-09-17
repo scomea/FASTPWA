@@ -14,7 +14,7 @@ import type {
     Dimension,
     HorizontalPosition,
     VerticalPosition,
-} from "./anchored-element.options.js";
+} from "./anchored-region.options.js";
 
 /**
  * An anchored region Custom HTML Element.
@@ -1362,8 +1362,8 @@ export class SFTAnchoredElement extends FASTElement {
      * starts event listeners that can trigger auto updating
      */
     private startAutoUpdateEventListeners = (): void => {
-        window.addEventListener(eventResize, this.update, { passive: true });
-        window.addEventListener(eventScroll, this.update, {
+        document.addEventListener(eventResize, this.update, { passive: true });
+        document.addEventListener(eventScroll, this.update, {
             passive: true,
             capture: true,
         });

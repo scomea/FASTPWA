@@ -1,6 +1,6 @@
 
-import { anchoredElementDefinition } from './components/anchored-element/anchored-element.definition.js';
+import { anchoredRegionDefinition } from './components/anchored-region/anchored-region.definition.js';
 
 export const SFTComponents = {
-    anchoredElementDefinition,
+    anchoredRegionDefinition,
 };

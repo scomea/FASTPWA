@@ -116,6 +116,14 @@ AppBar;
         </adaptive-menu-item>
         <adaptive-menu-item
           @change="${x => {
+            Route.name.push(x, 'ae-lock-view-page');
+            x.showMenu = false;
+          }}"
+        >
+          Anchored Element Lock View Demo
+        </adaptive-menu-item>
+        <adaptive-menu-item
+          @change="${x => {
             Route.name.push(x, 'about-page');
             x.showMenu = false;
           }}"

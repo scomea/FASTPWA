@@ -112,6 +112,6 @@ export function draggableAnchorTemplate<T extends DraggableAnchor>(): ElementVie
 export const draggableAnchorStyles = css`
     :host {
         display: block;
-        position: fixed;
+        position: absolute;
     }
 `;

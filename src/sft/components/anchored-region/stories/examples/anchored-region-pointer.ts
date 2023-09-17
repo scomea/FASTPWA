@@ -1,5 +1,5 @@
 import { css, ElementViewTemplate, html, when } from "@microsoft/fast-element";
-import { SFTAnchoredElement } from "../../anchored-element.js";
+import { SFTAnchoredElement } from "../../anchored-region.js";
 
 export function registerAnchoredRegionPointer() {
     AnchoredRegionPointer.define({

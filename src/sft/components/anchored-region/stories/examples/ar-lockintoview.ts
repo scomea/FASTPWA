@@ -1,47 +1,94 @@
 import {
     css,
+    customElement,
     ElementViewTemplate,
     FASTElement,
     html,
     observable,
     ref,
 } from "@microsoft/fast-element";
-import type { SFTAnchoredElement } from "../../anchored-element.js";
+import type { SFTAnchoredElement } from "../../anchored-region.js";
 import type { DraggableAnchor } from "./draggable-anchor.js";
 
-export function registerARLockIntoView() {
-    ARLockIntoView.define({
-        name: "ar-lock-into-view",
-        template: arLockIntoViewTemplate(),
-        styles: arLockIntoViewStyles,
-    });
-}
+// export function registerARLockIntoView() {
+//     ARLockIntoView.define({
+//         name: "ar-lock-into-view",
+//         template: arLockIntoViewTemplate(),
+//         styles: arLockIntoViewStyles,
+//     });
+// }
 
-/**
- *
- *
- * @public
- */
-export class ARLockIntoView extends FASTElement {
-    @observable
-    public anchorElement: DraggableAnchor | undefined;
-
-    public connectedCallback(): void {
-        super.connectedCallback();
-        this.anchorElement?.addEventListener("positionchange", this.handleAnchorMove);
+export const arLockIntoViewStyles = css`
+    :host {
+        display: block;
     }
-
-    public disconnectedCallback(): void {
-        super.disconnectedCallback();
+    .grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        width: 600px;
+        height: 600px;
+        gap: 10px;
     }
-
-    public handleAnchorMove = (): void => {
-        const subRegions = this.shadowRoot?.querySelectorAll(".tracking-region");
-        subRegions?.forEach(element => {
-            ((element as any) as SFTAnchoredElement).update();
-        });
-    };
-}
+    .grid-cell {
+        background: grey;
+        border: solid;
+    }
+    .anchor {
+        z-index: 100;
+    }
+    .tracking-region {
+        pointer-events: none;
+        background: blue;
+        opacity: 0.5;
+        border: solid green 2px;
+    }
+    .tracking-region.many {
+        pointer-events: none;
+        background: blue;
+        opacity: 0.5;
+        border: none;
+    }
+    .tracking-region.top {
+        border-bottom-width: 8px;
+    }
+    .tracking-region.bottom {
+        border-top-width: 8px;
+    }
+    .tracking-region.left {
+        border-right-width: 8px;
+    }
+    .tracking-region.right {
+        border-left-width: 8px;
+    }
+    .tracker {
+        height: 100px;
+        width: 100px;
+    }
+    .pointer {
+        font-size: 42px;
+        grid-column: 2;
+        grid-row: 2;
+    }
+    .many-trackers {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .tracker-region-container {
+        height: 50px;
+        width: 50px;
+    }
+    .manypointer {
+        font-size: 20px;
+        grid-column: 2;
+        grid-row: 2;
+    }
+    .manytracker {
+        height: 50px;
+        width: 50px;
+    }
+`;
 
 const sectionDividerTemplate = html`
     <fast-divider style="margin:20px;"></fast-divider>
@@ -72,6 +119,38 @@ const trackerRegionTemplate = html`
         </anchored-region-pointer>
     </div>
 `;
+
+/**
+ *
+ *
+ * @public
+ */
+@customElement({
+    name: "ar-lock-into-view",
+    template: arLockIntoViewTemplate(),
+    styles: arLockIntoViewStyles,
+})
+export class ARLockIntoView extends FASTElement {
+    @observable
+    public anchorElement: DraggableAnchor | undefined;
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+        this.anchorElement?.addEventListener("positionchange", this.handleAnchorMove);
+    }
+
+    public disconnectedCallback(): void {
+        super.disconnectedCallback();
+    }
+
+    public handleAnchorMove = (): void => {
+        const subRegions = this.shadowRoot?.querySelectorAll(".tracking-region");
+        subRegions?.forEach(element => {
+            ((element as any) as SFTAnchoredElement).update();
+        });
+    };
+}
+
 /**
  * The template
  * @public
@@ -407,73 +486,4 @@ export function arLockIntoViewTemplate<T extends ARLockIntoView>(): ElementViewT
     `;
 }
 
-export const arLockIntoViewStyles = css`
-    :host {
-        display: block;
-    }
-    .grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
-        width: 600px;
-        height: 600px;
-        gap: 10px;
-    }
-    .grid-cell {
-        background: grey;
-        border: solid;
-    }
-    .anchor {
-        z-index: 100;
-    }
-    .tracking-region {
-        pointer-events: none;
-        background: blue;
-        opacity: 0.5;
-        border: solid green 2px;
-    }
-    .tracking-region.many {
-        pointer-events: none;
-        background: blue;
-        opacity: 0.5;
-        border: none;
-    }
-    .tracking-region.top {
-        border-bottom-width: 8px;
-    }
-    .tracking-region.bottom {
-        border-top-width: 8px;
-    }
-    .tracking-region.left {
-        border-right-width: 8px;
-    }
-    .tracking-region.right {
-        border-left-width: 8px;
-    }
-    .tracker {
-        height: 100px;
-        width: 100px;
-    }
-    .pointer {
-        font-size: 42px;
-        grid-column: 2;
-        grid-row: 2;
-    }
-    .many-trackers {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .tracker-region-container {
-        height: 50px;
-        width: 50px;
-    }
-    .manypointer {
-        font-size: 20px;
-        grid-column: 2;
-        grid-row: 2;
-    }
-    .manytracker {
-        height: 50px;
-        width: 50px;
-    }
-`;
+
