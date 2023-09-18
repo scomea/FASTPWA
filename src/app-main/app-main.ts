@@ -43,7 +43,7 @@ AppBar;
         ${when(
           x => x.showMenu,
           html<AppMain>`
-          <adaptive-anchored-region
+          <adaptive-sft-anchored-region
             class="menu-region"
             ${ref("menuRegion")}
             id="menu-region"
@@ -139,7 +139,7 @@ AppBar;
           Settings
         </adaptive-menu-item>
       </adaptive-menu>
-      </adaptive-anchored-region>
+      <<adaptive-sft-anchored-region>
           `
     )}
         <fast-router

@@ -1,34 +1,34 @@
 import { ElementViewTemplate, html, when } from "@microsoft/fast-element";
 import { ComponentAnatomy, Interactivity } from "@adaptive-web/adaptive-ui";
 import { DesignSystem } from "@adaptive-web/adaptive-web-components";
-import { SFTAnchoredElement } from "./anchored-region.js";
+import { SFTAnchoredRegion } from "./anchored-region.js";
 
 /**
  * @public
  */
-export const AnchoredElementConditions = {
+export const AnchoredRegionConditions = {
 };
 
 /**
  * @public
  */
-export const AnchoredElementParts = {
+export const AnchoredRegionParts = {
 };
 
 /**
  * @public
  */
-export const AnchoredElementAnatomy: ComponentAnatomy<typeof AnchoredElementConditions, typeof AnchoredElementParts> = {
+export const AnchoredRegionAnatomy: ComponentAnatomy<typeof AnchoredRegionConditions, typeof AnchoredRegionParts> = {
     interactivity: Interactivity.never,
-    conditions: AnchoredElementConditions,
-    parts: AnchoredElementParts,
+    conditions: AnchoredRegionConditions,
+    parts: AnchoredRegionParts,
 };
 
 /**
  * Template for add-patient component.
  * @public
  */
-export const template: (ds: DesignSystem) => ElementViewTemplate<SFTAnchoredElement> =
+export const template: (ds: DesignSystem) => ElementViewTemplate<SFTAnchoredRegion> =
     () =>
     anchoredRegionTemplate();
 
@@ -37,7 +37,7 @@ export const template: (ds: DesignSystem) => ElementViewTemplate<SFTAnchoredElem
  * @public
  */
 export function anchoredRegionTemplate<
-    T extends SFTAnchoredElement
+    T extends SFTAnchoredRegion
 >(): ElementViewTemplate<T> {
     return html<T>`
         <template data-loaded="${x => (x.initialLayoutComplete ? "loaded" : "")}">

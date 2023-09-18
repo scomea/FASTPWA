@@ -25,7 +25,7 @@ import type {
  *
  * @public
  */
-export class SFTAnchoredElement extends FASTElement {
+export class SFTAnchoredRegion extends FASTElement {
     /**
      * The HTML ID of the anchor element this region is positioned relative to
      *
@@ -612,18 +612,18 @@ export class SFTAnchoredElement extends FASTElement {
         ) {
             return;
         }
-        SFTAnchoredElement.intersectionService.requestPosition(
+        SFTAnchoredRegion.intersectionService.requestPosition(
             this,
             this.handleIntersection
         );
         if (this.anchorElement !== null) {
-            SFTAnchoredElement.intersectionService.requestPosition(
+            SFTAnchoredRegion.intersectionService.requestPosition(
                 this.anchorElement,
                 this.handleIntersection
             );
         }
         if (this.viewportElement !== null) {
-            SFTAnchoredElement.intersectionService.requestPosition(
+            SFTAnchoredRegion.intersectionService.requestPosition(
                 this.viewportElement,
                 this.handleIntersection
             );
@@ -637,18 +637,18 @@ export class SFTAnchoredElement extends FASTElement {
     private stopObservers = (): void => {
         if (this.pendingPositioningUpdate) {
             this.pendingPositioningUpdate = false;
-            SFTAnchoredElement.intersectionService.cancelRequestPosition(
+            SFTAnchoredRegion.intersectionService.cancelRequestPosition(
                 this,
                 this.handleIntersection
             );
             if (this.anchorElement !== null) {
-                SFTAnchoredElement.intersectionService.cancelRequestPosition(
+                SFTAnchoredRegion.intersectionService.cancelRequestPosition(
                     this.anchorElement,
                     this.handleIntersection
                 );
             }
             if (this.viewportElement !== null) {
-                SFTAnchoredElement.intersectionService.cancelRequestPosition(
+                SFTAnchoredRegion.intersectionService.cancelRequestPosition(
                     this.viewportElement,
                     this.handleIntersection
                 );

@@ -1,9 +1,9 @@
 import type { ComposableStyles, FASTElementDefinition } from "@microsoft/fast-element";
 import { componentBaseStyles } from "@adaptive-web/adaptive-ui";
 import { DesignSystem } from "@adaptive-web/adaptive-web-components";
-import { SFTAnchoredElement } from "./anchored-region.js";
+import { SFTAnchoredRegion } from "./anchored-region.js";
 import { aestheticStyles, templateStyles } from "./anchored-region.styles.js";
-import { AnchoredElementAnatomy, template } from "./anchored-region.template.js";
+import { AnchoredRegionAnatomy, template } from "./anchored-region.template.js";
 import { ComposeOptions } from "../../utilities/compose.js";
 
 const defaultStyles = [componentBaseStyles, templateStyles, aestheticStyles];
@@ -11,14 +11,14 @@ const defaultStyles = [componentBaseStyles, templateStyles, aestheticStyles];
 /**
  * @public
  */
-export function composeAnchoredElement(
+export function composeAnchoredRegion(
     ds: DesignSystem,
-    options?: ComposeOptions<SFTAnchoredElement>
+    options?: ComposeOptions<SFTAnchoredRegion>
 ): FASTElementDefinition {
-    const styles: ComposableStyles[] = DesignSystem.assembleStyles(defaultStyles, AnchoredElementAnatomy.interactivity, options);
+    const styles: ComposableStyles[] = DesignSystem.assembleStyles(defaultStyles, AnchoredRegionAnatomy.interactivity, options);
 
-    return SFTAnchoredElement.compose({
-        name: `${ds.prefix}-anchored-region`,
+    return SFTAnchoredRegion.compose({
+        name: `${ds.prefix}-sft-anchored-region`,
         template: options?.template?.(ds) ?? template(ds),
         styles,
         registry: ds.registry,

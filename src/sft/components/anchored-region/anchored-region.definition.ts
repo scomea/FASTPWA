@@ -1,5 +1,5 @@
 import { AdaptiveDesignSystem } from "@adaptive-web/adaptive-web-components";
-import { composeAnchoredElement } from "./anchored-region.compose.js";
+import { composeAnchoredRegion } from "./anchored-region.compose.js";
 import { styleModules } from "./anchored-region.styles.modules.js";
 
 /**
@@ -10,7 +10,7 @@ import { styleModules } from "./anchored-region.styles.modules.js";
  *
  * @public
  */
-export const anchoredRegionDefinition = composeAnchoredElement(
+export const anchoredRegionDefinition = composeAnchoredRegion(
     AdaptiveDesignSystem,
     {
         styleModules,

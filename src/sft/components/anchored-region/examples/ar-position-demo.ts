@@ -8,7 +8,7 @@ import {
     ref,
     when,
 } from "@microsoft/fast-element";
-import type { SFTAnchoredElement } from "../../anchored-region.js";
+import type { SFTAnchoredRegion } from "../anchored-region.js";
 import type { DraggableAnchor } from "./draggable-anchor.js";
 
 export const ArPositions = {
@@ -62,7 +62,7 @@ export class ARPositionDemo extends FASTElement {
     public handleAnchorMove = (): void => {
         const subelements = this.shadowRoot?.querySelectorAll(".subelement");
         subelements?.forEach(element => {
-            ((element as any) as SFTAnchoredElement).update();
+            ((element as any) as SFTAnchoredRegion).update();
         });
     };
 }
@@ -80,7 +80,7 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                 ${when(
                     x => x.positions === "fillLocked",
                     html<T>`
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -98,9 +98,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 top-left
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
 
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -118,9 +118,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 top-right
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
 
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -138,9 +138,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 bottom-left
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
 
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             class="subelement"
                             viewport="pane"
@@ -158,8 +158,8 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 bottom-right
                             </div>
-                        </adaptive-anchored-region>
-                        <adaptive-anchored-region
+                        </adaptive-sft-anchored-region>
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             class="subelement"
                             viewport="pane"
@@ -177,9 +177,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 center-right
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
 
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -197,9 +197,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 center-left
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
 
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -217,9 +217,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 top-center
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
 
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -237,9 +237,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 bottom-center
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
 
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -257,13 +257,13 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 centered
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
                     `
                 )}
                 ${when(
                     x => x.positions === "dynamic",
                     html<T>`
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -281,9 +281,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             <br><br>
                             right or left, inset vertically
                         </div>
-                    </adaptive-anchored-region>
+                    </adaptive-sft-anchored-region>
 
-                    <adaptive-anchored-region
+                    <adaptive-sft-anchored-region
                         anchor="anchor"
                         viewport="pane"
                         class="subelement"
@@ -301,8 +301,8 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             <br><br>
                             top or bottom, inset horizontally
                         </div>
-                    </adaptive-anchored-region>
-                        <adaptive-anchored-region
+                    </adaptive-sft-anchored-region>
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -319,9 +319,9 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 right or left
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
 
-                        <adaptive-anchored-region
+                        <adaptive-sft-anchored-region
                             anchor="anchor"
                             viewport="pane"
                             class="subelement"
@@ -338,7 +338,7 @@ export function arPositionDemoTemplate<T extends ARPositionDemo>(): ElementViewT
                             >
                                 top or bottom
                             </div>
-                        </adaptive-anchored-region>
+                        </adaptive-sft-anchored-region>
                     `
                 )}
                 <draggable-anchor

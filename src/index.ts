@@ -7,8 +7,8 @@ import { NotFoundPage } from "./pages/not-found-page/not-found-page.js";
 import { SettingsPage } from "./pages/settings-page/settings-page.js";
 import { AppPage } from "./components/app-page/app-page.js";
 import { SFTComponents } from "./sft/custom-elements.js";
-import { registerDraggableAnchor } from "./sft/components/anchored-region/stories/examples/draggable-anchor.js";
-import { registerAnchoredRegionPointer } from "./sft/components/anchored-region/stories/examples/anchored-region-pointer.js";
+import { registerDraggableAnchor } from "./sft/components/anchored-region/examples/draggable-anchor.js";
+import { registerAnchoredRegionPointer } from "./sft/components/anchored-region/examples/anchored-region-pointer.js";
 
 FASTRouter;
 AppMain;

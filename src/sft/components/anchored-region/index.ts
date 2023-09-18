@@ -1,5 +1,5 @@
-export { composeAnchoredElement } from "./anchored-region.compose.js";
-export { SFTAnchoredElement as AnchoredElement } from "./anchored-region.js"
+export { composeAnchoredRegion } from "./anchored-region.compose.js";
+export { SFTAnchoredRegion as AnchoredRegion } from "./anchored-region.js"
 export {
     templateStyles as addPatientTemplateStyles,
     aestheticStyles as addPatientAestheticStyles,
@@ -8,8 +8,8 @@ export {
     styleModules as addPatientStyleModules,
 } from "./anchored-region.styles.modules.js";
 export {
-    template as AnchoredElementTemplate,
-    AnchoredElementAnatomy,
-    AnchoredElementConditions,
-    AnchoredElementParts
+    template as AnchoredRegionTemplate,
+    AnchoredRegionAnatomy,
+    AnchoredRegionConditions,
+    AnchoredRegionParts
 } from "./anchored-region.template.js";
