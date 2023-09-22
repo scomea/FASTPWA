@@ -1,9 +1,9 @@
 import type { ComposableStyles, FASTElementDefinition } from "@microsoft/fast-element";
 import { componentBaseStyles } from "@adaptive-web/adaptive-ui";
 import { DesignSystem } from "@adaptive-web/adaptive-web-components";
-import { SFTAnchoredRegion } from "./anchored-region.js";
-import { aestheticStyles, templateStyles } from "./anchored-region.styles.js";
-import { AnchoredRegionAnatomy, template } from "./anchored-region.template.js";
+import { SFTTooltip } from "./tooltip.js";
+import { aestheticStyles, templateStyles } from "./tooltip.styles.js";
+import { TooltipAnatomy, template } from "./tooltip.template.js";
 import { ComposeOptions } from "../../utilities/compose.js";
 
 const defaultStyles = [componentBaseStyles, templateStyles, aestheticStyles];
@@ -11,14 +11,14 @@ const defaultStyles = [componentBaseStyles, templateStyles, aestheticStyles];
 /**
  * @public
  */
-export function composeAnchoredRegion(
+export function composeTooltip(
     ds: DesignSystem,
-    options?: ComposeOptions<SFTAnchoredRegion>
+    options?: ComposeOptions<SFTTooltip>
 ): FASTElementDefinition {
-    const styles: ComposableStyles[] = DesignSystem.assembleStyles(defaultStyles, AnchoredRegionAnatomy.interactivity, options);
+    const styles: ComposableStyles[] = DesignSystem.assembleStyles(defaultStyles, TooltipAnatomy.interactivity, options);
 
-    return SFTAnchoredRegion.compose({
-        name: `${ds.prefix}-anchored-region`,
+    return SFTTooltip.compose({
+        name: `${ds.prefix}-sft-tooltip`,
         template: options?.template?.(ds) ?? template(ds),
         styles,
         registry: ds.registry,

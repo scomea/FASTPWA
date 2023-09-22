@@ -16,20 +16,12 @@ export const ArPositions = {
     fillLocked: "fillLocked",
 } as const;
 
-// export function registerARPositionDemo() {
-//     ARPositionDemo.define({
-//         name: "ar-position-demo",
-//         template: arPositionDemoTemplate(),
-//         styles: arPositionDemoStyles,
-//     });
-// }
 
 export const arPositionDemoStyles = css`
     :host {
         display: block;
     }
 `;
-
 
 export type ArPositions = typeof ArPositions[keyof typeof ArPositions];
 

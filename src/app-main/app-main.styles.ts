@@ -11,6 +11,7 @@ export const appMainStyles: ElementStyles =
             width: 100%;
             display: block;
             --app-bar-height: 40px;
+            --design-unit: 4px;
             overflow: hidden;
         }
 

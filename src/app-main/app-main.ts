@@ -11,6 +11,7 @@ import {
 import { Registration, Container, inject } from '@microsoft/fast-element/di';
 import { FASTAnchoredRegion } from '@microsoft/fast-foundation';
 import { DefaultRouteRecognizer, Route } from '@microsoft/fast-router';
+import { designUnit } from  "@adaptive-web/adaptive-ui/reference";
 import { registerSW } from 'virtual:pwa-register';
 import { appMainStyles } from "./app-main.styles.js";
 import { MainRouterConfig } from './routes.js';
@@ -108,19 +109,35 @@ AppBar;
         </adaptive-menu-item>
         <adaptive-menu-item
           @change="${x => {
-            Route.name.push(x, 'ae-position-page');
+            Route.name.push(x, 'tooltip-demo');
             x.showMenu = false;
           }}"
         >
-          Anchored Element Positions Demo
+          Tooltip Demo
         </adaptive-menu-item>
         <adaptive-menu-item
           @change="${x => {
-            Route.name.push(x, 'ae-lock-view-page');
+            Route.name.push(x, 'anchored-region-demo');
             x.showMenu = false;
           }}"
         >
-          Anchored Element Lock View Demo
+          Anchored Region Demo
+        </adaptive-menu-item>
+        <adaptive-menu-item
+          @change="${x => {
+            Route.name.push(x, 'anchored-region-positions-demo');
+            x.showMenu = false;
+          }}"
+        >
+          Anchored Region Positions Demo
+        </adaptive-menu-item>
+        <adaptive-menu-item
+          @change="${x => {
+            Route.name.push(x, 'anchored-region-lock-view-demo');
+            x.showMenu = false;
+          }}"
+        >
+          Anchored Region Lock View Demo
         </adaptive-menu-item>
         <adaptive-menu-item
           @change="${x => {

@@ -5,14 +5,18 @@ import {
     observable,
     Updates,
 } from "@microsoft/fast-element";
-import { Direction, eventMouseMove, keyEscape } from "@microsoft/fast-web-utilities";
-import type { FASTAnchoredRegion } from "../anchored-region/anchored-region.js";
+import {
+    Direction,
+    eventMouseMove,
+    keyEscape
+} from "@microsoft/fast-web-utilities";
+import { getDirection } from "@microsoft/fast-foundation";
+import type { SFTAnchoredRegion } from "../anchored-region/anchored-region.js";
 import type {
     AutoUpdateMode,
     AxisPositioningMode,
     AxisScalingMode,
 } from "../anchored-region/anchored-region.options.js";
-import { getDirection } from "../utilities/direction.js";
 import { TooltipPosition } from "./tooltip.options.js";
 
 export { TooltipPosition };
@@ -26,7 +30,7 @@ export { TooltipPosition };
  *
  * @public
  */
-export class FASTTooltip extends FASTElement {
+export class SFTTooltip extends FASTElement {
     /**
      * Whether the tooltip is visible or not.
      * If undefined tooltip is shown when anchor element is hovered
@@ -289,12 +293,12 @@ export class FASTTooltip extends FASTElement {
     @observable
     public virtualAnchorY: number = 0;
 
-    /**
+    /**d
      * reference to the anchored region
      *
      * @internal
      */
-    public region: FASTAnchoredRegion;
+    public region!: SFTAnchoredRegion;
 
     /**
      * The timer that tracks delay time before the tooltip is shown on hover

@@ -5,8 +5,6 @@ import { styleModules } from "./anchored-region.styles.modules.js";
 /**
  * The component definition.
  *
- * @remarks
- * HTML Element: \<anchored-region\>
  *
  * @public
  */

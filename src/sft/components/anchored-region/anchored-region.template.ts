@@ -25,7 +25,7 @@ export const AnchoredRegionAnatomy: ComponentAnatomy<typeof AnchoredRegionCondit
 };
 
 /**
- * Template for add-patient component.
+ * Template for Anchored Region component.
  * @public
  */
 export const template: (ds: DesignSystem) => ElementViewTemplate<SFTAnchoredRegion> =
@@ -33,7 +33,7 @@ export const template: (ds: DesignSystem) => ElementViewTemplate<SFTAnchoredRegi
     anchoredRegionTemplate();
 
 /**
- * The template for the Anchored Element component.
+ * The template for the Anchored Region component.
  * @public
  */
 export function anchoredRegionTemplate<

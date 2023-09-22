@@ -1,16 +1,16 @@
 import { AdaptiveDesignSystem } from "@adaptive-web/adaptive-web-components";
-import { composeAnchoredRegion } from "./anchored-region.compose.js";
-import { styleModules } from "./anchored-region.styles.modules.js";
+import { composeTooltip } from "./tooltip.compose.js";
+import { styleModules } from "./tooltip.styles.modules.js";
 
 /**
  * The component definition.
  *
  * @remarks
- * HTML Element: \<anchored-region\>
+ * HTML Element: \<tooltip\>
  *
  * @public
  */
-export const anchoredRegionDefinition = composeAnchoredRegion(
+export const tooltipDefinition = composeTooltip(
     AdaptiveDesignSystem,
     {
         styleModules,

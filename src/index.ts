@@ -14,6 +14,7 @@ FASTRouter;
 AppMain;
 AppPage;
 NotFoundPage;
+SettingsPage;
 DesignToken.registerDefaultStyleTarget();
 AdaptiveDesignSystem.defineComponents(AllComponents);
 AdaptiveDesignSystem.defineComponents(SFTComponents);

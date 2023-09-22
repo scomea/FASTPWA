@@ -12,9 +12,11 @@ import { html, ViewTemplate } from "@microsoft/fast-element";
  */
  export const homePageTemplate: ViewTemplate<HomePage> = html<HomePage>`
  <app-page>
-      <img class="image" src='assets/images/beach.jpg'>
+      <img
+        class="image"
+        src='assets/images/beach.jpg'
+      />
       <h1>Welcome!</h1>
-      <adaptive-radio>Test</adaptive-radio>
       <p>
       This "app" is an informal effort to create a sample
       <a href="https://github.com/microsoft/fast">FAST</a>
