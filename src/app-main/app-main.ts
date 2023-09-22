@@ -109,6 +109,14 @@ AppBar;
         </adaptive-menu-item>
         <adaptive-menu-item
           @change="${x => {
+            Route.name.push(x, 'menu-item-demo');
+            x.showMenu = false;
+          }}"
+        >
+          Menu Item Demo
+        </adaptive-menu-item>
+        <adaptive-menu-item
+          @change="${x => {
             Route.name.push(x, 'tooltip-demo');
             x.showMenu = false;
           }}"

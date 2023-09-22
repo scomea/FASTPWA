@@ -1,7 +1,65 @@
-import { ElementViewTemplate, html, ref, when } from "@microsoft/fast-element";
-import { endSlotTemplate, startSlotTemplate, tagFor } from "../patterns/index.js";
+import {
+    ElementViewTemplate,
+    html,
+    ref,
+    SyntheticViewTemplate,
+    when
+} from "@microsoft/fast-element";
+import type { StaticallyComposableHTML } from "@microsoft/fast-foundation";
+import { ComponentAnatomy, Interactivity } from "@adaptive-web/adaptive-ui";
+import { DesignSystem, MenuItemStatics } from "@adaptive-web/adaptive-web-components";
+import {
+    endSlotTemplate,
+    StartEndOptions,
+    startSlotTemplate,
+    tagFor,
+    TemplateElementDependency
+} from "@microsoft/fast-foundation";
+import { composeAnchoredRegion } from "../anchored-region/index.js";
 import { MenuItemRole } from "./menu-item.js";
-import type { FASTMenuItem, MenuItemOptions } from "./menu-item.js";
+import type { SFTMenuItem } from "./menu-item.js";
+
+/**
+ * @public
+ */
+export const MenuItemConditions = {
+    checked: "[aria-checked='true']",
+};
+
+/**
+ * @public
+ */
+export const MenuItemParts = {
+};
+
+/**
+ * @public
+ */
+export const MenuItemAnatomy: ComponentAnatomy<typeof MenuItemConditions, typeof MenuItemParts> = {
+    interactivity: Interactivity.never,
+    conditions: MenuItemConditions,
+    parts: MenuItemParts,
+};
+
+/**
+ * Options for the menu item
+ * @public
+ */
+export type MenuItemOptions = StartEndOptions<SFTMenuItem> & {
+    checkboxIndicator?: StaticallyComposableHTML<SFTMenuItem>;
+    expandCollapseGlyph?: StaticallyComposableHTML<SFTMenuItem>;
+    radioIndicator?: StaticallyComposableHTML<SFTMenuItem>;
+    anchoredRegion: TemplateElementDependency;
+};
+
+export const template: (ds: DesignSystem) => ElementViewTemplate<SFTMenuItem> =
+    (ds: DesignSystem) =>
+    menuItemTemplate({
+        checkboxIndicator: ds.statics.get(MenuItemStatics.checkbox),
+        radioIndicator: ds.statics.get(MenuItemStatics.radio),
+        expandCollapseGlyph: ds.statics.get(MenuItemStatics.submenu),
+        anchoredRegion: composeAnchoredRegion(ds),
+    });
 
 /**
  * Generates a template for the {@link @microsoft/fast-foundation#(FASTMenuItem:class)} component using
@@ -9,7 +67,7 @@ import type { FASTMenuItem, MenuItemOptions } from "./menu-item.js";
  *
  * @public
  */
-export function menuItemTemplate<T extends FASTMenuItem>(
+function menuItemTemplate<T extends SFTMenuItem>(
     options: MenuItemOptions
 ): ElementViewTemplate<T> {
     const anchoredRegionTag = tagFor(options.anchoredRegion);
@@ -26,7 +84,7 @@ export function menuItemTemplate<T extends FASTMenuItem>(
     >
             ${when(
                 x => x.role === MenuItemRole.menuitemcheckbox,
-                html<FASTMenuItem>`
+                html<SFTMenuItem>`
                     <div part="input-container" class="input-container">
                         <span part="checkbox" class="checkbox">
                             <slot name="checkbox-indicator">
@@ -38,7 +96,7 @@ export function menuItemTemplate<T extends FASTMenuItem>(
             )}
             ${when(
                 x => x.role === MenuItemRole.menuitemradio,
-                html<FASTMenuItem>`
+                html<SFTMenuItem>`
                     <div part="input-container" class="input-container">
                         <span part="radio" class="radio">
                             <slot name="radio-indicator">

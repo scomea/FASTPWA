@@ -44,7 +44,7 @@ export const template: (ds: DesignSystem) => ElementViewTemplate<SFTTooltip> =
  * Creates a template for the tooltip component using the provided prefix.
  * @public
  */
-export function tooltipTemplate<T extends SFTTooltip>(
+function tooltipTemplate<T extends SFTTooltip>(
     options: TooltipOptions
 ): ElementViewTemplate<T> {
     const sftAnchoredRegionTag: string = tagFor(options.anchoredRegion);

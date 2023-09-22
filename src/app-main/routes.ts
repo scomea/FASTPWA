@@ -32,6 +32,8 @@ export class MainRouterConfig extends RouterConfiguration<RouteSettings> {
       { path: 'anchored-region-demo', element: () => import("../sft/components/anchored-region/examples/base.js").then(module => new module.AnchoredRegionDemo()), title: 'Anchored Region Demo', name: 'anchored-region-demo' },
 
       { path: 'tooltip-demo', element: () => import("../sft/components/tooltip/examples/base.js").then(module => new module.TooltipDemo()), title: 'Tooltip Demo', name: 'tooltip-demo' },
+
+      { path: 'menu-item-demo', element: () => import("../sft/components/menu-item/examples/base.js").then(module => new module.MenuItemDemo()), title: 'Menu Item Demo', name: 'menu-item-demo' },
     );
 
     this.routes.fallback(

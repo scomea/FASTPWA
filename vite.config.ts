@@ -1,25 +1,11 @@
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
-// import resolve from "@rollup/plugin-node-resolve";
-// import svgo from 'rollup-plugin-svgo';
-// import commonjs from '@rollup/plugin-commonjs';
-// import {svgLoader} from './svg-loader';
+import svgo from 'rollup-plugin-svgo';
 
-const parserOptions = {
-	sourceType: "module"
-};
-
-// https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    assetsInlineLimit: 4,
     sourcemap: true,
     assetsDir: "code",
-    // rollupOptions: {
-    //   plugins: [
-    //     svgLoader()
-    //   ],
-    // }
   },
   plugins: [
     VitePWA({
@@ -53,6 +39,7 @@ export default defineConfig({
       devOptions: {
         enabled: true
       }
-    })
+    }),
+    svgo({plugins:[]})
   ]
 })

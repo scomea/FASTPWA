@@ -2,7 +2,6 @@ import {
     attr,
     FASTElement,
     observable,
-    SyntheticViewTemplate,
     Updates,
 } from "@microsoft/fast-element";
 import {
@@ -13,32 +12,19 @@ import {
     keyEscape,
     keySpace,
 } from "@microsoft/fast-web-utilities";
-import type { FASTAnchoredRegion } from "../anchored-region/anchored-region.js";
+import type { SFTAnchoredRegion } from "../anchored-region/anchored-region.js";
 import type { FASTMenu } from "../menu/menu.js";
 import {
+    applyMixins,
+    getDirection,
     StartEnd,
-    StartEndOptions,
-    TemplateElementDependency,
-} from "../patterns/index.js";
-import { applyMixins } from "../utilities/apply-mixins.js";
-import { getDirection } from "../utilities/direction.js";
+} from "@microsoft/fast-foundation";
 import { MenuItemRole, roleForMenuItem } from "./menu-item.options.js";
 
 export { MenuItemRole, roleForMenuItem };
 
 /**
- * Menu Item configuration options
- * @public
- */
-export type MenuItemOptions = StartEndOptions & {
-    checkboxIndicator?: string | SyntheticViewTemplate;
-    expandCollapseGlyph?: string | SyntheticViewTemplate;
-    radioIndicator?: string | SyntheticViewTemplate;
-    anchoredRegion: TemplateElementDependency;
-};
-
-/**
- * A Switch Custom HTML Element.
+ * A Menu item HTML Element.
  * Implements {@link https://www.w3.org/TR/wai-aria-1.1/#menuitem | ARIA menuitem }, {@link https://www.w3.org/TR/wai-aria-1.1/#menuitemcheckbox | ARIA menuitemcheckbox}, or {@link https://www.w3.org/TR/wai-aria-1.1/#menuitemradio | ARIA menuitemradio }.
  *
  * @slot checked-indicator - The checked indicator
@@ -60,7 +46,7 @@ export type MenuItemOptions = StartEndOptions & {
  *
  * @public
  */
-export class FASTMenuItem extends FASTElement {
+export class SFTMenuItem extends FASTElement {
     /**
      * The disabled state of the element.
      *
@@ -69,7 +55,7 @@ export class FASTMenuItem extends FASTElement {
      * HTML Attribute: disabled
      */
     @attr({ mode: "boolean" })
-    public disabled: boolean;
+    public disabled: boolean = false;
 
     /**
      * The expanded state of the element.
@@ -79,7 +65,7 @@ export class FASTMenuItem extends FASTElement {
      * HTML Attribute: expanded
      */
     @attr({ mode: "boolean" })
-    public expanded: boolean;
+    public expanded: boolean = false;
     protected expandedChanged(oldValue: boolean): void {
         if (this.$fastController.isConnected) {
             if (this.submenu === undefined) {
@@ -112,7 +98,7 @@ export class FASTMenuItem extends FASTElement {
      * HTML Attribute: checked
      */
     @attr({ mode: "boolean" })
-    public checked: boolean;
+    public checked: boolean = false;
     protected checkedChanged(oldValue: boolean, newValue: boolean): void {
         if (this.$fastController.isConnected) {
             this.$emit("change");
@@ -127,7 +113,7 @@ export class FASTMenuItem extends FASTElement {
      * HTML Attribute: hidden
      */
     @attr({ mode: "boolean" })
-    public hidden: boolean;
+    public hidden: boolean = false;
 
     /**
      * reference to the anchored region
@@ -135,7 +121,7 @@ export class FASTMenuItem extends FASTElement {
      * @internal
      */
     @observable
-    public submenuRegion: FASTAnchoredRegion;
+    public submenuRegion!: SFTAnchoredRegion;
 
     /**
      * @internal
@@ -354,5 +340,5 @@ export class FASTMenuItem extends FASTElement {
  * @internal
  */
 /* eslint-disable-next-line */
-export interface FASTMenuItem extends StartEnd {}
-applyMixins(FASTMenuItem, StartEnd);
+export interface SFTMenuItem extends StartEnd {}
+applyMixins(SFTMenuItem, StartEnd);

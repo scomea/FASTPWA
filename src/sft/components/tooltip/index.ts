@@ -1,2 +1,15 @@
-export * from "./tooltip.template.js";
-export * from "./tooltip.js";
+export { composeTooltip } from "./tooltip.compose.js";
+export { SFTTooltip } from "./tooltip.js"
+export {
+    templateStyles as tooltipTemplateStyles,
+    aestheticStyles as tooltipAestheticStyles,
+} from "./tooltip.styles.js";
+export {
+    styleModules as tooltipStyleModules,
+} from "./tooltip.styles.modules.js";
+export {
+    template as TooltipTemplate,
+    TooltipAnatomy,
+    TooltipConditions,
+    TooltipParts
+} from "./tooltip.template.js";
